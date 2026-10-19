@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>20/10 - Một lời chúc dành cho bạn 💐</title>
 
@@ -11,18 +13,12 @@
 
 <body>
 
-    <!-- =========================
-         HIỆU ỨNG NỀN
-    ========================== -->
-
+    <!-- HIỆU ỨNG NỀN -->
     <div id="effects" class="effects"></div>
-
-    <!-- =========================
-         MAIN CARD
-    ========================== -->
 
     <main class="card">
 
+        <!-- TRANG TRÍ -->
         <div class="top-decoration">
             <span>✦</span>
             <span>♡</span>
@@ -33,6 +29,7 @@
             🌷 20 - 10 🌷
         </div>
 
+        <!-- HOA CHÍNH -->
         <div class="flower-wrapper">
             <div class="flower-glow"></div>
             <div class="flower-icon">💐</div>
@@ -58,15 +55,13 @@
             thật đẹp đến những người phụ nữ tuyệt vời. 💗
         </p>
 
+        <!-- NÚT MỞ LỜI CHÚC -->
         <button id="openBtn" class="open-btn">
             <span class="btn-icon">💌</span>
             <span id="btnText">Mở lời chúc</span>
         </button>
 
-        <!-- =========================
-             LỜI CHÚC
-        ========================== -->
-
+        <!-- LỜI CHÚC -->
         <section id="message" class="message">
 
             <div class="message-header">
@@ -102,6 +97,33 @@
 
         </section>
 
+
+        <!-- =========================
+             KHU VỰC TẶNG HOA
+        ========================== -->
+
+        <section class="gift-section">
+
+            <div class="gift-title">
+                <span>🌷</span>
+                <span>Tặng bạn một bó hoa</span>
+                <span>🌷</span>
+            </div>
+
+            <p class="gift-description">
+                Mỗi lần bấm là một bó hoa mới 💐
+            </p>
+
+            <button id="flowerBtn" class="flower-btn">
+                💐 Nhận bó hoa
+            </button>
+
+            <!-- CÁC BÓ HOA ĐƯỢC TẠO Ở ĐÂY -->
+            <div id="bouquetContainer" class="bouquet-container"></div>
+
+        </section>
+
+
         <div class="bottom">
             <span>Made with</span>
             <span class="heart-pulse">♥</span>
@@ -113,4 +135,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
