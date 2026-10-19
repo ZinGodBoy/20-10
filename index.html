@@ -1,139 +1,231 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>20/10 - Một lời chúc dành cho bạn 💐</title>
+    <title>Happy 20/10 💐</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- HIỆU ỨNG NỀN -->
-    <div id="effects" class="effects"></div>
+    <!-- HIỆU ỨNG -->
+    <div id="effects"></div>
 
-    <main class="card">
-
-        <!-- TRANG TRÍ -->
-        <div class="top-decoration">
-            <span>✦</span>
-            <span>♡</span>
-            <span>✦</span>
-        </div>
-
-        <div class="badge">
-            🌷 20 - 10 🌷
-        </div>
-
-        <!-- HOA CHÍNH -->
-        <div class="flower-wrapper">
-            <div class="flower-glow"></div>
-            <div class="flower-icon">💐</div>
-        </div>
-
-        <p class="small-title">
-            NHÂN NGÀY PHỤ NỮ VIỆT NAM
-        </p>
-
-        <h1>
-            Chúc Mừng
-            <span>Ngày 20/10</span>
-        </h1>
-
-        <div class="date">
-            <span class="line"></span>
-            <span>20 tháng 10</span>
-            <span class="line"></span>
-        </div>
-
-        <p class="intro">
-            Một ngày đặc biệt để gửi những lời chúc
-            thật đẹp đến những người phụ nữ tuyệt vời. 💗
-        </p>
-
-        <!-- NÚT MỞ LỜI CHÚC -->
-        <button id="openBtn" class="open-btn">
-            <span class="btn-icon">💌</span>
-            <span id="btnText">Mở lời chúc</span>
+    <!-- THANH CÔNG CỤ -->
+    <div class="toolbar">
+        <button id="musicBtn" class="tool-btn" title="Bật / tắt nhạc">
+            🔇
         </button>
 
-        <!-- LỜI CHÚC -->
-        <section id="message" class="message">
+        <button id="themeBtn" class="tool-btn" title="Đổi giao diện">
+            🌙
+        </button>
+    </div>
 
-            <div class="message-header">
-                <span>🌸</span>
-                <span>💖</span>
-                <span>🌸</span>
+    <!-- HERO -->
+    <main>
+
+        <section class="hero">
+
+            <div class="badge">
+                💐 HAPPY VIETNAMESE WOMEN'S DAY 💐
             </div>
 
-            <p class="message-line">
-                Chúc bạn luôn vui vẻ, hạnh phúc và luôn giữ được
-                nụ cười thật đẹp trên môi. 🌷
+            <p class="small-title">
+                Ngày đặc biệt dành cho những người phụ nữ tuyệt vời
             </p>
 
-            <p class="message-line">
-                Mong rằng mỗi ngày của bạn đều có thật nhiều
-                niềm vui, những điều bất ngờ và những người
-                luôn yêu thương bạn. 💕
+            <h1>
+                Chúc mừng
+                <span>20/10</span>
+            </h1>
+
+            <p class="subtitle">
+                Một chút yêu thương,
+                một chút ngọt ngào
+                và thật nhiều lời chúc tốt đẹp dành tặng bạn 💖
             </p>
 
-            <p class="message-line">
-                Chúc cho những điều tốt đẹp nhất sẽ luôn đến
-                với bạn, không chỉ hôm nay mà trong tất cả
-                những ngày phía trước. ✨
-            </p>
-
-            <div class="special">
-                💐 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10! 💐
-            </div>
-
-            <div class="signature">
-                Một lời chúc nhỏ nhưng chân thành ❤️
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             KHU VỰC TẶNG HOA
-        ========================== -->
-
-        <section class="gift-section">
-
-            <div class="gift-title">
-                <span>🌷</span>
-                <span>Tặng bạn một bó hoa</span>
-                <span>🌷</span>
-            </div>
-
-            <p class="gift-description">
-                Mỗi lần bấm là một bó hoa mới 💐
-            </p>
-
-            <button id="flowerBtn" class="flower-btn">
-                💐 Nhận bó hoa
+            <button id="openBtn" class="main-btn">
+                💌 Mở lời chúc
             </button>
 
-            <!-- CÁC BÓ HOA ĐƯỢC TẠO Ở ĐÂY -->
-            <div id="bouquetContainer" class="bouquet-container"></div>
+        </section>
+
+
+        <!-- PHONG THƯ -->
+        <section class="letter-section">
+
+            <div id="envelope" class="envelope">
+
+                <div class="envelope-back"></div>
+
+                <div class="letter">
+
+                    <div class="letter-content">
+
+                        <div class="letter-icon">
+                            💐
+                        </div>
+
+                        <h2>
+                            Gửi đến bạn
+                        </h2>
+
+                        <p id="typingText"></p>
+
+                        <div class="letter-sign">
+                            ❤️ From someone who wishes you happiness
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="envelope-front"></div>
+
+                <div class="envelope-flap"></div>
+
+                <div class="envelope-heart">
+                    💗
+                </div>
+
+            </div>
+
+            <p class="envelope-hint">
+                👆 Chạm vào phong thư để mở
+            </p>
 
         </section>
 
 
-        <div class="bottom">
-            <span>Made with</span>
-            <span class="heart-pulse">♥</span>
-            <span>for 20/10</span>
-        </div>
+        <!-- LỜI CHÚC -->
+        <section id="message" class="message-card">
+
+            <div class="card-icon">
+                🌷
+            </div>
+
+            <h2>
+                Những điều tốt đẹp nhất dành cho bạn
+            </h2>
+
+            <p>
+                Chúc bạn luôn xinh đẹp theo cách riêng của mình,
+                luôn vui vẻ, tự tin và có thật nhiều khoảnh khắc
+                đáng nhớ trong cuộc sống.
+            </p>
+
+            <p>
+                Mong rằng mỗi ngày của bạn đều có những điều
+                nhỏ bé khiến bạn mỉm cười. 💖
+            </p>
+
+            <strong>
+                Chúc bạn một ngày 20/10 thật hạnh phúc! 🌸
+            </strong>
+
+        </section>
+
+
+        <!-- BÓ HOA -->
+        <section class="flower-section">
+
+            <div class="section-title">
+                <span>🌸</span>
+
+                <div>
+                    <h2>
+                        Một bó hoa dành tặng bạn
+                    </h2>
+
+                    <p>
+                        Bấm nút để nhận một bó hoa mới
+                    </p>
+                </div>
+            </div>
+
+            <button id="flowerBtn" class="flower-btn">
+                💐 Nhận hoa
+            </button>
+
+            <div id="bouquetContainer"></div>
+
+        </section>
+
+
+        <!-- QUOTE -->
+        <section class="quote-section">
+
+            <div class="quote-mark">
+                “
+            </div>
+
+            <p>
+                “Hạnh phúc không phải là điều gì quá lớn lao,
+                đôi khi chỉ là một ngày bình thường
+                nhưng có thật nhiều lý do để mỉm cười.”
+            </p>
+
+            <span>
+                — Happy 20/10 —
+            </span>
+
+        </section>
+
+
+        <!-- LƯU -->
+        <section class="save-section">
+
+            <h2>
+                💖 Lưu lại khoảnh khắc này
+            </h2>
+
+            <p>
+                Bạn có thể chụp màn hình để lưu lại lời chúc nhé.
+            </p>
+
+            <button id="saveBtn" class="save-btn">
+                📸 Lưu lời chúc
+            </button>
+
+        </section>
 
     </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-flower">
+            🌷 🌸 🌹 🌺
+        </div>
+
+        <p>
+            Made with ❤️ for 20/10
+        </p>
+
+        <small>
+            Chúc bạn luôn vui vẻ và hạnh phúc
+        </small>
+
+    </footer>
+
+
+    <!-- NHẠC -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
 
     <script src="script.js"></script>
 
 </body>
-
 </html>
