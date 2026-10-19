@@ -1,122 +1,318 @@
-/* =================================
-   20/10 INTERACTIVE WEBSITE
-================================= */
-
-const effects = document.getElementById("effects");
-const openBtn = document.getElementById("openBtn");
-const message = document.getElementById("message");
-
-const envelope = document.getElementById("envelope");
-const typingText = document.getElementById("typingText");
-
-const flowerBtn = document.getElementById("flowerBtn");
-const bouquetContainer = document.getElementById("bouquetContainer");
-
-const musicBtn = document.getElementById("musicBtn");
-const themeBtn = document.getElementById("themeBtn");
-
-const saveBtn = document.getElementById("saveBtn");
-const bgMusic = document.getElementById("bgMusic");
+/* ==================================================
+   20/10 WEBSITE - JAVASCRIPT
+================================================== */
 
 
-/* =================================
-   LỜI CHÚC
-================================= */
+/* ==================================================
+   ELEMENTS
+================================================== */
 
-const wishText =
-    "Chúc bạn có một ngày 20/10 thật vui vẻ, luôn được yêu thương, luôn mỉm cười và gặp thật nhiều điều tốt đẹp. Mong rằng những ngày phía trước sẽ luôn có thật nhiều niềm vui và những người tuyệt vời bên cạnh bạn. 💖";
+const fallingContainer =
+    document.getElementById(
+        "fallingContainer"
+    );
+
+const clickEffects =
+    document.getElementById(
+        "clickEffects"
+    );
+
+const openWishButton =
+    document.getElementById(
+        "openWishButton"
+    );
+
+const wishSection =
+    document.getElementById(
+        "wishSection"
+    );
+
+const wishCard =
+    document.querySelector(
+        ".wish-card"
+    );
+
+const envelope =
+    document.getElementById(
+        "envelope"
+    );
+
+const typingMessage =
+    document.getElementById(
+        "typingMessage"
+    );
+
+const flowerButton =
+    document.getElementById(
+        "flowerButton"
+    );
+
+const bouquetContainer =
+    document.getElementById(
+        "bouquetContainer"
+    );
+
+const themeButton =
+    document.getElementById(
+        "themeButton"
+    );
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+const surpriseButton =
+    document.getElementById(
+        "surpriseButton"
+    );
+
+const surpriseText =
+    document.getElementById(
+        "surpriseText"
+    );
+
+const saveButton =
+    document.getElementById(
+        "saveButton"
+    );
 
 
-/* =================================
-   MỞ LỜI CHÚC
-================================= */
+/* ==================================================
+   WISH
+================================================== */
 
-openBtn.addEventListener("click", () => {
+openWishButton.addEventListener(
+    "click",
+    () => {
 
-    message.classList.add("show");
-
-    message.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-
-    createHeartBurst();
-
-});
-
-
-/* =================================
-   PHONG THƯ
-================================= */
-
-envelope.addEventListener("click", () => {
-
-    const isOpen = envelope.classList.toggle("open");
-
-    if (isOpen) {
-
-        typingText.textContent = "";
-
-        typeText(
-            wishText,
-            0
+        wishCard.classList.add(
+            "visible"
         );
 
-        createHeartBurst();
+        wishSection.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        heartBurst();
 
     }
+);
 
-});
+
+/* ==================================================
+   LETTER
+================================================== */
+
+const letterText =
+    "Chúc bạn luôn vui vẻ, luôn được yêu thương và có thật nhiều khoảnh khắc đáng nhớ. Mong rằng những ngày phía trước sẽ luôn có thật nhiều niềm vui, may mắn và những điều tốt đẹp đến với bạn. 💖";
 
 
-function typeText(text, index) {
+let letterOpened = false;
 
-    if (index >= text.length) {
+function openEnvelope() {
+
+    if (letterOpened) {
+
+        envelope.classList.remove(
+            "open"
+        );
+
+        letterOpened = false;
+
         return;
     }
 
-    typingText.textContent += text[index];
+    envelope.classList.add(
+        "open"
+    );
 
-    setTimeout(() => {
+    letterOpened = true;
 
-        typeText(
-            text,
-            index + 1
-        );
+    typingMessage.textContent = "";
 
-    }, 35);
+    typeMessage(
+        letterText,
+        0
+    );
+
+    heartBurst();
 
 }
 
 
-/* =================================
-   TIM KHI CLICK
-================================= */
+envelope.addEventListener(
+    "click",
+    openEnvelope
+);
 
-document.addEventListener("click", (event) => {
+
+envelope.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+
+            event.preventDefault();
+
+            openEnvelope();
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   TYPING EFFECT
+================================================== */
+
+function typeMessage(
+    text,
+    index
+) {
 
     if (
-        event.target.closest("button") ||
-        event.target.closest(".envelope")
+        index >= text.length
     ) {
         return;
     }
 
-    createClickHeart(
-        event.clientX,
-        event.clientY
+    typingMessage.textContent +=
+        text[index];
+
+    setTimeout(
+        () => {
+
+            typeMessage(
+                text,
+                index + 1
+            );
+
+        },
+        30
     );
 
-});
+}
 
 
-function createClickHeart(x, y) {
+/* ==================================================
+   FALLING FLOWERS
+================================================== */
 
-    const heart = document.createElement("div");
+const fallingItems = [
+    "🌸",
+    "🌷",
+    "🌹",
+    "🌺",
+    "💗",
+    "💕",
+    "✨",
+    "💐"
+];
 
-    heart.className = "click-heart";
 
-    const hearts = [
+function createFallingItem() {
+
+    if (!fallingContainer) {
+        return;
+    }
+
+    const item =
+        document.createElement(
+            "div"
+        );
+
+    item.className =
+        "falling-item";
+
+    item.textContent =
+        fallingItems[
+            Math.floor(
+                Math.random() *
+                fallingItems.length
+            )
+        ];
+
+    item.style.left =
+        Math.random() * 100 + "vw";
+
+    item.style.fontSize =
+        12 +
+        Math.random() * 18 +
+        "px";
+
+    item.style.animationDuration =
+        5 +
+        Math.random() * 7 +
+        "s";
+
+    fallingContainer.appendChild(
+        item
+    );
+
+    setTimeout(
+        () => {
+            item.remove();
+        },
+        13000
+    );
+
+}
+
+
+setInterval(
+    createFallingItem,
+    550
+);
+
+
+/* ==================================================
+   CLICK HEART
+================================================== */
+
+document.addEventListener(
+    "click",
+    (event) => {
+
+        if (
+            event.target.closest(
+                "button"
+            ) ||
+            event.target.closest(
+                ".envelope"
+            )
+        ) {
+            return;
+        }
+
+        createClickHeart(
+            event.clientX,
+            event.clientY
+        );
+
+    }
+);
+
+
+function createClickHeart(
+    x,
+    y
+) {
+
+    const heart =
+        document.createElement(
+            "div"
+        );
+
+    heart.className =
+        "click-heart";
+
+    const symbols = [
         "💗",
         "💖",
         "💕",
@@ -126,246 +322,226 @@ function createClickHeart(x, y) {
     ];
 
     heart.textContent =
-        hearts[
+        symbols[
             Math.floor(
-                Math.random() * hearts.length
+                Math.random() *
+                symbols.length
             )
         ];
 
-    heart.style.left = `${x}px`;
-    heart.style.top = `${y}px`;
+    heart.style.left =
+        x + "px";
 
-    document.body.appendChild(heart);
+    heart.style.top =
+        y + "px";
 
-    setTimeout(() => {
-        heart.remove();
-    }, 1000);
+    clickEffects.appendChild(
+        heart
+    );
+
+    setTimeout(
+        () => {
+            heart.remove();
+        },
+        1000
+    );
 
 }
 
 
-/* =================================
+/* ==================================================
    HEART BURST
-================================= */
+================================================== */
 
-function createHeartBurst() {
+function heartBurst() {
 
-    for (let i = 0; i < 15; i++) {
+    const centerX =
+        window.innerWidth / 2;
 
-        setTimeout(() => {
+    const centerY =
+        window.innerHeight / 2;
 
-            const heart =
-                document.createElement("div");
+    for (
+        let i = 0;
+        i < 16;
+        i++
+    ) {
 
-            heart.className = "click-heart";
+        setTimeout(
+            () => {
 
-            heart.textContent = [
-                "💗",
-                "💖",
-                "💕",
-                "🌸"
-            ][Math.floor(Math.random() * 4)];
+                const angle =
+                    Math.random() *
+                    Math.PI *
+                    2;
 
-            heart.style.left =
-                `${45 + Math.random() * 10}%`;
+                const radius =
+                    30 +
+                    Math.random() *
+                    100;
 
-            heart.style.top =
-                `${45 + Math.random() * 10}%`;
+                createClickHeart(
+                    centerX +
+                    Math.cos(angle) *
+                    radius,
 
-            heart.style.fontSize =
-                `${18 + Math.random() * 20}px`;
+                    centerY +
+                    Math.sin(angle) *
+                    radius
+                );
 
-            document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 1000);
-
-        }, i * 60);
+            },
+            i * 45
+        );
 
     }
 
 }
 
 
-/* =================================
-   HOA RƠI
-================================= */
+/* ==================================================
+   BOUQUET
+================================================== */
 
-const fallingIcons = [
-    "🌸",
-    "🌷",
-    "🌹",
-    "💗",
-    "💕",
-    "✨"
+const flowerSets = [
+
+    [
+        "🌹",
+        "🌷",
+        "🌸",
+        "🌺"
+    ],
+
+    [
+        "🌸",
+        "🌹",
+        "🌷",
+        "💐"
+    ],
+
+    [
+        "🌺",
+        "🌷",
+        "🌹",
+        "🌸"
+    ],
+
+    [
+        "🌷",
+        "🌸",
+        "🌺",
+        "🌹"
+    ],
+
+    [
+        "💐",
+        "🌹",
+        "🌸",
+        "🌷"
+    ]
+
 ];
 
 
-function createFallingIcon() {
-
-    const item =
-        document.createElement("div");
-
-    item.className = "falling";
-
-    item.textContent =
-        fallingIcons[
-            Math.floor(
-                Math.random() *
-                fallingIcons.length
-            )
-        ];
-
-    item.style.left =
-        `${Math.random() * 100}vw`;
-
-    item.style.fontSize =
-        `${12 + Math.random() * 18}px`;
-
-    item.style.animationDuration =
-        `${5 + Math.random() * 7}s`;
-
-    item.style.opacity =
-        `${.4 + Math.random() * .6}`;
-
-    effects.appendChild(item);
-
-    setTimeout(() => {
-        item.remove();
-    }, 13000);
-
-}
-
-
-setInterval(
-    createFallingIcon,
-    500
+flowerButton.addEventListener(
+    "click",
+    createBouquet
 );
-
-
-/* =================================
-   TẠO BÓ HOA
-================================= */
-
-const flowers = [
-    ["🌹", "🌷", "🌸", "🌺"],
-    ["🌸", "🌹", "🌷", "💐"],
-    ["🌺", "🌷", "🌹", "🌸"],
-    ["🌷", "🌸", "🌺", "🌹"]
-];
-
-
-flowerBtn.addEventListener("click", () => {
-
-    createBouquet();
-
-});
 
 
 function createBouquet() {
 
     const bouquet =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    bouquet.className = "bouquet";
+    bouquet.className =
+        "bouquet";
 
-    const randomFlowers =
-        flowers[
+
+    const selected =
+        flowerSets[
             Math.floor(
                 Math.random() *
-                flowers.length
+                flowerSets.length
             )
         ];
 
+
     bouquet.innerHTML = `
 
-        <div class="flowers">
+        <div class="bouquet-flowers">
 
             <div class="flower">
-                ${randomFlowers[0]}
+                ${selected[0]}
             </div>
 
             <div class="flower">
-                ${randomFlowers[1]}
+                ${selected[1]}
             </div>
 
             <div class="flower">
-                ${randomFlowers[2]}
+                ${selected[2]}
             </div>
 
             <div class="flower">
-                ${randomFlowers[3]}
+                ${selected[3]}
             </div>
 
-            <div class="leaf left">
+            <div class="leaf leaf-left">
                 🌿
             </div>
 
-            <div class="leaf right">
+            <div class="leaf leaf-right">
                 🌿
             </div>
 
         </div>
 
-        <div class="wrapper"></div>
+        <div class="bouquet-wrapper"></div>
 
-        <div class="ribbon"></div>
+        <div class="bouquet-ribbon"></div>
 
     `;
 
-    bouquetContainer.prepend(bouquet);
 
-    createHeartBurst();
+    bouquetContainer.prepend(
+        bouquet
+    );
+
+
+    /* Không để quá nhiều bó hoa */
+
+    const bouquets =
+        bouquetContainer.querySelectorAll(
+            ".bouquet"
+        );
+
+    if (
+        bouquets.length > 6
+    ) {
+
+        bouquets[
+            bouquets.length - 1
+        ].remove();
+
+    }
+
+
+    heartBurst();
 
 }
 
 
-/* =================================
-   NHẠC
-================================= */
-
-let musicPlaying = false;
-
-musicBtn.addEventListener("click", async () => {
-
-    try {
-
-        if (!musicPlaying) {
-
-            await bgMusic.play();
-
-            musicPlaying = true;
-
-            musicBtn.textContent = "🔊";
-
-        } else {
-
-            bgMusic.pause();
-
-            musicPlaying = false;
-
-            musicBtn.textContent = "🔇";
-
-        }
-
-    } catch (error) {
-
-        alert(
-            "Hãy đặt file nhạc tên music.mp3 cùng thư mục với index.html nhé!"
-        );
-
-    }
-
-});
-
-
-/* =================================
+/* ==================================================
    DARK MODE
-================================= */
+================================================== */
 
 let darkMode =
-    localStorage.getItem("20oct-dark") === "true";
+    localStorage.getItem(
+        "20-10-dark-mode"
+    ) === "true";
 
 
 function updateTheme() {
@@ -375,8 +551,10 @@ function updateTheme() {
         darkMode
     );
 
-    themeBtn.textContent =
-        darkMode ? "☀️" : "🌙";
+    themeButton.textContent =
+        darkMode
+            ? "☀️"
+            : "🌙";
 
 }
 
@@ -384,41 +562,324 @@ function updateTheme() {
 updateTheme();
 
 
-themeBtn.addEventListener("click", () => {
+themeButton.addEventListener(
+    "click",
+    () => {
 
-    darkMode = !darkMode;
+        darkMode =
+            !darkMode;
 
-    localStorage.setItem(
-        "20oct-dark",
-        darkMode
+        localStorage.setItem(
+            "20-10-dark-mode",
+            darkMode
+        );
+
+        updateTheme();
+
+    }
+);
+
+
+/* ==================================================
+   NHẠC NỀN
+   Web Audio API
+   Không cần music.mp3
+================================================== */
+
+let audioContext = null;
+
+let musicPlaying = false;
+
+let musicTimer = null;
+
+let oscillators = [];
+
+
+function startMusic() {
+
+    if (musicPlaying) {
+        return;
+    }
+
+
+    audioContext =
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+
+    if (
+        audioContext.state ===
+        "suspended"
+    ) {
+
+        audioContext.resume();
+
+    }
+
+
+    musicPlaying = true;
+
+    musicButton.textContent =
+        "🔊";
+
+
+    playSoftNote();
+
+}
+
+
+function playSoftNote() {
+
+    if (
+        !musicPlaying ||
+        !audioContext
+    ) {
+        return;
+    }
+
+
+    const notes = [
+        261.63,
+        329.63,
+        392.00,
+        523.25
+    ];
+
+
+    const frequency =
+        notes[
+            Math.floor(
+                Math.random() *
+                notes.length
+            )
+        ];
+
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+
+    oscillator.type =
+        "sine";
+
+    oscillator.frequency.value =
+        frequency;
+
+
+    gain.gain.setValueAtTime(
+        0,
+        audioContext.currentTime
     );
 
-    updateTheme();
 
-});
-
-
-/* =================================
-   NÚT LƯU
-================================= */
-
-saveBtn.addEventListener("click", () => {
-
-    alert(
-        "💖 Hãy chụp màn hình trang này để lưu lại lời chúc 20/10 nhé!"
+    gain.gain.linearRampToValueAtTime(
+        0.035,
+        audioContext.currentTime + 0.08
     );
 
-    createHeartBurst();
 
-});
+    gain.gain.linearRampToValueAtTime(
+        0,
+        audioContext.currentTime + 1.8
+    );
 
 
-/* =================================
-   CHẠY HOA BAN ĐẦU
-================================= */
+    oscillator.connect(gain);
 
-setTimeout(() => {
+    gain.connect(
+        audioContext.destination
+    );
 
-    createBouquet();
 
-}, 800);
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + 1.8
+    );
+
+
+    oscillators.push(
+        oscillator
+    );
+
+
+    musicTimer =
+        setTimeout(
+            playSoftNote,
+            700
+        );
+
+}
+
+
+function stopMusic() {
+
+    musicPlaying = false;
+
+    musicButton.textContent =
+        "🔇";
+
+
+    if (musicTimer) {
+
+        clearTimeout(
+            musicTimer
+        );
+
+        musicTimer = null;
+
+    }
+
+
+    oscillators.forEach(
+        (oscillator) => {
+
+            try {
+                oscillator.stop();
+            } catch (error) {
+                // Đã dừng
+            }
+
+        }
+    );
+
+
+    oscillators = [];
+
+
+    if (audioContext) {
+
+        audioContext.close();
+
+        audioContext = null;
+
+    }
+
+}
+
+
+musicButton.addEventListener(
+    "click",
+    () => {
+
+        if (musicPlaying) {
+
+            stopMusic();
+
+        } else {
+
+            startMusic();
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   SURPRISE
+================================================== */
+
+let surpriseOpened = false;
+
+
+surpriseButton.addEventListener(
+    "click",
+    () => {
+
+        if (!surpriseOpened) {
+
+            surpriseOpened = true;
+
+            surpriseText.innerHTML =
+                "🌸 Điều bất ngờ là: <strong>bạn xứng đáng với thật nhiều niềm vui, hạnh phúc và những điều tốt đẹp!</strong> 💖";
+
+            surpriseButton.textContent =
+                "💖 Cảm ơn nhé";
+
+            heartBurst();
+
+        } else {
+
+            surpriseText.textContent =
+                "Chúc bạn có một ngày 20/10 thật đáng nhớ! 🌷";
+
+            heartBurst();
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   SAVE BUTTON
+================================================== */
+
+saveButton.addEventListener(
+    "click",
+    () => {
+
+        alert(
+            "💖 Hãy chụp màn hình trang này để lưu lại lời chúc 20/10 nhé!"
+        );
+
+        heartBurst();
+
+    }
+);
+
+
+/* ==================================================
+   SCROLL ANIMATION
+================================================== */
+
+const observer =
+    new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach(
+                (entry) => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold: .2
+        }
+    );
+
+
+observer.observe(
+    wishCard
+);
+
+
+/* ==================================================
+   HOA BAN ĐẦU
+================================================== */
+
+setTimeout(
+    () => {
+
+        createBouquet();
+
+    },
+    900
+);
