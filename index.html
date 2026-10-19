@@ -9,11 +9,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Happy 20/10 💐</title>
+    <title>20/10 - Gửi bạn một điều đặc biệt 💐</title>
 
     <meta
         name="description"
-        content="Một lời chúc đặc biệt dành cho ngày Phụ nữ Việt Nam 20/10."
+        content="Một lời chúc nhỏ dành cho ngày Phụ nữ Việt Nam 20/10."
     >
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,93 +29,92 @@
 
 <body>
 
-    <!-- ==============================
-         HIỆU ỨNG
-    =============================== -->
+    <!-- ==================================================
+         BACKGROUND
+    ================================================== -->
 
-    <div id="fallingContainer"></div>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+    <div id="fallingFlowers"></div>
 
     <div id="clickEffects"></div>
 
 
-    <!-- ==============================
-         THANH TRÊN
-    =============================== -->
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
 
-    <div class="top-bar">
+    <header class="header">
 
-        <div class="brand">
-            ✦ 20 - 10 ✦
+        <div class="logo">
+            <span>✦</span>
+            20 / 10
+            <span>✦</span>
         </div>
 
-
         <button
-            id="themeButton"
-            class="theme-button"
+            id="themeToggle"
+            class="theme-toggle"
             type="button"
             aria-label="Đổi giao diện"
         >
-            🌙
+            ☾
         </button>
 
-    </div>
+    </header>
 
 
-    <!-- ==============================
-         SLIDE CONTAINER
-    =============================== -->
+    <!-- ==================================================
+         SLIDER
+    ================================================== -->
 
     <main id="slider">
 
 
-        <!-- ==========================
+        <!-- ==================================================
              SLIDE 1
-        =========================== -->
+        ================================================== -->
 
         <section class="slide active">
 
-            <div class="slide-decoration decoration-1">
+            <div class="hero-decoration flower-left">
                 🌷
             </div>
 
-            <div class="slide-decoration decoration-2">
+            <div class="hero-decoration flower-right">
                 🌸
             </div>
 
 
-            <div class="slide-content">
+            <div class="content hero-content">
 
-                <div class="badge">
-                    ✨ HAPPY WOMEN'S DAY ✨
+                <div class="eyebrow">
+                    HAPPY WOMEN'S DAY
                 </div>
 
 
-                <p class="small-title">
-                    NHÂN NGÀY PHỤ NỮ VIỆT NAM
-                </p>
+                <div class="mini-line">
+                    <span></span>
+                    20 THÁNG 10
+                    <span></span>
+                </div>
 
 
                 <h1>
                     Chúc mừng
-                    <span>20/10</span>
+                    <strong>20/10</strong>
                 </h1>
 
 
-                <div class="date">
-                    <span></span>
-                    20 tháng 10
-                    <span></span>
-                </div>
-
-
-                <p class="description">
-                    Một ngày đặc biệt để gửi những lời chúc
-                    thật đẹp đến những người phụ nữ tuyệt vời. 💙
+                <p class="hero-text">
+                    Một ngày đặc biệt để gửi những
+                    điều dịu dàng nhất đến bạn. 🌷
                 </p>
 
 
                 <button
-                    class="next-button"
+                    class="primary-button"
                     data-next
                 >
                     Bắt đầu
@@ -124,24 +123,30 @@
 
             </div>
 
+
+            <div class="scroll-hint">
+                Nhấn để bắt đầu
+                <span>↓</span>
+            </div>
+
         </section>
 
 
-        <!-- ==========================
+        <!-- ==================================================
              SLIDE 2
-        =========================== -->
+        ================================================== -->
 
         <section class="slide">
 
-            <div class="slide-content">
+            <div class="content">
 
-                <div class="slide-number">
+                <div class="number">
                     01
                 </div>
 
 
-                <div class="section-label">
-                    ✦ A SPECIAL WISH ✦
+                <div class="eyebrow">
+                    A LITTLE WISH
                 </div>
 
 
@@ -150,41 +155,45 @@
                 </h2>
 
 
-                <div class="wish-card">
+                <div class="wish-layout">
 
-                    <div class="big-icon">
+                    <div class="wish-icon">
                         🌷
                     </div>
 
 
-                    <p>
-                        Chúc bạn luôn vui vẻ, hạnh phúc
-                        và luôn giữ được nụ cười thật đẹp
-                        trên môi.
-                    </p>
+                    <div class="wish-text">
 
+                        <p>
+                            Chúc bạn luôn vui vẻ,
+                            hạnh phúc và luôn giữ được
+                            nụ cười thật đẹp trên môi.
+                        </p>
 
-                    <p>
-                        Mong rằng mỗi ngày của bạn đều có
-                        thật nhiều niềm vui, những điều bất ngờ
-                        và những người luôn yêu thương bạn. 💙
-                    </p>
+                        <p>
+                            Mong rằng mỗi ngày của bạn
+                            đều có thật nhiều niềm vui,
+                            những điều bất ngờ và những
+                            người luôn yêu thương bạn.
+                        </p>
 
+                        <p>
+                            Và mong rằng những điều tốt đẹp
+                            nhất sẽ luôn tìm đến bạn,
+                            không chỉ hôm nay mà cả những
+                            ngày phía trước. ✨
+                        </p>
 
-                    <p>
-                        Chúc cho những điều tốt đẹp nhất
-                        sẽ luôn đến với bạn, không chỉ hôm nay
-                        mà trong tất cả những ngày phía trước. ✨
-                    </p>
+                    </div>
 
                 </div>
 
 
                 <button
-                    class="next-button"
+                    class="primary-button"
                     data-next
                 >
-                    Tiếp theo
+                    Đọc tiếp
                     <span>→</span>
                 </button>
 
@@ -193,21 +202,21 @@
         </section>
 
 
-        <!-- ==========================
+        <!-- ==================================================
              SLIDE 3 - PHONG THƯ
-        =========================== -->
+        ================================================== -->
 
         <section class="slide">
 
-            <div class="slide-content">
+            <div class="content">
 
-                <div class="slide-number">
+                <div class="number">
                     02
                 </div>
 
 
-                <div class="section-label">
-                    💌 SECRET LETTER
+                <div class="eyebrow">
+                    SECRET LETTER
                 </div>
 
 
@@ -216,8 +225,8 @@
                 </h2>
 
 
-                <p class="slide-description">
-                    Nhấn vào phong thư để mở nhé!
+                <p class="sub-text">
+                    Có một lời nhắn đang chờ bạn.
                 </p>
 
 
@@ -225,17 +234,13 @@
                     id="envelope"
                     class="envelope"
                     tabindex="0"
-                    role="button"
                 >
 
-                    <div class="envelope-back"></div>
+                    <div class="envelope-body">
 
+                        <div class="letter">
 
-                    <div class="letter">
-
-                        <div class="letter-content">
-
-                            <div class="letter-icon">
+                            <div class="letter-top">
                                 🌸
                             </div>
 
@@ -243,38 +248,40 @@
                                 Gửi bạn,
                             </h3>
 
-                            <p id="typingMessage"></p>
+                            <p id="letterText"></p>
 
-                            <div class="letter-heart">
+                            <div class="letter-bottom">
                                 💙
                             </div>
 
                         </div>
 
-                    </div>
 
+                        <div class="front-left"></div>
 
-                    <div class="envelope-front"></div>
+                        <div class="front-right"></div>
 
-                    <div class="envelope-flap"></div>
+                        <div class="flap"></div>
 
-                    <div class="envelope-seal">
-                        💙
+                        <div class="seal">
+                            ♥
+                        </div>
+
                     </div>
 
                 </div>
 
 
-                <p class="hint">
-                    👆 Nhấn phong thư để mở
-                </p>
+                <div class="envelope-hint">
+                    ✦ Nhấn vào phong thư ✦
+                </div>
 
 
                 <button
-                    class="next-button"
+                    class="primary-button"
                     data-next
                 >
-                    Tiếp theo
+                    Tiếp tục
                     <span>→</span>
                 </button>
 
@@ -283,55 +290,60 @@
         </section>
 
 
-        <!-- ==========================
-             SLIDE 4 - BÓ HOA
-        =========================== -->
+        <!-- ==================================================
+             SLIDE 4 - HOA
+        ================================================== -->
 
         <section class="slide">
 
-            <div class="slide-content">
+            <div class="content">
 
-                <div class="slide-number">
+                <div class="number">
                     03
                 </div>
 
 
-                <div class="section-label">
-                    💐 A GIFT FOR YOU
+                <div class="eyebrow">
+                    A FLOWER FOR YOU
                 </div>
 
 
                 <h2>
-                    Một bó hoa dành tặng bạn
+                    Tặng bạn một bó hoa
                 </h2>
 
 
-                <p class="slide-description">
-                    Nhấn nút để nhận một bó hoa đặc biệt.
+                <p class="sub-text">
+                    Bấm vào nút bên dưới và xem hoa nở nhé.
                 </p>
+
+
+                <div
+                    id="bouquet"
+                    class="bouquet"
+                >
+
+                    <div class="bouquet-placeholder">
+                        💐
+                    </div>
+
+                </div>
 
 
                 <button
                     id="flowerButton"
-                    class="main-button"
+                    class="primary-button"
                     type="button"
                 >
-                    💐 Nhận bó hoa
+                    🌸 Nhận hoa
                 </button>
 
 
-                <div
-                    id="bouquetContainer"
-                    class="bouquet-container"
-                ></div>
-
-
                 <button
-                    class="next-button"
+                    class="text-button"
                     data-next
                 >
-                    Tiếp theo
-                    <span>→</span>
+                    Mình nhận rồi, tiếp tục →
                 </button>
 
             </div>
@@ -339,49 +351,57 @@
         </section>
 
 
-        <!-- ==========================
-             SLIDE 5 - QUOTE
-        =========================== -->
+        <!-- ==================================================
+             SLIDE 5
+        ================================================== -->
 
         <section class="slide">
 
-            <div class="slide-content">
+            <div class="content">
 
-                <div class="slide-number">
+                <div class="number">
                     04
                 </div>
 
 
-                <div class="section-label">
-                    ✦ A LITTLE MESSAGE ✦
+                <div class="eyebrow">
+                    ONE MORE THING
                 </div>
 
 
-                <div class="quote-card">
+                <h2>
+                    Điều mình muốn nói
+                </h2>
 
-                    <div class="quote-icon">
-                        ✦
+
+                <div class="quote">
+
+                    <div class="quote-mark">
+                        “
                     </div>
 
-
                     <p>
-                        “Mong rằng mỗi ngày của bạn
-                        đều có một lý do để mỉm cười.”
+                        Mong rằng bạn sẽ luôn có
+                        những ngày thật đẹp,
+                        những nụ cười thật vui
+                        và thật nhiều khoảnh khắc
+                        đáng nhớ.
                     </p>
 
+                    <div class="quote-line"></div>
 
                     <span>
-                        — Happy 20/10 —
+                        Happy Women's Day
                     </span>
 
                 </div>
 
 
                 <button
-                    class="next-button"
+                    class="primary-button"
                     data-next
                 >
-                    Tiếp theo
+                    Còn một điều nữa
                     <span>→</span>
                 </button>
 
@@ -390,61 +410,62 @@
         </section>
 
 
-        <!-- ==========================
-             SLIDE 6 - BẤT NGỜ
-        =========================== -->
+        <!-- ==================================================
+             SLIDE 6
+        ================================================== -->
 
         <section class="slide">
 
-            <div class="slide-content">
+            <div class="content final-content">
 
-                <div class="slide-number">
-                    05
+                <div class="final-flower">
+                    🌸
                 </div>
 
 
-                <div class="section-label">
-                    🎁 SPECIAL SURPRISE
-                </div>
-
-
-                <div class="gift">
-                    🎁
+                <div class="eyebrow">
+                    THE LAST MESSAGE
                 </div>
 
 
                 <h2>
-                    Có một điều dành cho bạn
+                    Chúc mừng
+                    <strong>20/10</strong>
                 </h2>
 
 
                 <p
-                    id="surpriseText"
-                    class="surprise-text"
+                    id="finalText"
+                    class="final-text"
                 >
-                    Nhấn nút để khám phá nhé...
+                    Một lời chúc nhỏ nhưng được gửi
+                    bằng thật nhiều sự chân thành. 💙
                 </p>
 
 
                 <button
                     id="surpriseButton"
-                    class="main-button"
+                    class="primary-button"
+                    type="button"
                 >
-                    🎁 Mở bất ngờ
+                    🎁 Mở lời chúc
                 </button>
 
 
                 <div
-                    id="finalMessage"
-                    class="final-message"
+                    id="surprise"
+                    class="surprise"
                 >
-                    🌸 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10! 🌸
+                    🌷 Chúc bạn luôn xinh tươi,
+                    vui vẻ, hạnh phúc và gặp thật nhiều
+                    điều tốt đẹp trong cuộc sống. 🌷
                 </div>
 
 
                 <button
-                    class="restart-button"
                     id="restartButton"
+                    class="restart-button"
+                    type="button"
                 >
                     ↻ Xem lại từ đầu
                 </button>
@@ -456,54 +477,9 @@
     </main>
 
 
-    <!-- ==============================
-         ĐIỀU KHIỂN SLIDE
-    =============================== -->
-
-    <div class="navigation">
-
-        <button
-            id="prevButton"
-            class="nav-button"
-            type="button"
-        >
-            ←
-        </button>
-
-
-        <div
-            id="slideCounter"
-            class="slide-counter"
-        >
-            1 / 6
-        </div>
-
-
-        <button
-            id="nextButton"
-            class="nav-button"
-            type="button"
-        >
-            →
-        </button>
-
-    </div>
-
-
-    <!-- ==============================
-         DOT
-    =============================== -->
-
-    <div
-        id="dots"
-        class="dots"
-    ></div>
-
-
-    <footer class="footer">
-        Made with 💙 for 20/10
-    </footer>
-
+    <!-- ==================================================
+         SCRIPT
+    ================================================== -->
 
     <script src="./script.js"></script>
 
