@@ -1,26 +1,35 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    /* =================================================
+    /* ==================================================
        ELEMENTS
-    ================================================= */
+    ================================================== */
 
-    const pages =
-        document.querySelectorAll(".page");
-
-    const prevButton =
-        document.getElementById("prevButton");
+    const slides =
+        Array.from(
+            document.querySelectorAll(".slide")
+        );
 
     const nextButton =
         document.getElementById("nextButton");
 
-    const currentPage =
-        document.getElementById("currentPage");
+    const prevButton =
+        document.getElementById("prevButton");
+
+    const pageCurrent =
+        document.getElementById("pageCurrent");
 
     const dots =
-        document.querySelectorAll(".dot");
+        Array.from(
+            document.querySelectorAll(".slide-dot")
+        );
 
-    const themeButton =
-        document.getElementById("themeButton");
+    const nextLinks =
+        Array.from(
+            document.querySelectorAll("[data-next]")
+        );
+
+    const themeToggle =
+        document.getElementById("themeToggle");
 
     const restartButton =
         document.getElementById("restartButton");
@@ -34,40 +43,53 @@ document.addEventListener("DOMContentLoaded", function () {
     const envelope =
         document.getElementById("envelope");
 
-    const fullLetter =
-        document.getElementById("fullLetter");
+    const letterCard =
+        document.getElementById("letterCard");
 
-    const letterIntro =
-        document.getElementById("letterIntro");
+    const letterHeading =
+        document.getElementById("letterHeading");
 
-    const letterButton =
-        document.getElementById("letterButton");
-
-
-    /* =================================================
-       PAGE STATE
-    ================================================= */
-
-    let pageIndex = 0;
-
-    const totalPages = pages.length;
+    const letterControl =
+        document.getElementById("letterControl");
 
 
-    /* =================================================
-       TOAST
-    ================================================= */
+    /* ==================================================
+       STATE
+    ================================================== */
 
-    let toastTimer;
+    let currentIndex = 0;
+
+    let letterIsOpen = false;
+
+    let touchStartX = 0;
+
+    let touchStartY = 0;
+
+    let toastTimer = null;
+
+
+    /* ==================================================
+       HELPERS
+    ================================================== */
+
+    function formatPageNumber(number) {
+        return String(number).padStart(2, "0");
+    }
+
 
     function showToast(message) {
+
+        if (!toast) {
+            return;
+        }
+
+        clearTimeout(toastTimer);
 
         toast.textContent = message;
 
         toast.classList.add("show");
 
-        clearTimeout(toastTimer);
-
-        toastTimer = setTimeout(function () {
+        toastTimer = setTimeout(() => {
 
             toast.classList.remove("show");
 
@@ -75,113 +97,201 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =================================================
-       RESET LETTER
-    ================================================= */
+    /* ==================================================
+       LETTER RESET
+    ================================================== */
 
     function resetLetter() {
 
+        letterIsOpen = false;
+
         envelope.classList.remove("hide");
 
-        fullLetter.classList.remove("show");
+        letterCard.classList.remove("show");
 
-        letterIntro.classList.remove("hide");
+        letterCard.setAttribute(
+            "aria-hidden",
+            "true"
+        );
 
-        letterButton.innerHTML = `
+        letterHeading.classList.remove("hide");
+
+        letterControl.innerHTML = `
             <span>Mở bức thư</span>
-            <b>→</b>
+            <strong>→</strong>
         `;
 
-    }
-
-
-    /* =================================================
-       OPEN LETTER
-    ================================================= */
-
-    function openLetter() {
-
-        envelope.classList.add("hide");
-
-        letterIntro.classList.add("hide");
-
-        setTimeout(function () {
-
-            fullLetter.classList.add("show");
-
-        }, 180);
-
-        letterButton.innerHTML = `
-            <span>Đóng bức thư</span>
-            <b>↩</b>
-        `;
-
-        showToast(
-            "Một lời chúc nhỏ dành riêng cho bạn ♡"
+        envelope.setAttribute(
+            "aria-label",
+            "Mở bức thư"
         );
     }
 
 
-    /* =================================================
-       CLOSE LETTER
-    ================================================= */
+    /* ==================================================
+       OPEN LETTER
+    ================================================== */
 
-    function closeLetter() {
+    function openLetter() {
 
-        fullLetter.classList.remove("show");
+        if (letterIsOpen) {
+            return;
+        }
 
-        setTimeout(function () {
+        letterIsOpen = true;
 
-            envelope.classList.remove("hide");
 
-            letterIntro.classList.remove("hide");
+        /* Ẩn tiêu đề */
 
-        }, 250);
+        letterHeading.classList.add("hide");
 
-        letterButton.innerHTML = `
-            <span>Mở bức thư</span>
-            <b>→</b>
+
+        /* Ẩn phong bì */
+
+        envelope.classList.add("hide");
+
+
+        /*
+         * Đợi một chút để chuyển đổi
+         * không bị giật.
+         */
+
+        window.setTimeout(() => {
+
+            letterCard.classList.add("show");
+
+            letterCard.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        }, 120);
+
+
+        /* Nút */
+
+        letterControl.innerHTML = `
+            <span>Đóng bức thư</span>
+            <strong>↩</strong>
         `;
+
+
+        envelope.setAttribute(
+            "aria-label",
+            "Đóng bức thư"
+        );
+
+
+        showToast(
+            "Bạn đã mở bức thư ♡"
+        );
     }
 
 
-    /* =================================================
-       LETTER TOGGLE
-    ================================================= */
+    /* ==================================================
+       CLOSE LETTER
+    ================================================== */
 
-    let letterOpen = false;
+    function closeLetter() {
+
+        if (!letterIsOpen) {
+            return;
+        }
+
+        letterIsOpen = false;
+
+
+        /* Ẩn lá thư */
+
+        letterCard.classList.remove("show");
+
+        letterCard.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        /*
+         * Chờ animation lá thư kết thúc
+         * rồi mới hiện phong bì.
+         */
+
+        window.setTimeout(() => {
+
+            envelope.classList.remove("hide");
+
+            letterHeading.classList.remove("hide");
+
+        }, 260);
+
+
+        letterControl.innerHTML = `
+            <span>Mở bức thư</span>
+            <strong>→</strong>
+        `;
+
+
+        envelope.setAttribute(
+            "aria-label",
+            "Mở bức thư"
+        );
+    }
+
+
+    /* ==================================================
+       TOGGLE LETTER
+    ================================================== */
 
     function toggleLetter() {
 
-        letterOpen = !letterOpen;
+        if (letterIsOpen) {
 
-        if (letterOpen) {
-
-            openLetter();
+            closeLetter();
 
         } else {
 
-            closeLetter();
+            openLetter();
 
         }
     }
 
 
+    /* ==================================================
+       LETTER EVENTS
+    ================================================== */
+
     envelope.addEventListener(
         "click",
-        function () {
+        () => {
 
-            if (!letterOpen) {
-                toggleLetter();
+            openLetter();
+
+        }
+    );
+
+
+    envelope.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                openLetter();
+
             }
 
         }
     );
 
 
-    letterButton.addEventListener(
+    letterControl.addEventListener(
         "click",
-        function () {
+        () => {
 
             toggleLetter();
 
@@ -189,29 +299,60 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
-       SHOW PAGE
-    ================================================= */
+    /* ==================================================
+       GO TO SLIDE
+    ================================================== */
 
-    function showPage(index) {
+    function goToSlide(index) {
+
+        /*
+         * Giới hạn index.
+         */
 
         if (index < 0) {
             index = 0;
         }
 
-        if (index >= totalPages) {
-            index = totalPages - 1;
+        if (index >= slides.length) {
+            index = slides.length - 1;
         }
 
-        pageIndex = index;
+
+        /*
+         * Nếu đang mở thư mà rời trang thư,
+         * đóng thư trước.
+         */
+
+        if (
+            currentIndex === 2 &&
+            index !== 2 &&
+            letterIsOpen
+        ) {
+
+            resetLetter();
+
+        }
 
 
-        pages.forEach(
-            function (page, i) {
+        currentIndex = index;
 
-                page.classList.toggle(
+
+        /* SLIDES */
+
+        slides.forEach(
+            (slide, slideIndex) => {
+
+                const isActive =
+                    slideIndex === currentIndex;
+
+                slide.classList.toggle(
                     "active",
-                    i === pageIndex
+                    isActive
+                );
+
+                slide.setAttribute(
+                    "aria-hidden",
+                    String(!isActive)
                 );
 
             }
@@ -220,18 +361,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         /* PAGE NUMBER */
 
-        currentPage.textContent =
-            String(pageIndex + 1).padStart(2, "0");
+        pageCurrent.textContent =
+            formatPageNumber(
+                currentIndex + 1
+            );
 
 
         /* DOTS */
 
         dots.forEach(
-            function (dot, i) {
+            (dot, dotIndex) => {
 
                 dot.classList.toggle(
                     "active",
-                    i === pageIndex
+                    dotIndex === currentIndex
                 );
 
             }
@@ -242,107 +385,95 @@ document.addEventListener("DOMContentLoaded", function () {
 
         prevButton.classList.toggle(
             "disabled",
-            pageIndex === 0
+            currentIndex === 0
         );
 
         nextButton.classList.toggle(
             "disabled",
-            pageIndex === totalPages - 1
+            currentIndex === slides.length - 1
         );
 
-
-        /* Nếu rời trang thư thì reset */
-
-        if (pageIndex !== 2) {
-
-            letterOpen = false;
-
-            resetLetter();
-
-        }
-
     }
 
 
-    /* =================================================
+    /* ==================================================
        NEXT
-    ================================================= */
+    ================================================== */
 
-    function nextPage() {
+    function nextSlide() {
 
-        if (pageIndex < totalPages - 1) {
+        if (
+            currentIndex <
+            slides.length - 1
+        ) {
 
-            showPage(pageIndex + 1);
+            goToSlide(
+                currentIndex + 1
+            );
 
         }
 
     }
 
 
-    /* =================================================
+    /* ==================================================
        PREVIOUS
-    ================================================= */
+    ================================================== */
 
-    function previousPage() {
+    function previousSlide() {
 
-        if (pageIndex > 0) {
+        if (currentIndex > 0) {
 
-            showPage(pageIndex - 1);
+            goToSlide(
+                currentIndex - 1
+            );
 
         }
 
     }
 
 
-    /* =================================================
-       ARROW BUTTONS
-    ================================================= */
+    /* ==================================================
+       NAVIGATION EVENTS
+    ================================================== */
 
     nextButton.addEventListener(
         "click",
-        nextPage
+        nextSlide
     );
+
 
     prevButton.addEventListener(
         "click",
-        previousPage
+        previousSlide
     );
 
 
-    /* =================================================
-       BUTTONS DATA-NEXT
-    ================================================= */
+    nextLinks.forEach(
+        (button) => {
 
-    document.querySelectorAll("[data-next]")
-        .forEach(
-            function (button) {
+            button.addEventListener(
+                "click",
+                nextSlide
+            );
 
-                button.addEventListener(
-                    "click",
-                    nextPage
-                );
+        }
+    );
 
-            }
-        );
-
-
-    /* =================================================
-       DOT BUTTONS
-    ================================================= */
 
     dots.forEach(
-        function (dot) {
+        (dot) => {
 
             dot.addEventListener(
                 "click",
-                function () {
+                () => {
 
                     const target =
                         Number(
-                            dot.dataset.pageButton
-                        ) - 1;
+                            dot.dataset.goTo
+                        );
 
-                    showPage(target);
+                    goToSlide(target);
 
                 }
             );
@@ -351,37 +482,52 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
+    /* ==================================================
        KEYBOARD
-       ← → để chuyển trang
-    ================================================= */
+    ================================================== */
 
     document.addEventListener(
         "keydown",
-        function (event) {
+        (event) => {
+
+            /*
+             * Không xử lý nếu người dùng đang
+             * thao tác với input/textarea.
+             */
+
+            const tag =
+                document.activeElement?.tagName;
 
             if (
-                event.key === "ArrowRight"
+                tag === "INPUT" ||
+                tag === "TEXTAREA"
             ) {
+                return;
+            }
 
-                nextPage();
+
+            if (event.key === "ArrowRight") {
+
+                event.preventDefault();
+
+                nextSlide();
 
             }
 
-            if (
-                event.key === "ArrowLeft"
-            ) {
 
-                previousPage();
+            if (event.key === "ArrowLeft") {
+
+                event.preventDefault();
+
+                previousSlide();
 
             }
+
 
             if (
                 event.key === "Escape" &&
-                letterOpen
+                letterIsOpen
             ) {
-
-                letterOpen = false;
 
                 closeLetter();
 
@@ -391,19 +537,22 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
+    /* ==================================================
        TOUCH SWIPE
-    ================================================= */
-
-    let touchStartX = 0;
-    let touchEndX = 0;
+    ================================================== */
 
     document.addEventListener(
         "touchstart",
-        function (event) {
+        (event) => {
+
+            const touch =
+                event.changedTouches[0];
 
             touchStartX =
-                event.changedTouches[0].screenX;
+                touch.clientX;
+
+            touchStartY =
+                touch.clientY;
 
         },
         {
@@ -414,27 +563,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.addEventListener(
         "touchend",
-        function (event) {
+        (event) => {
 
-            touchEndX =
-                event.changedTouches[0].screenX;
+            const touch =
+                event.changedTouches[0];
 
-            const distance =
-                touchEndX - touchStartX;
+            const endX =
+                touch.clientX;
+
+            const endY =
+                touch.clientY;
+
+            const distanceX =
+                endX - touchStartX;
+
+            const distanceY =
+                endY - touchStartY;
 
 
-            if (Math.abs(distance) < 60) {
+            /*
+             * Nếu vuốt chủ yếu theo chiều dọc
+             * thì bỏ qua.
+             */
+
+            if (
+                Math.abs(distanceY) >
+                Math.abs(distanceX)
+            ) {
+
                 return;
+
             }
 
 
-            if (distance < 0) {
+            /*
+             * Không đủ khoảng cách thì bỏ qua.
+             */
 
-                nextPage();
+            if (
+                Math.abs(distanceX) < 60
+            ) {
+
+                return;
+
+            }
+
+
+            if (distanceX < 0) {
+
+                nextSlide();
 
             } else {
 
-                previousPage();
+                previousSlide();
 
             }
 
@@ -445,9 +626,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
+    /* ==================================================
        THEME
-    ================================================= */
+    ================================================== */
 
     const savedTheme =
         localStorage.getItem(
@@ -459,24 +640,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.body.classList.add("dark");
 
-        themeButton.textContent = "☾";
+        themeToggle.textContent = "☾";
+
+    } else {
+
+        themeToggle.textContent = "☼";
 
     }
 
 
-    themeButton.addEventListener(
+    themeToggle.addEventListener(
         "click",
-        function () {
+        () => {
 
-            const dark =
+            const isDark =
                 document.body.classList.toggle(
                     "dark"
                 );
 
 
-            if (dark) {
+            if (isDark) {
 
-                themeButton.textContent = "☾";
+                themeToggle.textContent = "☾";
 
                 localStorage.setItem(
                     "20-10-theme",
@@ -485,7 +670,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } else {
 
-                themeButton.textContent = "☼";
+                themeToggle.textContent = "☼";
 
                 localStorage.setItem(
                     "20-10-theme",
@@ -498,19 +683,17 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
+    /* ==================================================
        RESTART
-    ================================================= */
+    ================================================== */
 
     restartButton.addEventListener(
         "click",
-        function () {
-
-            letterOpen = false;
+        () => {
 
             resetLetter();
 
-            showPage(0);
+            goToSlide(0);
 
             showToast(
                 "Bắt đầu lại món quà ♡"
@@ -520,17 +703,12 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =================================================
-       INITIALIZE
-    ================================================= */
-
-    showPage(0);
+    /* ==================================================
+       INITIAL STATE
+    ================================================== */
 
     resetLetter();
 
-
-    console.log(
-        "20/10 Gift — Slide mode loaded."
-    );
+    goToSlide(0);
 
 });
