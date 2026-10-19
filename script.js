@@ -1,10 +1,10 @@
 /* =====================================================
-   20/10 JAVASCRIPT
+   20/10 WEBSITE JAVASCRIPT
 ===================================================== */
 
 
 /* =====================================================
-   LẤY ELEMENT
+   ELEMENT
 ===================================================== */
 
 const fallingContainer =
@@ -110,7 +110,6 @@ function toggleEnvelope() {
         envelopeOpened = false;
 
         return;
-
     }
 
 
@@ -131,7 +130,7 @@ function toggleEnvelope() {
 
 
 /* =====================================================
-   HIỆU ỨNG GÕ CHỮ
+   GÕ CHỮ
 ===================================================== */
 
 function typeText(
@@ -212,7 +211,9 @@ function createFallingItem() {
         "s";
 
 
-    fallingContainer.appendChild(item);
+    fallingContainer.appendChild(
+        item
+    );
 
 
     setTimeout(
@@ -234,7 +235,7 @@ setInterval(
 
 
 /* =====================================================
-   TIM KHI CLICK
+   CLICK HEART
 ===================================================== */
 
 document.addEventListener(
@@ -295,7 +296,9 @@ function createHeart(
         y + "px";
 
 
-    clickEffects.appendChild(heart);
+    clickEffects.appendChild(
+        heart
+    );
 
 
     setTimeout(
@@ -311,7 +314,7 @@ function createHeart(
 
 
 /* =====================================================
-   HIỆU ỨNG NỔ TIM
+   TIM NỔ
 ===================================================== */
 
 function heartBurst() {
@@ -364,6 +367,193 @@ function heartBurst() {
 
 
 /* =====================================================
+   ÂM THANH HOA NỞ
+   Không có nút loa
+   Không dùng file MP3
+===================================================== */
+
+let audioContext = null;
+
+
+function playFlowerBloomSound() {
+
+    try {
+
+        if (!audioContext) {
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
+        }
+
+
+        if (
+            audioContext.state ===
+            "suspended"
+        ) {
+
+            audioContext.resume();
+
+        }
+
+
+        const now =
+            audioContext.currentTime;
+
+
+        /* Âm thanh chính */
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.setValueAtTime(
+            420,
+            now
+        );
+
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            850,
+            now + 0.18
+        );
+
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1100,
+            now + 0.38
+        );
+
+
+        gain.gain.setValueAtTime(
+            0,
+            now
+        );
+
+
+        gain.gain.linearRampToValueAtTime(
+            0.18,
+            now + 0.03
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            now + 0.65
+        );
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + 0.7
+        );
+
+
+        /* Tiếng lấp lánh */
+
+        setTimeout(
+            playSparkleSound,
+            120
+        );
+
+
+    } catch (error) {
+
+        console.log(
+            "Audio effect:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ÂM THANH LẤP LÁNH
+===================================================== */
+
+function playSparkleSound() {
+
+    if (!audioContext) {
+        return;
+    }
+
+
+    const now =
+        audioContext.currentTime;
+
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+
+    oscillator.type =
+        "sine";
+
+
+    oscillator.frequency.setValueAtTime(
+        1250,
+        now
+    );
+
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        1700,
+        now + 0.2
+    );
+
+
+    gain.gain.setValueAtTime(
+        0.08,
+        now
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        now + 0.3
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.start(now);
+
+    oscillator.stop(
+        now + 0.35
+    );
+
+}
+
+
+/* =====================================================
    BÓ HOA
 ===================================================== */
 
@@ -409,7 +599,14 @@ const flowerSets = [
 
 flowerButton.addEventListener(
     "click",
-    createBouquet
+    function () {
+
+        createBouquet();
+
+        /* Phát âm thanh hoa nở */
+        playFlowerBloomSound();
+
+    }
 );
 
 
@@ -461,6 +658,7 @@ function createBouquet() {
 
         </div>
 
+
         <div class="bouquet-wrapper"></div>
 
         <div class="bouquet-ribbon"></div>
@@ -479,6 +677,8 @@ function createBouquet() {
         );
 
 
+    /* Chỉ giữ tối đa 6 bó */
+
     if (bouquets.length > 6) {
 
         bouquets[
@@ -487,6 +687,8 @@ function createBouquet() {
 
     }
 
+
+    /* Hiệu ứng tim */
 
     heartBurst();
 
@@ -584,7 +786,7 @@ surpriseButton.addEventListener(
 
 
 /* =====================================================
-   HIỆN CARD KHI CUỘN
+   SCROLL ANIMATION
 ===================================================== */
 
 const observer =
@@ -614,11 +816,13 @@ const observer =
     );
 
 
-observer.observe(wishCard);
+observer.observe(
+    wishCard
+);
 
 
 /* =====================================================
-   TẠO BÓ HOA ĐẦU TIÊN
+   BÓ HOA ĐẦU TIÊN
 ===================================================== */
 
 setTimeout(
