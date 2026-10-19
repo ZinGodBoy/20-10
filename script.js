@@ -1,23 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     /* =================================================
-       GET ELEMENTS
+       ELEMENTS
     ================================================= */
 
-    const envelope =
-        document.getElementById("envelope");
+    const pages =
+        document.querySelectorAll(".page");
 
-    const envelopeArea =
-        document.getElementById("envelopeArea");
+    const prevButton =
+        document.getElementById("prevButton");
 
-    const openEnvelope =
-        document.getElementById("openEnvelope");
+    const nextButton =
+        document.getElementById("nextButton");
 
-    const secretHeading =
-        document.getElementById("secretHeading");
+    const currentPage =
+        document.getElementById("currentPage");
 
-    const secretInfo =
-        document.getElementById("secretInfo");
+    const dots =
+        document.querySelectorAll(".dot");
 
     const themeButton =
         document.getElementById("themeButton");
@@ -29,38 +29,69 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("toast");
 
 
+    /* LETTER */
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const fullLetter =
+        document.getElementById("fullLetter");
+
+    const letterIntro =
+        document.getElementById("letterIntro");
+
+    const letterButton =
+        document.getElementById("letterButton");
+
+
     /* =================================================
-       LETTER STATE
+       PAGE STATE
     ================================================= */
 
-    let letterIsOpen = false;
+    let pageIndex = 0;
+
+    const totalPages = pages.length;
 
 
     /* =================================================
        TOAST
     ================================================= */
 
-    let toastTimer = null;
+    let toastTimer;
 
     function showToast(message) {
-
-        if (!toast) {
-            return;
-        }
 
         toast.textContent = message;
 
         toast.classList.add("show");
 
-        if (toastTimer) {
-            clearTimeout(toastTimer);
-        }
+        clearTimeout(toastTimer);
 
         toastTimer = setTimeout(function () {
 
             toast.classList.remove("show");
 
-        }, 2400);
+        }, 2200);
+    }
+
+
+    /* =================================================
+       RESET LETTER
+    ================================================= */
+
+    function resetLetter() {
+
+        envelope.classList.remove("hide");
+
+        fullLetter.classList.remove("show");
+
+        letterIntro.classList.remove("hide");
+
+        letterButton.innerHTML = `
+            <span>Mở bức thư</span>
+            <b>→</b>
+        `;
+
     }
 
 
@@ -70,32 +101,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function openLetter() {
 
-        if (letterIsOpen) {
-            return;
-        }
+        envelope.classList.add("hide");
 
-        letterIsOpen = true;
+        letterIntro.classList.add("hide");
 
-        envelope.classList.add("open");
+        setTimeout(function () {
 
-        envelopeArea.classList.add("opened");
+            fullLetter.classList.add("show");
 
-        secretHeading.classList.add("hidden");
+        }, 180);
 
-        secretInfo.classList.add("hidden");
-
-        envelope.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-        openEnvelope.innerHTML = `
+        letterButton.innerHTML = `
             <span>Đóng bức thư</span>
             <b>↩</b>
         `;
 
         showToast(
-            "Bạn đã mở bức thư bí mật ♡"
+            "Một lời chúc nhỏ dành riêng cho bạn ♡"
         );
     }
 
@@ -106,59 +128,58 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function closeLetter() {
 
-        if (!letterIsOpen) {
-            return;
-        }
+        fullLetter.classList.remove("show");
 
-        letterIsOpen = false;
+        setTimeout(function () {
 
-        envelope.classList.remove("open");
+            envelope.classList.remove("hide");
 
-        envelopeArea.classList.remove("opened");
+            letterIntro.classList.remove("hide");
 
-        secretHeading.classList.remove("hidden");
+        }, 250);
 
-        secretInfo.classList.remove("hidden");
-
-        envelope.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        openEnvelope.innerHTML = `
-            <span>Nhấn để mở thư</span>
-            <b>↗</b>
+        letterButton.innerHTML = `
+            <span>Mở bức thư</span>
+            <b>→</b>
         `;
-
-        showToast(
-            "Bức thư đã được đóng ♡"
-        );
     }
 
 
     /* =================================================
-       TOGGLE LETTER
+       LETTER TOGGLE
     ================================================= */
+
+    let letterOpen = false;
 
     function toggleLetter() {
 
-        if (letterIsOpen) {
+        letterOpen = !letterOpen;
 
-            closeLetter();
+        if (letterOpen) {
+
+            openLetter();
 
         } else {
 
-            openLetter();
+            closeLetter();
 
         }
     }
 
 
-    /* =================================================
-       ENVELOPE CLICK
-    ================================================= */
-
     envelope.addEventListener(
+        "click",
+        function () {
+
+            if (!letterOpen) {
+                toggleLetter();
+            }
+
+        }
+    );
+
+
+    letterButton.addEventListener(
         "click",
         function () {
 
@@ -169,21 +190,200 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       KEYBOARD
+       SHOW PAGE
     ================================================= */
 
-    envelope.addEventListener(
+    function showPage(index) {
+
+        if (index < 0) {
+            index = 0;
+        }
+
+        if (index >= totalPages) {
+            index = totalPages - 1;
+        }
+
+        pageIndex = index;
+
+
+        pages.forEach(
+            function (page, i) {
+
+                page.classList.toggle(
+                    "active",
+                    i === pageIndex
+                );
+
+            }
+        );
+
+
+        /* PAGE NUMBER */
+
+        currentPage.textContent =
+            String(pageIndex + 1).padStart(2, "0");
+
+
+        /* DOTS */
+
+        dots.forEach(
+            function (dot, i) {
+
+                dot.classList.toggle(
+                    "active",
+                    i === pageIndex
+                );
+
+            }
+        );
+
+
+        /* ARROWS */
+
+        prevButton.classList.toggle(
+            "disabled",
+            pageIndex === 0
+        );
+
+        nextButton.classList.toggle(
+            "disabled",
+            pageIndex === totalPages - 1
+        );
+
+
+        /* Nếu rời trang thư thì reset */
+
+        if (pageIndex !== 2) {
+
+            letterOpen = false;
+
+            resetLetter();
+
+        }
+
+    }
+
+
+    /* =================================================
+       NEXT
+    ================================================= */
+
+    function nextPage() {
+
+        if (pageIndex < totalPages - 1) {
+
+            showPage(pageIndex + 1);
+
+        }
+
+    }
+
+
+    /* =================================================
+       PREVIOUS
+    ================================================= */
+
+    function previousPage() {
+
+        if (pageIndex > 0) {
+
+            showPage(pageIndex - 1);
+
+        }
+
+    }
+
+
+    /* =================================================
+       ARROW BUTTONS
+    ================================================= */
+
+    nextButton.addEventListener(
+        "click",
+        nextPage
+    );
+
+    prevButton.addEventListener(
+        "click",
+        previousPage
+    );
+
+
+    /* =================================================
+       BUTTONS DATA-NEXT
+    ================================================= */
+
+    document.querySelectorAll("[data-next]")
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    nextPage
+                );
+
+            }
+        );
+
+
+    /* =================================================
+       DOT BUTTONS
+    ================================================= */
+
+    dots.forEach(
+        function (dot) {
+
+            dot.addEventListener(
+                "click",
+                function () {
+
+                    const target =
+                        Number(
+                            dot.dataset.pageButton
+                        ) - 1;
+
+                    showPage(target);
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       KEYBOARD
+       ← → để chuyển trang
+    ================================================= */
+
+    document.addEventListener(
         "keydown",
         function (event) {
 
             if (
-                event.key === "Enter" ||
-                event.key === " "
+                event.key === "ArrowRight"
             ) {
 
-                event.preventDefault();
+                nextPage();
 
-                toggleLetter();
+            }
+
+            if (
+                event.key === "ArrowLeft"
+            ) {
+
+                previousPage();
+
+            }
+
+            if (
+                event.key === "Escape" &&
+                letterOpen
+            ) {
+
+                letterOpen = false;
+
+                closeLetter();
 
             }
 
@@ -192,17 +392,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       BUTTON CLICK
+       TOUCH SWIPE
     ================================================= */
 
-    openEnvelope.addEventListener(
-        "click",
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener(
+        "touchstart",
         function (event) {
 
-            event.stopPropagation();
+            touchStartX =
+                event.changedTouches[0].screenX;
 
-            toggleLetter();
+        },
+        {
+            passive: true
+        }
+    );
 
+
+    document.addEventListener(
+        "touchend",
+        function (event) {
+
+            touchEndX =
+                event.changedTouches[0].screenX;
+
+            const distance =
+                touchEndX - touchStartX;
+
+
+            if (Math.abs(distance) < 60) {
+                return;
+            }
+
+
+            if (distance < 0) {
+
+                nextPage();
+
+            } else {
+
+                previousPage();
+
+            }
+
+        },
+        {
+            passive: true
         }
     );
 
@@ -230,17 +468,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "click",
         function () {
 
-            document.body.classList.toggle(
-                "dark"
-            );
-
-            const isDark =
-                document.body.classList.contains(
+            const dark =
+                document.body.classList.toggle(
                     "dark"
                 );
 
 
-            if (isDark) {
+            if (dark) {
 
                 themeButton.textContent = "☾";
 
@@ -265,62 +499,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       NAVIGATION
-    ================================================= */
-
-    const navigationLinks =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
-
-
-    navigationLinks.forEach(
-        function (link) {
-
-            link.addEventListener(
-                "click",
-                function (event) {
-
-                    const targetId =
-                        link.getAttribute(
-                            "href"
-                        );
-
-                    if (
-                        !targetId ||
-                        targetId === "#"
-                    ) {
-                        return;
-                    }
-
-
-                    const target =
-                        document.querySelector(
-                            targetId
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =================================================
        RESTART
     ================================================= */
 
@@ -328,47 +506,31 @@ document.addEventListener("DOMContentLoaded", function () {
         "click",
         function () {
 
-            closeLetter();
+            letterOpen = false;
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            resetLetter();
+
+            showPage(0);
+
+            showToast(
+                "Bắt đầu lại món quà ♡"
+            );
 
         }
     );
 
 
     /* =================================================
-       INITIAL STATE
+       INITIALIZE
     ================================================= */
 
-    envelope.classList.remove("open");
+    showPage(0);
 
-    envelopeArea.classList.remove(
-        "opened"
-    );
+    resetLetter();
 
-    secretHeading.classList.remove(
-        "hidden"
-    );
-
-    secretInfo.classList.remove(
-        "hidden"
-    );
-
-    envelope.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-
-    /* =================================================
-       PAGE LOADED
-    ================================================= */
 
     console.log(
-        "20/10 Gift — Loaded successfully."
+        "20/10 Gift — Slide mode loaded."
     );
 
 });
