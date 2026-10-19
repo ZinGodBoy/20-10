@@ -13,10 +13,14 @@
 
     --purple: #9c4dcc;
 
+    --green: #4d9b67;
+    --green-dark: #27734a;
+
     --text: #402630;
     --text-light: #765b65;
 
     --white: #ffffff;
+
     --soft: #fff2f7;
 }
 
@@ -51,16 +55,17 @@ body {
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
-    padding: 30px 15px;
+    padding: 30px 15px 50px;
 
     overflow-x: hidden;
 }
 
-/* =========================================
-   EFFECT LAYER
-========================================= */
+
+/* ==================================================
+   HIỆU ỨNG NỀN
+================================================== */
 
 .effects {
     position: fixed;
@@ -84,7 +89,9 @@ body {
     pointer-events: none;
 
     animation:
-        fallDown var(--duration) linear var(--delay) forwards;
+        fallDown var(--duration)
+        linear var(--delay)
+        forwards;
 
     opacity: 0;
 
@@ -120,9 +127,10 @@ body {
     }
 }
 
-/* =========================================
+
+/* ==================================================
    CARD
-========================================= */
+================================================== */
 
 .card {
     position: relative;
@@ -140,20 +148,21 @@ body {
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,0.94),
-            rgba(255,250,253,0.86)
+            rgba(255,255,255,.95),
+            rgba(255,250,253,.88)
         );
 
-    border: 1px solid rgba(255,255,255,0.95);
+    border: 1px solid rgba(255,255,255,.95);
 
     box-shadow:
-        0 35px 90px rgba(111, 45, 80, 0.18),
-        0 10px 30px rgba(111, 45, 80, 0.08),
+        0 35px 90px rgba(111,45,80,.18),
+        0 10px 30px rgba(111,45,80,.08),
         inset 0 1px 0 rgba(255,255,255,1);
 
     backdrop-filter: blur(18px);
 
-    animation: cardEntrance 1s cubic-bezier(.22,.8,.25,1);
+    animation:
+        cardEntrance 1s cubic-bezier(.22,.8,.25,1);
 }
 
 @keyframes cardEntrance {
@@ -175,9 +184,10 @@ body {
     }
 }
 
-/* =========================================
-   TOP DECORATION
-========================================= */
+
+/* ==================================================
+   TOP
+================================================== */
 
 .top-decoration {
     display: flex;
@@ -195,29 +205,32 @@ body {
     opacity: .75;
 }
 
-.top-decoration span:nth-child(1) {
-    animation: sparkle 2s ease-in-out infinite;
+.top-decoration span:nth-child(1),
+.top-decoration span:nth-child(3) {
+    animation:
+        sparkle 2s ease-in-out infinite;
 }
 
 .top-decoration span:nth-child(2) {
-    animation: heartFloat 2.5s ease-in-out infinite;
-}
-
-.top-decoration span:nth-child(3) {
-    animation: sparkle 2s ease-in-out .7s infinite;
+    animation:
+        heartFloat 2.5s ease-in-out infinite;
 }
 
 @keyframes sparkle {
 
     0%,
     100% {
-        transform: scale(.8) rotate(0deg);
+        transform:
+            scale(.8)
+            rotate(0deg);
 
         opacity: .45;
     }
 
     50% {
-        transform: scale(1.35) rotate(15deg);
+        transform:
+            scale(1.35)
+            rotate(15deg);
 
         opacity: 1;
     }
@@ -227,17 +240,21 @@ body {
 
     0%,
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-7px) scale(1.15);
+        transform:
+            translateY(-7px)
+            scale(1.15);
     }
 }
 
-/* =========================================
+
+/* ==================================================
    BADGE
-========================================= */
+================================================== */
 
 .badge {
     display: inline-flex;
@@ -269,32 +286,12 @@ body {
 
     box-shadow:
         0 8px 20px rgba(233,30,99,.08);
-
-    animation: badgeEntrance .8s ease .2s both;
 }
 
-@keyframes badgeEntrance {
 
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(-12px)
-            scale(.9);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-/* =========================================
-   FLOWER
-========================================= */
+/* ==================================================
+   HOA CHÍNH
+================================================== */
 
 .flower-wrapper {
     position: relative;
@@ -368,21 +365,24 @@ body {
 
     0%,
     100% {
-        transform: scale(.75);
+        transform:
+            scale(.75);
 
         opacity: .45;
     }
 
     50% {
-        transform: scale(1.25);
+        transform:
+            scale(1.25);
 
         opacity: .9;
     }
 }
 
-/* =========================================
+
+/* ==================================================
    TEXT
-========================================= */
+================================================== */
 
 .small-title {
     font-size: 11px;
@@ -394,8 +394,6 @@ body {
     color: #a47b89;
 
     margin-bottom: 8px;
-
-    animation: textReveal .8s ease .35s both;
 }
 
 h1 {
@@ -408,8 +406,6 @@ h1 {
     color: #43252f;
 
     margin-bottom: 15px;
-
-    animation: textReveal .9s ease .45s both;
 }
 
 h1 span {
@@ -444,26 +440,10 @@ h1 span {
     }
 }
 
-@keyframes textReveal {
 
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(18px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-/* =========================================
+/* ==================================================
    DATE
-========================================= */
+================================================== */
 
 .date {
     display: flex;
@@ -481,8 +461,6 @@ h1 span {
     font-weight: 800;
 
     margin-bottom: 20px;
-
-    animation: textReveal .8s ease .6s both;
 }
 
 .line {
@@ -507,10 +485,6 @@ h1 span {
         );
 }
 
-/* =========================================
-   INTRO
-========================================= */
-
 .intro {
     max-width: 510px;
 
@@ -521,15 +495,15 @@ h1 span {
     font-size: 15px;
 
     line-height: 1.9;
-
-    animation: textReveal .8s ease .7s both;
 }
 
-/* =========================================
-   BUTTON
-========================================= */
 
-.open-btn {
+/* ==================================================
+   NÚT
+================================================== */
+
+.open-btn,
+.flower-btn {
     position: relative;
 
     overflow: hidden;
@@ -575,30 +549,10 @@ h1 span {
     transition:
         transform .25s ease,
         box-shadow .25s ease;
-
-    animation: buttonEntrance .8s ease .85s both;
 }
 
-@keyframes buttonEntrance {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(20px)
-            scale(.92);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-.open-btn::before {
+.open-btn::before,
+.flower-btn::before {
     content: "";
 
     position: absolute;
@@ -615,7 +569,7 @@ h1 span {
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.35),
+            rgba(255,255,255,.4),
             transparent
         );
 
@@ -624,11 +578,13 @@ h1 span {
     transition: left .7s ease;
 }
 
-.open-btn:hover::before {
+.open-btn:hover::before,
+.flower-btn:hover::before {
     left: 140%;
 }
 
-.open-btn:hover {
+.open-btn:hover,
+.flower-btn:hover {
     transform:
         translateY(-4px)
         scale(1.03);
@@ -637,33 +593,15 @@ h1 span {
         0 18px 35px rgba(233,30,99,.34);
 }
 
-.open-btn:active {
-    transform: scale(.97);
+.open-btn:active,
+.flower-btn:active {
+    transform: scale(.95);
 }
 
-.btn-icon {
-    font-size: 19px;
 
-    animation: envelopeBounce 1.8s ease-in-out infinite;
-}
-
-@keyframes envelopeBounce {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    50% {
-        transform:
-            rotate(-8deg)
-            translateY(-2px);
-    }
-}
-
-/* =========================================
+/* ==================================================
    MESSAGE
-========================================= */
+================================================== */
 
 .message {
     max-height: 0;
@@ -688,7 +626,7 @@ h1 span {
     border: 1px solid transparent;
 
     transition:
-        max-height .9s cubic-bezier(.22,.8,.25,1),
+        max-height .9s ease,
         opacity .6s ease,
         margin-top .7s ease,
         padding .7s ease,
@@ -716,33 +654,12 @@ h1 span {
 
     margin-bottom: 18px;
 
-    color: var(--pink);
-
     font-size: 20px;
 }
 
-.message-header span:nth-child(1) {
-    animation: headerFlower 2s ease-in-out infinite;
-}
-
-.message-header span:nth-child(2) {
-    animation: heartFloat 1.8s ease-in-out infinite;
-}
-
-.message-header span:nth-child(3) {
-    animation: headerFlower 2s ease-in-out .5s infinite;
-}
-
-@keyframes headerFlower {
-
-    0%,
-    100% {
-        transform: rotate(-8deg) translateY(0);
-    }
-
-    50% {
-        transform: rotate(8deg) translateY(-5px);
-    }
+.message-header span {
+    animation:
+        heartFloat 2s ease-in-out infinite;
 }
 
 .message-line {
@@ -781,7 +698,8 @@ h1 span {
     to {
         opacity: 1;
 
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 }
 
@@ -797,24 +715,6 @@ h1 span {
     font-weight: 700;
 
     line-height: 1.5;
-
-    opacity: 0;
-
-    transform: scale(.9);
-}
-
-.message.show .special {
-    animation:
-        specialAppear .8s ease .65s forwards;
-}
-
-@keyframes specialAppear {
-
-    to {
-        opacity: 1;
-
-        transform: scale(1);
-    }
 }
 
 .signature {
@@ -825,33 +725,471 @@ h1 span {
     font-size: 12px;
 
     font-style: italic;
-
-    opacity: 0;
 }
 
-.message.show .signature {
+
+/* ==================================================
+   KHU VỰC TẶNG HOA
+================================================== */
+
+.gift-section {
+    margin-top: 35px;
+
+    padding-top: 28px;
+
+    border-top:
+        1px dashed #f0cbd9;
+}
+
+.gift-title {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: var(--pink);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+.gift-title span:first-child,
+.gift-title span:last-child {
     animation:
-        fadeUp .7s ease .9s forwards;
+        flowerSide 2s ease-in-out infinite;
 }
 
-@keyframes fadeUp {
+@keyframes flowerSide {
 
-    from {
+    0%,
+    100% {
+        transform:
+            rotate(-8deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            rotate(8deg)
+            translateY(-5px);
+    }
+}
+
+.gift-description {
+    margin-top: 8px;
+
+    color: #987783;
+
+    font-size: 12px;
+}
+
+.flower-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #4d9b67,
+            #2f7c4e
+        );
+
+    box-shadow:
+        0 13px 28px rgba(45,125,75,.22);
+}
+
+.flower-btn:hover {
+    box-shadow:
+        0 18px 35px rgba(45,125,75,.32);
+}
+
+
+/* ==================================================
+   KHU VỰC BÓ HOA
+================================================== */
+
+.bouquet-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+.bouquet {
+    position: relative;
+
+    min-height: 230px;
+
+    padding: 20px 15px 18px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffafb,
+            #fff1f6
+        );
+
+    border:
+        1px solid #f5dce6;
+
+    box-shadow:
+        0 12px 30px rgba(120,50,80,.10);
+
+    overflow: hidden;
+
+    animation:
+        bouquetAppear .8s
+        cubic-bezier(.17,.84,.32,1.2)
+        forwards;
+}
+
+@keyframes bouquetAppear {
+
+    0% {
         opacity: 0;
 
-        transform: translateY(10px);
+        transform:
+            translateY(50px)
+            scale(.55)
+            rotate(-8deg);
     }
 
-    to {
+    60% {
+        transform:
+            translateY(-8px)
+            scale(1.04)
+            rotate(2deg);
+    }
+
+    100% {
         opacity: 1;
 
-        transform: translateY(0);
+        transform:
+            translateY(0)
+            scale(1)
+            rotate(0);
     }
 }
 
-/* =========================================
-   BOTTOM
-========================================= */
+
+/* ==================================================
+   HOA TRONG BÓ
+================================================== */
+
+.bouquet-flowers {
+    position: relative;
+
+    height: 135px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+}
+
+.flower-piece {
+    position: absolute;
+
+    font-size: 43px;
+
+    filter:
+        drop-shadow(
+            0 5px 5px rgba(100,50,70,.15)
+        );
+
+    animation:
+        flowerPieceFloat 2.5s ease-in-out infinite;
+}
+
+.flower-piece:nth-child(1) {
+    left: 19%;
+    top: 30px;
+    transform: rotate(-15deg);
+    animation-delay: .1s;
+}
+
+.flower-piece:nth-child(2) {
+    left: 37%;
+    top: 2px;
+    font-size: 48px;
+    animation-delay: .3s;
+}
+
+.flower-piece:nth-child(3) {
+    right: 19%;
+    top: 30px;
+    transform: rotate(15deg);
+    animation-delay: .5s;
+}
+
+.flower-piece:nth-child(4) {
+    left: 29%;
+    top: 55px;
+    font-size: 35px;
+    animation-delay: .7s;
+}
+
+.flower-piece:nth-child(5) {
+    right: 29%;
+    top: 55px;
+    font-size: 35px;
+    animation-delay: .9s;
+}
+
+@keyframes flowerPieceFloat {
+
+    0%,
+    100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -6px;
+    }
+}
+
+
+/* ==================================================
+   LÁ
+================================================== */
+
+.leaves {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 2px;
+
+    transform: translateX(-50%);
+
+    font-size: 48px;
+
+    white-space: nowrap;
+
+    z-index: 1;
+}
+
+
+/* ==================================================
+   GIẤY GÓI HOA
+================================================== */
+
+.wrapper-paper {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 5px;
+
+    width: 120px;
+
+    height: 90px;
+
+    transform:
+        translateX(-50%)
+        rotate(2deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd7e4,
+            #fff0f5
+        );
+
+    clip-path:
+        polygon(
+            8% 0,
+            92% 0,
+            75% 100%,
+            25% 100%
+        );
+
+    box-shadow:
+        0 5px 12px rgba(100,50,70,.12);
+
+    z-index: 3;
+}
+
+.wrapper-fold {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 4px;
+
+    width: 18px;
+
+    height: 82px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        rgba(255,255,255,.45);
+
+    z-index: 4;
+}
+
+
+/* ==================================================
+   NƠ
+================================================== */
+
+.ribbon {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 20px;
+
+    width: 42px;
+
+    height: 25px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 6;
+}
+
+.ribbon::before,
+.ribbon::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    width: 22px;
+
+    height: 20px;
+
+    border: 5px solid #e91e63;
+}
+
+.ribbon::before {
+    right: 50%;
+
+    border-radius:
+        50% 20% 50% 20%;
+
+    transform:
+        rotate(-25deg);
+}
+
+.ribbon::after {
+    left: 50%;
+
+    border-radius:
+        20% 50% 20% 50%;
+
+    transform:
+        rotate(25deg);
+}
+
+.ribbon-center {
+    position: absolute;
+
+    left: 50%;
+
+    top: 5px;
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #c2185b;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 2;
+}
+
+
+/* ==================================================
+   TEXT BÓ HOA
+================================================== */
+
+.bouquet-number {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 8px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 8;
+
+    color: #a16f7e;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ==================================================
+   TIM BAY QUANH BÓ
+================================================== */
+
+.bouquet-heart {
+    position: absolute;
+
+    font-size: 15px;
+
+    pointer-events: none;
+
+    animation:
+        bouquetHeart 2.5s ease-out forwards;
+}
+
+@keyframes bouquetHeart {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.4);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(-100px)
+            translateX(var(--heart-x))
+            scale(1.2);
+    }
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
 
 .bottom {
     display: flex;
@@ -892,70 +1230,38 @@ h1 span {
     }
 }
 
-/* =========================================
-   HEART BURST
-========================================= */
 
-.burst-heart {
-    position: fixed;
-
-    z-index: 20;
-
-    pointer-events: none;
-
-    font-size: 22px;
-
-    animation:
-        burst .9s ease-out forwards;
-}
-
-@keyframes burst {
-
-    0% {
-        opacity: 1;
-
-        transform:
-            translate(-50%, -50%)
-            scale(.4);
-    }
-
-    100% {
-        opacity: 0;
-
-        transform:
-            translate(
-                calc(-50% + var(--x)),
-                calc(-50% + var(--y))
-            )
-            scale(1.4)
-            rotate(var(--rotate));
-    }
-}
-
-/* =========================================
+/* ==================================================
    MOBILE
-========================================= */
+================================================== */
 
 @media (max-width: 600px) {
 
     body {
-        padding: 18px 12px;
+        padding:
+            12px
+            10px
+            35px;
     }
 
     .card {
-        padding: 32px 20px 25px;
+        width: 100%;
 
-        border-radius: 27px;
+        padding:
+            28px 16px 22px;
+
+        border-radius: 25px;
     }
 
     .top-decoration {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .badge {
-        font-size: 11px;
+        font-size: 10px;
 
-        padding: 8px 15px;
+        padding:
+            8px 14px;
     }
 
     .flower-wrapper {
@@ -972,9 +1278,9 @@ h1 span {
     }
 
     .small-title {
-        font-size: 9px;
+        font-size: 8px;
 
-        letter-spacing: 2px;
+        letter-spacing: 1.8px;
     }
 
     .intro {
@@ -983,8 +1289,19 @@ h1 span {
         line-height: 1.8;
     }
 
+    .open-btn,
+    .flower-btn {
+        width: 100%;
+
+        min-width: 0;
+
+        padding:
+            14px 18px;
+    }
+
     .message.show {
-        padding: 23px 17px;
+        padding:
+            22px 16px;
     }
 
     .message-line {
@@ -995,25 +1312,37 @@ h1 span {
         font-size: 18px;
     }
 
-    .open-btn {
-        width: 100%;
+    .gift-title {
+        font-size: 19px;
+    }
+
+    .bouquet-container {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .bouquet {
+        min-height: 220px;
     }
 }
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
 
-@media (prefers-reduced-motion: reduce) {
+/* ==================================================
+   MÀN HÌNH RẤT NHỎ
+================================================== */
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
+@media (max-width: 380px) {
 
-        scroll-behavior: auto !important;
+    h1 {
+        font-size: 34px;
+    }
 
-        transition-duration: .01ms !important;
+    .gift-title {
+        font-size: 17px;
+    }
+
+    .bouquet {
+        min-height: 205px;
     }
 }
