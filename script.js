@@ -1,94 +1,58 @@
-/* ==================================================
-   20/10 WEBSITE - JAVASCRIPT
-================================================== */
+/* =====================================================
+   20/10 JAVASCRIPT
+===================================================== */
 
 
-/* ==================================================
-   ELEMENTS
-================================================== */
+/* =====================================================
+   LẤY ELEMENT
+===================================================== */
 
 const fallingContainer =
-    document.getElementById(
-        "fallingContainer"
-    );
+    document.getElementById("fallingContainer");
 
 const clickEffects =
-    document.getElementById(
-        "clickEffects"
-    );
+    document.getElementById("clickEffects");
 
 const openWishButton =
-    document.getElementById(
-        "openWishButton"
-    );
+    document.getElementById("openWishButton");
 
 const wishSection =
-    document.getElementById(
-        "wishSection"
-    );
+    document.getElementById("wishSection");
 
 const wishCard =
-    document.querySelector(
-        ".wish-card"
-    );
+    document.querySelector(".wish-card");
 
 const envelope =
-    document.getElementById(
-        "envelope"
-    );
+    document.getElementById("envelope");
 
 const typingMessage =
-    document.getElementById(
-        "typingMessage"
-    );
+    document.getElementById("typingMessage");
 
 const flowerButton =
-    document.getElementById(
-        "flowerButton"
-    );
+    document.getElementById("flowerButton");
 
 const bouquetContainer =
-    document.getElementById(
-        "bouquetContainer"
-    );
+    document.getElementById("bouquetContainer");
 
 const themeButton =
-    document.getElementById(
-        "themeButton"
-    );
-
-const musicButton =
-    document.getElementById(
-        "musicButton"
-    );
+    document.getElementById("themeButton");
 
 const surpriseButton =
-    document.getElementById(
-        "surpriseButton"
-    );
+    document.getElementById("surpriseButton");
 
 const surpriseText =
-    document.getElementById(
-        "surpriseText"
-    );
-
-const saveButton =
-    document.getElementById(
-        "saveButton"
-    );
+    document.getElementById("surpriseText");
 
 
-/* ==================================================
-   WISH
-================================================== */
+/* =====================================================
+   MỞ LỜI CHÚC
+===================================================== */
 
 openWishButton.addEventListener(
     "click",
-    () => {
+    function () {
 
-        wishCard.classList.add(
-            "visible"
-        );
+        wishCard.classList.add("visible");
 
         wishSection.scrollIntoView({
             behavior: "smooth",
@@ -101,56 +65,26 @@ openWishButton.addEventListener(
 );
 
 
-/* ==================================================
-   LETTER
-================================================== */
+/* =====================================================
+   PHONG THƯ
+===================================================== */
 
-const letterText =
-    "Chúc bạn luôn vui vẻ, luôn được yêu thương và có thật nhiều khoảnh khắc đáng nhớ. Mong rằng những ngày phía trước sẽ luôn có thật nhiều niềm vui, may mắn và những điều tốt đẹp đến với bạn. 💖";
+const message =
+    "Chúc bạn luôn vui vẻ, hạnh phúc và được yêu thương. Mong rằng mỗi ngày phía trước đều có thật nhiều niềm vui, may mắn và những điều tốt đẹp đến với bạn. 💙";
 
 
-let letterOpened = false;
-
-function openEnvelope() {
-
-    if (letterOpened) {
-
-        envelope.classList.remove(
-            "open"
-        );
-
-        letterOpened = false;
-
-        return;
-    }
-
-    envelope.classList.add(
-        "open"
-    );
-
-    letterOpened = true;
-
-    typingMessage.textContent = "";
-
-    typeMessage(
-        letterText,
-        0
-    );
-
-    heartBurst();
-
-}
+let envelopeOpened = false;
 
 
 envelope.addEventListener(
     "click",
-    openEnvelope
+    toggleEnvelope
 );
 
 
 envelope.addEventListener(
     "keydown",
-    (event) => {
+    function (event) {
 
         if (
             event.key === "Enter" ||
@@ -159,7 +93,7 @@ envelope.addEventListener(
 
             event.preventDefault();
 
-            openEnvelope();
+            toggleEnvelope();
 
         }
 
@@ -167,50 +101,78 @@ envelope.addEventListener(
 );
 
 
-/* ==================================================
-   TYPING EFFECT
-================================================== */
+function toggleEnvelope() {
 
-function typeMessage(
+    if (envelopeOpened) {
+
+        envelope.classList.remove("open");
+
+        envelopeOpened = false;
+
+        return;
+
+    }
+
+
+    envelope.classList.add("open");
+
+    envelopeOpened = true;
+
+    typingMessage.textContent = "";
+
+    typeText(
+        message,
+        0
+    );
+
+    heartBurst();
+
+}
+
+
+/* =====================================================
+   HIỆU ỨNG GÕ CHỮ
+===================================================== */
+
+function typeText(
     text,
     index
 ) {
 
-    if (
-        index >= text.length
-    ) {
+    if (index >= text.length) {
         return;
     }
+
 
     typingMessage.textContent +=
         text[index];
 
-    setTimeout(
-        () => {
 
-            typeMessage(
+    setTimeout(
+        function () {
+
+            typeText(
                 text,
                 index + 1
             );
 
         },
-        30
+        28
     );
 
 }
 
 
-/* ==================================================
-   FALLING FLOWERS
-================================================== */
+/* =====================================================
+   HOA / TIM RƠI
+===================================================== */
 
 const fallingItems = [
     "🌸",
     "🌷",
-    "🌹",
     "🌺",
-    "💗",
-    "💕",
+    "🌼",
+    "💙",
     "✨",
     "💐"
 ];
@@ -218,17 +180,12 @@ const fallingItems = [
 
 function createFallingItem() {
 
-    if (!fallingContainer) {
-        return;
-    }
-
     const item =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
     item.className =
         "falling-item";
+
 
     item.textContent =
         fallingItems[
@@ -238,28 +195,33 @@ function createFallingItem() {
             )
         ];
 
+
     item.style.left =
         Math.random() * 100 + "vw";
 
+
     item.style.fontSize =
         12 +
-        Math.random() * 18 +
+        Math.random() * 16 +
         "px";
+
 
     item.style.animationDuration =
         5 +
-        Math.random() * 7 +
+        Math.random() * 6 +
         "s";
 
-    fallingContainer.appendChild(
-        item
-    );
+
+    fallingContainer.appendChild(item);
+
 
     setTimeout(
-        () => {
+        function () {
+
             item.remove();
+
         },
-        13000
+        12000
     );
 
 }
@@ -267,30 +229,27 @@ function createFallingItem() {
 
 setInterval(
     createFallingItem,
-    550
+    650
 );
 
 
-/* ==================================================
-   CLICK HEART
-================================================== */
+/* =====================================================
+   TIM KHI CLICK
+===================================================== */
 
 document.addEventListener(
     "click",
-    (event) => {
+    function (event) {
 
         if (
-            event.target.closest(
-                "button"
-            ) ||
-            event.target.closest(
-                ".envelope"
-            )
+            event.target.closest("button") ||
+            event.target.closest(".envelope")
         ) {
             return;
         }
 
-        createClickHeart(
+
+        createHeart(
             event.clientX,
             event.clientY
         );
@@ -299,27 +258,26 @@ document.addEventListener(
 );
 
 
-function createClickHeart(
+function createHeart(
     x,
     y
 ) {
 
     const heart =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
     heart.className =
         "click-heart";
 
+
     const symbols = [
-        "💗",
+        "💙",
+        "💜",
         "💖",
-        "💕",
-        "💓",
-        "🌸",
-        "🌷"
+        "✨",
+        "🌸"
     ];
+
 
     heart.textContent =
         symbols[
@@ -329,19 +287,22 @@ function createClickHeart(
             )
         ];
 
+
     heart.style.left =
         x + "px";
 
     heart.style.top =
         y + "px";
 
-    clickEffects.appendChild(
-        heart
-    );
+
+    clickEffects.appendChild(heart);
+
 
     setTimeout(
-        () => {
+        function () {
+
             heart.remove();
+
         },
         1000
     );
@@ -349,9 +310,9 @@ function createClickHeart(
 }
 
 
-/* ==================================================
-   HEART BURST
-================================================== */
+/* =====================================================
+   HIỆU ỨNG NỔ TIM
+===================================================== */
 
 function heartBurst() {
 
@@ -361,33 +322,36 @@ function heartBurst() {
     const centerY =
         window.innerHeight / 2;
 
+
     for (
         let i = 0;
-        i < 16;
+        i < 14;
         i++
     ) {
 
         setTimeout(
-            () => {
+            function () {
 
                 const angle =
                     Math.random() *
                     Math.PI *
                     2;
 
-                const radius =
+
+                const distance =
                     30 +
                     Math.random() *
                     100;
 
-                createClickHeart(
+
+                createHeart(
                     centerX +
                     Math.cos(angle) *
-                    radius,
+                    distance,
 
                     centerY +
                     Math.sin(angle) *
-                    radius
+                    distance
                 );
 
             },
@@ -399,9 +363,9 @@ function heartBurst() {
 }
 
 
-/* ==================================================
-   BOUQUET
-================================================== */
+/* =====================================================
+   BÓ HOA
+===================================================== */
 
 const flowerSets = [
 
@@ -451,16 +415,7 @@ flowerButton.addEventListener(
 
 function createBouquet() {
 
-    const bouquet =
-        document.createElement(
-            "div"
-        );
-
-    bouquet.className =
-        "bouquet";
-
-
-    const selected =
+    const flowers =
         flowerSets[
             Math.floor(
                 Math.random() *
@@ -469,24 +424,31 @@ function createBouquet() {
         ];
 
 
+    const bouquet =
+        document.createElement("div");
+
+    bouquet.className =
+        "bouquet";
+
+
     bouquet.innerHTML = `
 
         <div class="bouquet-flowers">
 
             <div class="flower">
-                ${selected[0]}
+                ${flowers[0]}
             </div>
 
             <div class="flower">
-                ${selected[1]}
+                ${flowers[1]}
             </div>
 
             <div class="flower">
-                ${selected[2]}
+                ${flowers[2]}
             </div>
 
             <div class="flower">
-                ${selected[3]}
+                ${flowers[3]}
             </div>
 
             <div class="leaf leaf-left">
@@ -511,16 +473,13 @@ function createBouquet() {
     );
 
 
-    /* Không để quá nhiều bó hoa */
-
     const bouquets =
         bouquetContainer.querySelectorAll(
             ".bouquet"
         );
 
-    if (
-        bouquets.length > 6
-    ) {
+
+    if (bouquets.length > 6) {
 
         bouquets[
             bouquets.length - 1
@@ -534,14 +493,14 @@ function createBouquet() {
 }
 
 
-/* ==================================================
+/* =====================================================
    DARK MODE
-================================================== */
+===================================================== */
 
 let darkMode =
     localStorage.getItem(
-        "20-10-dark-mode"
-    ) === "true";
+        "20-10-theme"
+    ) === "dark";
 
 
 function updateTheme() {
@@ -550,6 +509,7 @@ function updateTheme() {
         "dark",
         darkMode
     );
+
 
     themeButton.textContent =
         darkMode
@@ -564,15 +524,19 @@ updateTheme();
 
 themeButton.addEventListener(
     "click",
-    () => {
+    function () {
 
         darkMode =
             !darkMode;
 
+
         localStorage.setItem(
-            "20-10-dark-mode",
+            "20-10-theme",
             darkMode
+                ? "dark"
+                : "light"
         );
+
 
         updateTheme();
 
@@ -580,236 +544,38 @@ themeButton.addEventListener(
 );
 
 
-/* ==================================================
-   NHẠC NỀN
-   Web Audio API
-   Không cần music.mp3
-================================================== */
-
-let audioContext = null;
-
-let musicPlaying = false;
-
-let musicTimer = null;
-
-let oscillators = [];
-
-
-function startMusic() {
-
-    if (musicPlaying) {
-        return;
-    }
-
-
-    audioContext =
-        new (
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
-
-
-    if (
-        audioContext.state ===
-        "suspended"
-    ) {
-
-        audioContext.resume();
-
-    }
-
-
-    musicPlaying = true;
-
-    musicButton.textContent =
-        "🔊";
-
-
-    playSoftNote();
-
-}
-
-
-function playSoftNote() {
-
-    if (
-        !musicPlaying ||
-        !audioContext
-    ) {
-        return;
-    }
-
-
-    const notes = [
-        261.63,
-        329.63,
-        392.00,
-        523.25
-    ];
-
-
-    const frequency =
-        notes[
-            Math.floor(
-                Math.random() *
-                notes.length
-            )
-        ];
-
-
-    const oscillator =
-        audioContext.createOscillator();
-
-    const gain =
-        audioContext.createGain();
-
-
-    oscillator.type =
-        "sine";
-
-    oscillator.frequency.value =
-        frequency;
-
-
-    gain.gain.setValueAtTime(
-        0,
-        audioContext.currentTime
-    );
-
-
-    gain.gain.linearRampToValueAtTime(
-        0.035,
-        audioContext.currentTime + 0.08
-    );
-
-
-    gain.gain.linearRampToValueAtTime(
-        0,
-        audioContext.currentTime + 1.8
-    );
-
-
-    oscillator.connect(gain);
-
-    gain.connect(
-        audioContext.destination
-    );
-
-
-    oscillator.start();
-
-    oscillator.stop(
-        audioContext.currentTime + 1.8
-    );
-
-
-    oscillators.push(
-        oscillator
-    );
-
-
-    musicTimer =
-        setTimeout(
-            playSoftNote,
-            700
-        );
-
-}
-
-
-function stopMusic() {
-
-    musicPlaying = false;
-
-    musicButton.textContent =
-        "🔇";
-
-
-    if (musicTimer) {
-
-        clearTimeout(
-            musicTimer
-        );
-
-        musicTimer = null;
-
-    }
-
-
-    oscillators.forEach(
-        (oscillator) => {
-
-            try {
-                oscillator.stop();
-            } catch (error) {
-                // Đã dừng
-            }
-
-        }
-    );
-
-
-    oscillators = [];
-
-
-    if (audioContext) {
-
-        audioContext.close();
-
-        audioContext = null;
-
-    }
-
-}
-
-
-musicButton.addEventListener(
-    "click",
-    () => {
-
-        if (musicPlaying) {
-
-            stopMusic();
-
-        } else {
-
-            startMusic();
-
-        }
-
-    }
-);
-
-
-/* ==================================================
-   SURPRISE
-================================================== */
+/* =====================================================
+   NÚT BẤT NGỜ
+===================================================== */
 
 let surpriseOpened = false;
 
 
 surpriseButton.addEventListener(
     "click",
-    () => {
+    function () {
 
         if (!surpriseOpened) {
 
             surpriseOpened = true;
 
+
             surpriseText.innerHTML =
-                "🌸 Điều bất ngờ là: <strong>bạn xứng đáng với thật nhiều niềm vui, hạnh phúc và những điều tốt đẹp!</strong> 💖";
+                "🌸 Điều bất ngờ là: <strong>bạn xứng đáng với thật nhiều niềm vui, hạnh phúc và những điều tốt đẹp!</strong> 💙";
+
 
             surpriseButton.textContent =
-                "💖 Cảm ơn nhé";
+                "💙 Cảm ơn nhé";
+
 
             heartBurst();
 
-        } else {
+        }
+
+        else {
 
             surpriseText.textContent =
                 "Chúc bạn có một ngày 20/10 thật đáng nhớ! 🌷";
-
-            heartBurst();
 
         }
 
@@ -817,34 +583,16 @@ surpriseButton.addEventListener(
 );
 
 
-/* ==================================================
-   SAVE BUTTON
-================================================== */
-
-saveButton.addEventListener(
-    "click",
-    () => {
-
-        alert(
-            "💖 Hãy chụp màn hình trang này để lưu lại lời chúc 20/10 nhé!"
-        );
-
-        heartBurst();
-
-    }
-);
-
-
-/* ==================================================
-   SCROLL ANIMATION
-================================================== */
+/* =====================================================
+   HIỆN CARD KHI CUỘN
+===================================================== */
 
 const observer =
     new IntersectionObserver(
-        (entries) => {
+        function (entries) {
 
             entries.forEach(
-                (entry) => {
+                function (entry) {
 
                     if (
                         entry.isIntersecting
@@ -861,25 +609,23 @@ const observer =
 
         },
         {
-            threshold: .2
+            threshold: 0.2
         }
     );
 
 
-observer.observe(
-    wishCard
-);
+observer.observe(wishCard);
 
 
-/* ==================================================
-   HOA BAN ĐẦU
-================================================== */
+/* =====================================================
+   TẠO BÓ HOA ĐẦU TIÊN
+===================================================== */
 
 setTimeout(
-    () => {
+    function () {
 
         createBouquet();
 
     },
-    900
+    800
 );
