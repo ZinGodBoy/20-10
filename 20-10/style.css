@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #e91e63;
+    --pink-light: #ff5c93;
+    --pink-soft: #fff0f5;
+    --purple: #8e44ad;
+    --text: #3b2630;
+    --white: #ffffff;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Be Vietnam Pro", sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, #ffd9e6 0, transparent 30%),
+        radial-gradient(circle at 80% 80%, #ead8ff 0, transparent 30%),
+        linear-gradient(135deg, #fff5f8, #f9edff);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    overflow-x: hidden;
+    color: var(--text);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    position: relative;
+    z-index: 5;
+
+    width: min(650px, 100%);
+
+    padding: 45px 40px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 70px rgba(120, 50, 90, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+    backdrop-filter: blur(15px);
+
+    animation: cardAppear 1s ease;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   BADGE
+========================= */
+
+.badge {
+    display: inline-block;
+
+    padding: 9px 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 999px;
+
+    background: var(--pink-soft);
+
+    color: var(--pink);
+
+    font-weight: 700;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   FLOWER
+========================= */
+
+.flower-icon {
+    font-size: 65px;
+
+    margin-bottom: 12px;
+
+    animation: flowerFloat 3s ease-in-out infinite;
+}
+
+@keyframes flowerFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(3deg);
+    }
+}
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(36px, 7vw, 58px);
+
+    line-height: 1.15;
+
+    color: #452331;
+
+    margin-bottom: 12px;
+}
+
+h1 span {
+    background: linear-gradient(
+        90deg,
+        var(--pink),
+        var(--purple),
+        var(--pink)
+    );
+
+    background-size: 200% auto;
+
+    color: transparent;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    animation: gradientMove 4s linear infinite;
+}
+
+@keyframes gradientMove {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.date {
+    color: var(--pink);
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin-bottom: 22px;
+}
+
+.intro {
+    max-width: 500px;
+
+    margin: auto;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color: #725b64;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    border: none;
+
+    margin-top: 28px;
+
+    padding: 14px 30px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        135deg,
+        var(--pink),
+        var(--pink-light)
+    );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(233, 30, 99, 0.25);
+
+    transition: 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+
+    box-shadow:
+        0 15px 30px rgba(233, 30, 99, 0.35);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+    margin-top: 30px;
+
+    padding: 28px;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #fff6f9,
+        #faf3ff
+    );
+
+    border: 1px solid #f4dce7;
+
+    animation: messageAppear 0.7s ease;
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message p {
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    margin-bottom: 15px;
+
+    color: #604c55;
+}
+
+.message .special {
+    color: var(--pink);
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    margin-top: 20px;
+}
+
+.divider {
+    color: var(--pink);
+
+    letter-spacing: 8px;
+
+    margin-bottom: 20px;
+}
+
+.signature {
+    margin-top: 20px;
+
+    font-size: 13px;
+
+    color: #9b7c88;
+
+    font-style: italic;
+}
+
+/* =========================
+   BOTTOM
+========================= */
+
+.bottom {
+    margin-top: 30px;
+
+    font-size: 12px;
+
+    color: #a58c96;
+}
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden {
+    display: none;
+}
+
+/* =========================
+   BACKGROUND EFFECT
+========================= */
+
+.background {
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.flower,
+.heart {
+    position: absolute;
+
+    top: -60px;
+
+    font-size: 25px;
+
+    opacity: 0.75;
+
+    animation: fall linear infinite;
+}
+
+.flower:nth-child(1) {
+    left: 5%;
+    animation-duration: 9s;
+    animation-delay: 0s;
+}
+
+.flower:nth-child(2) {
+    left: 18%;
+    animation-duration: 11s;
+    animation-delay: 2s;
+}
+
+.flower:nth-child(3) {
+    left: 35%;
+    animation-duration: 8s;
+    animation-delay: 4s;
+}
+
+.flower:nth-child(4) {
+    left: 52%;
+    animation-duration: 10s;
+    animation-delay: 1s;
+}
+
+.flower:nth-child(5) {
+    left: 72%;
+    animation-duration: 12s;
+    animation-delay: 3s;
+}
+
+.flower:nth-child(6) {
+    left: 90%;
+    animation-duration: 9s;
+    animation-delay: 5s;
+}
+
+.heart:nth-child(7) {
+    left: 28%;
+    animation-duration: 10s;
+    animation-delay: 1s;
+}
+
+.heart:nth-child(8) {
+    left: 63%;
+    animation-duration: 13s;
+    animation-delay: 2s;
+}
+
+.heart:nth-child(9) {
+    left: 82%;
+    animation-duration: 8s;
+    animation-delay: 4s;
+}
+
+@keyframes fall {
+    0% {
+        transform:
+            translateY(-80px)
+            rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 35px 22px;
+
+        border-radius: 24px;
+    }
+
+    .flower-icon {
+        font-size: 52px;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+
+    .intro {
+        font-size: 14px;
+    }
+
+    .message {
+        padding: 22px 18px;
+    }
+
+    .message p {
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
