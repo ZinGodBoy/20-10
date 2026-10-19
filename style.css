@@ -1,11 +1,25 @@
-const openBtn = document.getElementById("openBtn");
-const message = document.getElementById("message");
-const btnText = document.getElementById("btnText");
-const effects = document.getElementById("effects");
+const openBtn =
+    document.getElementById("openBtn");
 
-/* =========================================
-   CÁC ICON RƠI
-========================================= */
+const message =
+    document.getElementById("message");
+
+const btnText =
+    document.getElementById("btnText");
+
+const effects =
+    document.getElementById("effects");
+
+const flowerBtn =
+    document.getElementById("flowerBtn");
+
+const bouquetContainer =
+    document.getElementById("bouquetContainer");
+
+
+/* ==================================================
+   ICON RƠI
+================================================== */
 
 const fallingIcons = [
     "🌸",
@@ -20,112 +34,85 @@ const fallingIcons = [
     "✨"
 ];
 
-/* =========================================
-   TẠO ICON RƠI
-========================================= */
 
 function createFallingItem() {
 
-    const item = document.createElement("span");
+    const item =
+        document.createElement("span");
 
-    item.className = "falling-item";
+    item.className =
+        "falling-item";
 
     item.textContent =
         fallingIcons[
             Math.floor(
-                Math.random() * fallingIcons.length
+                Math.random() *
+                fallingIcons.length
             )
         ];
 
-    const left =
-        Math.random() * 100;
+    item.style.left =
+        `${Math.random() * 100}%`;
 
-    const duration =
-        7 + Math.random() * 8;
-
-    const delay =
-        Math.random() * 2;
-
-    const size =
-        15 + Math.random() * 18;
-
-    const opacity =
-        0.35 + Math.random() * 0.5;
-
-    const moveX =
-        -100 + Math.random() * 200;
-
-    const rotate =
-        -360 + Math.random() * 720;
-
-    const scale =
-        0.65 + Math.random() * 0.7;
-
-    item.style.left = `${left}%`;
-
-    item.style.fontSize = `${size}px`;
+    item.style.fontSize =
+        `${15 + Math.random() * 18}px`;
 
     item.style.setProperty(
         "--duration",
-        `${duration}s`
+        `${7 + Math.random() * 8}s`
     );
 
     item.style.setProperty(
         "--delay",
-        `${delay}s`
+        `${Math.random() * 2}s`
     );
 
     item.style.setProperty(
         "--move-x",
-        `${moveX}px`
+        `${-100 + Math.random() * 200}px`
     );
 
     item.style.setProperty(
         "--rotate",
-        `${rotate}deg`
+        `${-360 + Math.random() * 720}deg`
     );
 
     item.style.setProperty(
         "--opacity",
-        opacity
+        `${0.35 + Math.random() * 0.5}`
     );
 
     item.style.setProperty(
         "--scale",
-        scale
+        `${0.65 + Math.random() * 0.7}`
     );
 
     effects.appendChild(item);
 
     setTimeout(() => {
         item.remove();
-    }, (duration + delay) * 1000 + 500);
+    }, 16000);
 }
 
-/* =========================================
-   KHỞI ĐỘNG HOA + TIM RƠI
-========================================= */
 
-function startFallingEffects() {
+for (let i = 0; i < 20; i++) {
 
-    for (let i = 0; i < 18; i++) {
-        setTimeout(
-            createFallingItem,
-            i * 350
-        );
-    }
-
-    setInterval(
+    setTimeout(
         createFallingItem,
-        650
+        i * 300
     );
 }
 
-startFallingEffects();
 
-/* =========================================
-   TIM BAY KHI MỞ LỜI CHÚC
-========================================= */
+setInterval(
+    createFallingItem,
+    650
+);
+
+
+/* ==================================================
+   TIM NỔ KHI MỞ LỜI CHÚC
+================================================== */
 
 function createHeartBurst() {
 
@@ -133,10 +120,12 @@ function createHeartBurst() {
         openBtn.getBoundingClientRect();
 
     const centerX =
-        rect.left + rect.width / 2;
+        rect.left +
+        rect.width / 2;
 
     const centerY =
-        rect.top + rect.height / 2;
+        rect.top +
+        rect.height / 2;
 
     const icons = [
         "💗",
@@ -146,19 +135,24 @@ function createHeartBurst() {
         "🌸"
     ];
 
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 20; i++) {
 
         const heart =
             document.createElement("span");
 
-        heart.className = "burst-heart";
+        heart.className =
+            "burst-heart";
 
         heart.textContent =
             icons[
                 Math.floor(
-                    Math.random() * icons.length
+                    Math.random() *
+                    icons.length
                 )
             ];
+
+        heart.style.position =
+            "fixed";
 
         heart.style.left =
             `${centerX}px`;
@@ -166,81 +160,252 @@ function createHeartBurst() {
         heart.style.top =
             `${centerY}px`;
 
+        heart.style.zIndex =
+            "50";
+
+        heart.style.pointerEvents =
+            "none";
+
         const angle =
-            Math.random() * Math.PI * 2;
+            Math.random() *
+            Math.PI *
+            2;
 
         const distance =
-            70 + Math.random() * 130;
+            70 +
+            Math.random() * 140;
 
         const x =
-            Math.cos(angle) * distance;
+            Math.cos(angle) *
+            distance;
 
         const y =
-            Math.sin(angle) * distance;
+            Math.sin(angle) *
+            distance;
 
-        const rotate =
-            -60 + Math.random() * 120;
+        heart.animate(
+            [
+                {
+                    transform:
+                        "translate(-50%, -50%) scale(.3)",
+                    opacity: 1
+                },
+                {
+                    transform:
+                        `translate(
+                            calc(-50% + ${x}px),
+                            calc(-50% + ${y}px)
+                        )
+                        scale(1.4)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration:
+                    900 +
+                    Math.random() * 500,
 
-        heart.style.setProperty(
-            "--x",
-            `${x}px`
+                easing:
+                    "cubic-bezier(.2,.8,.2,1)"
+            }
         );
 
-        heart.style.setProperty(
-            "--y",
-            `${y}px`
+        document.body.appendChild(
+            heart
         );
-
-        heart.style.setProperty(
-            "--rotate",
-            `${rotate}deg`
-        );
-
-        document.body.appendChild(heart);
 
         setTimeout(() => {
             heart.remove();
-        }, 1000);
+        }, 1500);
     }
 }
 
-/* =========================================
-   NÚT MỞ LỜI CHÚC
-========================================= */
 
-openBtn.addEventListener("click", () => {
+/* ==================================================
+   MỞ LỜI CHÚC
+================================================== */
 
-    const opened =
-        message.classList.contains("show");
+openBtn.addEventListener(
+    "click",
+    () => {
 
-    if (!opened) {
+        const opened =
+            message.classList.contains(
+                "show"
+            );
 
-        message.classList.add("show");
+        if (!opened) {
 
-        btnText.textContent =
-            "Đã mở lời chúc 💖";
+            message.classList.add(
+                "show"
+            );
 
-        createHeartBurst();
+            btnText.textContent =
+                "Đã mở lời chúc 💖";
+
+            createHeartBurst();
+
+            setTimeout(() => {
+
+                message.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }, 300);
+
+        } else {
+
+            message.classList.remove(
+                "show"
+            );
+
+            btnText.textContent =
+                "Mở lời chúc";
+
+        }
+    }
+);
+
+
+/* ==================================================
+   TẠO BÓ HOA
+================================================== */
+
+let bouquetCount = 0;
+
+
+function createBouquet() {
+
+    bouquetCount++;
+
+    const bouquet =
+        document.createElement("div");
+
+    bouquet.className =
+        "bouquet";
+
+    bouquet.innerHTML = `
+
+        <div class="bouquet-flowers">
+
+            <span class="flower-piece">
+                🌹
+            </span>
+
+            <span class="flower-piece">
+                🌸
+            </span>
+
+            <span class="flower-piece">
+                🌷
+            </span>
+
+            <span class="flower-piece">
+                🌺
+            </span>
+
+            <span class="flower-piece">
+                🌼
+            </span>
+
+            <div class="leaves">
+                🌿🌿🌿
+            </div>
+
+            <div class="wrapper-paper"></div>
+
+            <div class="wrapper-fold"></div>
+
+            <div class="ribbon">
+                <div class="ribbon-center"></div>
+            </div>
+
+        </div>
+
+        <div class="bouquet-number">
+            Bó hoa #${bouquetCount} dành tặng bạn 💐
+        </div>
+    `;
+
+
+    bouquetContainer.prepend(
+        bouquet
+    );
+
+
+    /* ===============================
+       TIM BAY QUANH BÓ HOA
+    =============================== */
+
+    for (let i = 0; i < 8; i++) {
 
         setTimeout(() => {
 
-            message.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+            const heart =
+                document.createElement(
+                    "span"
+                );
 
-        }, 300);
+            heart.className =
+                "bouquet-heart";
 
-    } else {
+            heart.textContent =
+                Math.random() > .5
+                    ? "💗"
+                    : "✨";
 
-        message.classList.remove("show");
+            heart.style.left =
+                `${35 + Math.random() * 30}%`;
 
-        btnText.textContent =
-            "Mở lời chúc";
+            heart.style.bottom =
+                `${45 + Math.random() * 25}px`;
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+            heart.style.setProperty(
+                "--heart-x",
+                `${-60 + Math.random() * 120}px`
+            );
+
+            bouquet.appendChild(
+                heart
+            );
+
+            setTimeout(() => {
+                heart.remove();
+            }, 2600);
+
+        }, i * 180);
     }
-});
+
+
+    /* ===============================
+       CUỘN TỚI BÓ HOA MỚI
+    =============================== */
+
+    setTimeout(() => {
+
+        bouquet.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 250);
+}
+
+
+/* ==================================================
+   NÚT TẶNG HOA
+================================================== */
+
+flowerBtn.addEventListener(
+    "click",
+    () => {
+
+        createBouquet();
+
+        flowerBtn.innerHTML =
+            "💐 Tặng thêm một bó nữa";
+
+    }
+);
+       
