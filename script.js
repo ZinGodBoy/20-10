@@ -1,714 +1,526 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* ==================================================
-       ELEMENTS
-    ================================================== */
-
-    const slides =
-        Array.from(
-            document.querySelectorAll(".slide")
-        );
-
-    const nextButton =
-        document.getElementById("nextButton");
-
-    const prevButton =
-        document.getElementById("prevButton");
-
-    const pageCurrent =
-        document.getElementById("pageCurrent");
-
-    const dots =
-        Array.from(
-            document.querySelectorAll(".slide-dot")
-        );
-
-    const nextLinks =
-        Array.from(
-            document.querySelectorAll("[data-next]")
-        );
-
-    const themeToggle =
-        document.getElementById("themeToggle");
-
-    const restartButton =
-        document.getElementById("restartButton");
-
-    const toast =
-        document.getElementById("toast");
+"use strict";
 
 
-    /* LETTER */
+/* =========================================
+   LẤY CÁC PHẦN TỬ
+========================================= */
 
-    const envelope =
-        document.getElementById("envelope");
+const slides = Array.from(
+    document.querySelectorAll(".slide")
+);
 
-    const letterCard =
-        document.getElementById("letterCard");
+const previousButton =
+    document.getElementById("previous");
 
-    const letterHeading =
-        document.getElementById("letterHeading");
+const nextButton =
+    document.getElementById("next");
 
-    const letterControl =
-        document.getElementById("letterControl");
+const slideButtons =
+    Array.from(
+        document.querySelectorAll(
+            "[data-slide-target]"
+        )
+    );
 
-
-    /* ==================================================
-       STATE
-    ================================================== */
-
-    let currentIndex = 0;
-
-    let letterIsOpen = false;
-
-    let touchStartX = 0;
-
-    let touchStartY = 0;
-
-    let toastTimer = null;
+const counter =
+    document.getElementById("counter");
 
 
-    /* ==================================================
-       HELPERS
-    ================================================== */
+/* =========================================
+   LETTER
+========================================= */
 
-    function formatPageNumber(number) {
-        return String(number).padStart(2, "0");
-    }
+const envelope =
+    document.getElementById("envelope");
 
+const letter =
+    document.getElementById("letter");
 
-    function showToast(message) {
+const letterIntro =
+    document.getElementById("letterIntro");
 
-        if (!toast) {
-            return;
-        }
-
-        clearTimeout(toastTimer);
-
-        toast.textContent = message;
-
-        toast.classList.add("show");
-
-        toastTimer = setTimeout(() => {
-
-            toast.classList.remove("show");
-
-        }, 2200);
-    }
+const letterClose =
+    document.getElementById("letterClose");
 
 
-    /* ==================================================
-       LETTER RESET
-    ================================================== */
+/* =========================================
+   WISH
+========================================= */
 
-    function resetLetter() {
+const wishButton =
+    document.getElementById("wishButton");
 
-        letterIsOpen = false;
-
-        envelope.classList.remove("hide");
-
-        letterCard.classList.remove("show");
-
-        letterCard.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        letterHeading.classList.remove("hide");
-
-        letterControl.innerHTML = `
-            <span>Mở bức thư</span>
-            <strong>→</strong>
-        `;
-
-        envelope.setAttribute(
-            "aria-label",
-            "Mở bức thư"
-        );
-    }
+const wishResult =
+    document.getElementById("wishResult");
 
 
-    /* ==================================================
-       OPEN LETTER
-    ================================================== */
+/* =========================================
+   STATE
+========================================= */
 
-    function openLetter() {
+let currentSlide = 0;
 
-        if (letterIsOpen) {
-            return;
-        }
+let letterIsOpen = false;
 
-        letterIsOpen = true;
+let touchStartX = null;
 
 
-        /* Ẩn tiêu đề */
+/* =========================================
+   CẬP NHẬT SLIDE
+========================================= */
 
-        letterHeading.classList.add("hide");
+function updateSlide() {
 
+    slides.forEach(
+        (slide, index) => {
 
-        /* Ẩn phong bì */
+            const isActive =
+                index === currentSlide;
 
-        envelope.classList.add("hide");
+            slide.classList.toggle(
+                "active",
+                isActive
+            );
 
-
-        /*
-         * Đợi một chút để chuyển đổi
-         * không bị giật.
-         */
-
-        window.setTimeout(() => {
-
-            letterCard.classList.add("show");
-
-            letterCard.setAttribute(
+            slide.setAttribute(
                 "aria-hidden",
-                "false"
+                String(!isActive)
+            );
+        }
+    );
+
+
+    /* THANH SLIDE */
+
+    slideButtons.forEach(
+        (button, index) => {
+
+            const isActive =
+                index === currentSlide;
+
+            button.classList.toggle(
+                "active",
+                isActive
             );
 
-        }, 120);
-
-
-        /* Nút */
-
-        letterControl.innerHTML = `
-            <span>Đóng bức thư</span>
-            <strong>↩</strong>
-        `;
-
-
-        envelope.setAttribute(
-            "aria-label",
-            "Đóng bức thư"
-        );
-
-
-        showToast(
-            "Bạn đã mở bức thư ♡"
-        );
-    }
-
-
-    /* ==================================================
-       CLOSE LETTER
-    ================================================== */
-
-    function closeLetter() {
-
-        if (!letterIsOpen) {
-            return;
-        }
-
-        letterIsOpen = false;
-
-
-        /* Ẩn lá thư */
-
-        letterCard.classList.remove("show");
-
-        letterCard.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-
-        /*
-         * Chờ animation lá thư kết thúc
-         * rồi mới hiện phong bì.
-         */
-
-        window.setTimeout(() => {
-
-            envelope.classList.remove("hide");
-
-            letterHeading.classList.remove("hide");
-
-        }, 260);
-
-
-        letterControl.innerHTML = `
-            <span>Mở bức thư</span>
-            <strong>→</strong>
-        `;
-
-
-        envelope.setAttribute(
-            "aria-label",
-            "Mở bức thư"
-        );
-    }
-
-
-    /* ==================================================
-       TOGGLE LETTER
-    ================================================== */
-
-    function toggleLetter() {
-
-        if (letterIsOpen) {
-
-            closeLetter();
-
-        } else {
-
-            openLetter();
-
-        }
-    }
-
-
-    /* ==================================================
-       LETTER EVENTS
-    ================================================== */
-
-    envelope.addEventListener(
-        "click",
-        () => {
-
-            openLetter();
-
+            button.setAttribute(
+                "aria-current",
+                isActive
+                    ? "page"
+                    : "false"
+            );
         }
     );
 
 
-    envelope.addEventListener(
-        "keydown",
-        (event) => {
+    /* NÚT TRÁI */
 
-            if (
-                event.key === "Enter" ||
-                event.key === " "
-            ) {
-
-                event.preventDefault();
-
-                openLetter();
-
-            }
-
-        }
-    );
+    previousButton.disabled =
+        currentSlide === 0;
 
 
-    letterControl.addEventListener(
-        "click",
-        () => {
+    /* NÚT PHẢI */
 
-            toggleLetter();
-
-        }
-    );
+    nextButton.disabled =
+        currentSlide === slides.length - 1;
 
 
-    /* ==================================================
-       GO TO SLIDE
-    ================================================== */
+    /* SỐ TRANG */
 
-    function goToSlide(index) {
-
-        /*
-         * Giới hạn index.
-         */
-
-        if (index < 0) {
-            index = 0;
-        }
-
-        if (index >= slides.length) {
-            index = slides.length - 1;
-        }
+    counter.textContent =
+        String(currentSlide + 1)
+            .padStart(2, "0")
+        +
+        " / "
+        +
+        String(slides.length)
+            .padStart(2, "0");
 
 
-        /*
-         * Nếu đang mở thư mà rời trang thư,
-         * đóng thư trước.
-         */
+    /*
+       Nếu rời khỏi trang thư
+       thì tự đóng thư
+    */
 
-        if (
-            currentIndex === 2 &&
-            index !== 2 &&
-            letterIsOpen
-        ) {
-
-            resetLetter();
-
-        }
+    if (
+        currentSlide !== 2 &&
+        letterIsOpen
+    ) {
+        closeLetter();
+    }
+}
 
 
-        currentIndex = index;
+/* =========================================
+   CHUYỂN TRANG
+========================================= */
+
+function goToSlide(index) {
+
+    if (
+        index < 0 ||
+        index >= slides.length
+    ) {
+        return;
+    }
+
+    currentSlide = index;
+
+    updateSlide();
+}
 
 
-        /* SLIDES */
+function nextSlide() {
 
-        slides.forEach(
-            (slide, slideIndex) => {
+    if (
+        currentSlide <
+        slides.length - 1
+    ) {
+        goToSlide(
+            currentSlide + 1
+        );
+    }
+}
 
-                const isActive =
-                    slideIndex === currentIndex;
 
-                slide.classList.toggle(
-                    "active",
-                    isActive
-                );
+function previousSlide() {
 
-                slide.setAttribute(
-                    "aria-hidden",
-                    String(!isActive)
-                );
+    if (
+        currentSlide > 0
+    ) {
+        goToSlide(
+            currentSlide - 1
+        );
+    }
+}
 
+
+/* =========================================
+   NÚT TRÁI
+========================================= */
+
+previousButton.addEventListener(
+    "click",
+    previousSlide
+);
+
+
+/* =========================================
+   NÚT PHẢI
+========================================= */
+
+nextButton.addEventListener(
+    "click",
+    nextSlide
+);
+
+
+/* =========================================
+   CÁC CHẤM SLIDE
+========================================= */
+
+slideButtons.forEach(
+    (button) => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const target =
+                    Number(
+                        button.dataset
+                            .slideTarget
+                    );
+
+                goToSlide(target);
             }
         );
-
-
-        /* PAGE NUMBER */
-
-        pageCurrent.textContent =
-            formatPageNumber(
-                currentIndex + 1
-            );
-
-
-        /* DOTS */
-
-        dots.forEach(
-            (dot, dotIndex) => {
-
-                dot.classList.toggle(
-                    "active",
-                    dotIndex === currentIndex
-                );
-
-            }
-        );
-
-
-        /* ARROWS */
-
-        prevButton.classList.toggle(
-            "disabled",
-            currentIndex === 0
-        );
-
-        nextButton.classList.toggle(
-            "disabled",
-            currentIndex === slides.length - 1
-        );
-
     }
+);
 
 
-    /* ==================================================
-       NEXT
-    ================================================== */
+/* =========================================
+   CÁC NÚT DATA-GO
+========================================= */
 
-    function nextSlide() {
-
-        if (
-            currentIndex <
-            slides.length - 1
-        ) {
-
-            goToSlide(
-                currentIndex + 1
-            );
-
-        }
-
-    }
-
-
-    /* ==================================================
-       PREVIOUS
-    ================================================== */
-
-    function previousSlide() {
-
-        if (currentIndex > 0) {
-
-            goToSlide(
-                currentIndex - 1
-            );
-
-        }
-
-    }
-
-
-    /* ==================================================
-       NAVIGATION EVENTS
-    ================================================== */
-
-    nextButton.addEventListener(
-        "click",
-        nextSlide
-    );
-
-
-    prevButton.addEventListener(
-        "click",
-        previousSlide
-    );
-
-
-    nextLinks.forEach(
+document
+    .querySelectorAll("[data-go]")
+    .forEach(
         (button) => {
 
             button.addEventListener(
-                "click",
-                nextSlide
-            );
-
-        }
-    );
-
-
-    dots.forEach(
-        (dot) => {
-
-            dot.addEventListener(
                 "click",
                 () => {
 
                     const target =
                         Number(
-                            dot.dataset.goTo
+                            button.dataset.go
                         );
 
                     goToSlide(target);
-
                 }
             );
-
         }
     );
 
 
-    /* ==================================================
-       KEYBOARD
-    ================================================== */
+/* =========================================
+   MỞ THƯ
+========================================= */
 
-    document.addEventListener(
-        "keydown",
-        (event) => {
+function openLetter() {
 
-            /*
-             * Không xử lý nếu người dùng đang
-             * thao tác với input/textarea.
-             */
-
-            const tag =
-                document.activeElement?.tagName;
-
-            if (
-                tag === "INPUT" ||
-                tag === "TEXTAREA"
-            ) {
-                return;
-            }
-
-
-            if (event.key === "ArrowRight") {
-
-                event.preventDefault();
-
-                nextSlide();
-
-            }
-
-
-            if (event.key === "ArrowLeft") {
-
-                event.preventDefault();
-
-                previousSlide();
-
-            }
-
-
-            if (
-                event.key === "Escape" &&
-                letterIsOpen
-            ) {
-
-                closeLetter();
-
-            }
-
-        }
-    );
-
-
-    /* ==================================================
-       TOUCH SWIPE
-    ================================================== */
-
-    document.addEventListener(
-        "touchstart",
-        (event) => {
-
-            const touch =
-                event.changedTouches[0];
-
-            touchStartX =
-                touch.clientX;
-
-            touchStartY =
-                touch.clientY;
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    document.addEventListener(
-        "touchend",
-        (event) => {
-
-            const touch =
-                event.changedTouches[0];
-
-            const endX =
-                touch.clientX;
-
-            const endY =
-                touch.clientY;
-
-            const distanceX =
-                endX - touchStartX;
-
-            const distanceY =
-                endY - touchStartY;
-
-
-            /*
-             * Nếu vuốt chủ yếu theo chiều dọc
-             * thì bỏ qua.
-             */
-
-            if (
-                Math.abs(distanceY) >
-                Math.abs(distanceX)
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-             * Không đủ khoảng cách thì bỏ qua.
-             */
-
-            if (
-                Math.abs(distanceX) < 60
-            ) {
-
-                return;
-
-            }
-
-
-            if (distanceX < 0) {
-
-                nextSlide();
-
-            } else {
-
-                previousSlide();
-
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* ==================================================
-       THEME
-    ================================================== */
-
-    const savedTheme =
-        localStorage.getItem(
-            "20-10-theme"
-        );
-
-
-    if (savedTheme === "dark") {
-
-        document.body.classList.add("dark");
-
-        themeToggle.textContent = "☾";
-
-    } else {
-
-        themeToggle.textContent = "☼";
-
+    if (letterIsOpen) {
+        return;
     }
 
-
-    themeToggle.addEventListener(
-        "click",
-        () => {
-
-            const isDark =
-                document.body.classList.toggle(
-                    "dark"
-                );
+    letterIsOpen = true;
 
 
-            if (isDark) {
+    /*
+       Ẩn phần:
 
-                themeToggle.textContent = "☾";
+       02
+       SECRET LETTER
+       Một bức thư nhỏ
+       Có một lời nhắn...
+    */
 
-                localStorage.setItem(
-                    "20-10-theme",
-                    "dark"
-                );
-
-            } else {
-
-                themeToggle.textContent = "☼";
-
-                localStorage.setItem(
-                    "20-10-theme",
-                    "light"
-                );
-
-            }
-
-        }
+    letterIntro.classList.add(
+        "hidden"
     );
 
 
-    /* ==================================================
-       RESTART
-    ================================================== */
+    /*
+       Ẩn phong bì
+    */
 
-    restartButton.addEventListener(
-        "click",
-        () => {
-
-            resetLetter();
-
-            goToSlide(0);
-
-            showToast(
-                "Bắt đầu lại món quà ♡"
-            );
-
-        }
+    envelope.classList.add(
+        "hidden"
     );
 
 
-    /* ==================================================
-       INITIAL STATE
-    ================================================== */
+    /*
+       Hiện thư
+    */
 
-    resetLetter();
+    letter.classList.add(
+        "open"
+    );
 
-    goToSlide(0);
+    letter.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-});
+
+    /*
+       Đưa focus vào nút X
+    */
+
+    setTimeout(
+        () => {
+            letterClose.focus();
+        },
+        150
+    );
+}
+
+
+/* =========================================
+   ĐÓNG THƯ
+========================================= */
+
+function closeLetter() {
+
+    if (!letterIsOpen) {
+        return;
+    }
+
+    letterIsOpen = false;
+
+
+    /*
+       Hiện lại intro
+    */
+
+    letterIntro.classList.remove(
+        "hidden"
+    );
+
+
+    /*
+       Hiện lại phong bì
+    */
+
+    envelope.classList.remove(
+        "hidden"
+    );
+
+
+    /*
+       Ẩn thư
+    */
+
+    letter.classList.remove(
+        "open"
+    );
+
+    letter.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+}
+
+
+/* =========================================
+   CLICK PHONG BÌ
+========================================= */
+
+envelope.addEventListener(
+    "click",
+    openLetter
+);
+
+
+/* =========================================
+   CLICK X
+========================================= */
+
+letterClose.addEventListener(
+    "click",
+    closeLetter
+);
+
+
+/* =========================================
+   NÚT LỜI CHÚC
+========================================= */
+
+wishButton.addEventListener(
+    "click",
+    () => {
+
+        wishResult.textContent =
+            "Chúc bạn luôn được yêu thương, luôn vui và luôn có thật nhiều ngày đẹp. ♡";
+    }
+);
+
+
+/* =========================================
+   BÀN PHÍM MÁY TÍNH
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+            nextSlide();
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+            previousSlide();
+        }
+
+
+        if (
+            event.key === "Escape" &&
+            letterIsOpen
+        ) {
+            closeLetter();
+        }
+    }
+);
+
+
+/* =========================================
+   VUỐT ĐIỆN THOẠI
+========================================= */
+
+document.addEventListener(
+    "touchstart",
+    (event) => {
+
+        if (
+            event.touches.length !== 1
+        ) {
+            return;
+        }
+
+        touchStartX =
+            event.touches[0].clientX;
+    },
+    {
+        passive: true
+    }
+);
+
+
+document.addEventListener(
+    "touchend",
+    (event) => {
+
+        if (
+            touchStartX === null ||
+            event.changedTouches.length !== 1
+        ) {
+            return;
+        }
+
+        const touchEndX =
+            event.changedTouches[0].clientX;
+
+        const distance =
+            touchEndX - touchStartX;
+
+        touchStartX = null;
+
+
+        /*
+           Vuốt quá ngắn
+           => không làm gì
+        */
+
+        if (
+            Math.abs(distance) < 55
+        ) {
+            return;
+        }
+
+
+        /*
+           Vuốt trái
+           => trang sau
+        */
+
+        if (distance < 0) {
+            nextSlide();
+        }
+
+
+        /*
+           Vuốt phải
+           => trang trước
+        */
+
+        else {
+            previousSlide();
+        }
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* =========================================
+   KHỞI TẠO
+========================================= */
+
+updateSlide();
