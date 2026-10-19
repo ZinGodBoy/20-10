@@ -1,411 +1,1035 @@
-const openBtn =
-    document.getElementById("openBtn");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-const message =
-    document.getElementById("message");
+:root {
+    --pink: #ec4899;
+    --pink-dark: #be185d;
+    --purple: #8b5cf6;
+    --blue: #6366f1;
+    --text: #29213d;
+    --muted: #756d82;
+    --white: #ffffff;
+    --card: rgba(255,255,255,.78);
+    --shadow: 0 20px 60px rgba(120, 67, 130, .15);
+    --bg1: #fff4fb;
+    --bg2: #f3f5ff;
+}
 
-const btnText =
-    document.getElementById("btnText");
+body.dark {
+    --text: #f8f4ff;
+    --muted: #c9bfd4;
+    --card: rgba(40, 30, 55, .78);
+    --bg1: #171222;
+    --bg2: #24172e;
+    background:
+        radial-gradient(circle at 20% 10%, #45204f, transparent 35%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+}
 
-const effects =
-    document.getElementById("effects");
+html {
+    scroll-behavior: smooth;
+}
 
-const flowerBtn =
-    document.getElementById("flowerBtn");
+body {
+    min-height: 100vh;
 
-const bouquetContainer =
-    document.getElementById("bouquetContainer");
+    font-family: "Be Vietnam Pro", sans-serif;
+    color: var(--text);
 
+    background:
+        radial-gradient(circle at 10% 10%, #ffe1f1, transparent 30%),
+        radial-gradient(circle at 90% 20%, #e5e7ff, transparent 30%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
 
-/* ==================================================
-   ICON RƠI
-================================================== */
+    overflow-x: hidden;
 
-const fallingIcons = [
-    "🌸",
-    "🌷",
-    "🌹",
-    "💮",
-    "🌺",
-    "🌼",
-    "💗",
-    "💖",
-    "💕",
-    "✨"
-];
-
-
-function createFallingItem() {
-
-    const item =
-        document.createElement("span");
-
-    item.className =
-        "falling-item";
-
-    item.textContent =
-        fallingIcons[
-            Math.floor(
-                Math.random() *
-                fallingIcons.length
-            )
-        ];
-
-    item.style.left =
-        `${Math.random() * 100}%`;
-
-    item.style.fontSize =
-        `${15 + Math.random() * 18}px`;
-
-    item.style.setProperty(
-        "--duration",
-        `${7 + Math.random() * 8}s`
-    );
-
-    item.style.setProperty(
-        "--delay",
-        `${Math.random() * 2}s`
-    );
-
-    item.style.setProperty(
-        "--move-x",
-        `${-100 + Math.random() * 200}px`
-    );
-
-    item.style.setProperty(
-        "--rotate",
-        `${-360 + Math.random() * 720}deg`
-    );
-
-    item.style.setProperty(
-        "--opacity",
-        `${0.35 + Math.random() * 0.5}`
-    );
-
-    item.style.setProperty(
-        "--scale",
-        `${0.65 + Math.random() * 0.7}`
-    );
-
-    effects.appendChild(item);
-
-    setTimeout(() => {
-        item.remove();
-    }, 16000);
+    transition:
+        background .5s ease,
+        color .5s ease;
 }
 
 
-for (let i = 0; i < 20; i++) {
+/* =========================
+   TOOLBAR
+========================= */
 
-    setTimeout(
-        createFallingItem,
-        i * 300
-    );
+.toolbar {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    gap: 10px;
+
+    z-index: 9999;
+}
+
+.tool-btn {
+    width: 48px;
+    height: 48px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.8);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    transition: .3s;
+}
+
+.tool-btn:hover {
+    transform: translateY(-4px) rotate(8deg);
 }
 
 
-setInterval(
-    createFallingItem,
-    650
-);
+/* =========================
+   HERO
+========================= */
 
+main {
+    position: relative;
+    z-index: 2;
+}
 
-/* ==================================================
-   TIM NỔ KHI MỞ LỜI CHÚC
-================================================== */
+.hero {
+    min-height: 92vh;
 
-function createHeartBurst() {
+    display: flex;
+    flex-direction: column;
 
-    const rect =
-        openBtn.getBoundingClientRect();
+    justify-content: center;
+    align-items: center;
 
-    const centerX =
-        rect.left +
-        rect.width / 2;
+    text-align: center;
 
-    const centerY =
-        rect.top +
-        rect.height / 2;
+    padding: 100px 20px 60px;
+}
 
-    const icons = [
-        "💗",
-        "💖",
-        "💕",
-        "💓",
-        "🌸"
-    ];
+.badge {
+    padding: 10px 20px;
 
-    for (let i = 0; i < 20; i++) {
+    border-radius: 50px;
 
-        const heart =
-            document.createElement("span");
+    background: rgba(255,255,255,.65);
 
-        heart.className =
-            "burst-heart";
+    box-shadow: var(--shadow);
 
-        heart.textContent =
-            icons[
-                Math.floor(
-                    Math.random() *
-                    icons.length
-                )
-            ];
+    color: var(--pink-dark);
 
-        heart.style.position =
-            "fixed";
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .5px;
 
-        heart.style.left =
-            `${centerX}px`;
+    animation: fadeDown .8s ease;
+}
 
-        heart.style.top =
-            `${centerY}px`;
+.small-title {
+    margin-top: 25px;
 
-        heart.style.zIndex =
-            "50";
+    color: var(--muted);
 
-        heart.style.pointerEvents =
-            "none";
+    font-size: 15px;
 
-        const angle =
-            Math.random() *
-            Math.PI *
-            2;
+    animation: fadeUp .8s ease .1s both;
+}
 
-        const distance =
-            70 +
-            Math.random() * 140;
+.hero h1 {
+    margin-top: 15px;
 
-        const x =
-            Math.cos(angle) *
-            distance;
+    font-family: "Playfair Display", serif;
 
-        const y =
-            Math.sin(angle) *
-            distance;
+    font-size: clamp(58px, 10vw, 125px);
 
-        heart.animate(
-            [
-                {
-                    transform:
-                        "translate(-50%, -50%) scale(.3)",
-                    opacity: 1
-                },
-                {
-                    transform:
-                        `translate(
-                            calc(-50% + ${x}px),
-                            calc(-50% + ${y}px)
-                        )
-                        scale(1.4)`,
-                    opacity: 0
-                }
-            ],
-            {
-                duration:
-                    900 +
-                    Math.random() * 500,
+    line-height: .95;
 
-                easing:
-                    "cubic-bezier(.2,.8,.2,1)"
-            }
+    animation: fadeUp 1s ease .2s both;
+}
+
+.hero h1 span {
+    display: block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ec4899,
+            #8b5cf6,
+            #6366f1,
+            #ec4899
         );
 
-        document.body.appendChild(
-            heart
+    background-size: 300%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: gradientMove 5s linear infinite;
+}
+
+.subtitle {
+    max-width: 650px;
+
+    margin-top: 30px;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+    animation: fadeUp 1s ease .35s both;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.main-btn,
+.flower-btn,
+.save-btn {
+    border: 0;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-family: inherit;
+    font-weight: 800;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ec4899,
+            #8b5cf6
         );
 
-        setTimeout(() => {
-            heart.remove();
-        }, 1500);
-    }
+    box-shadow:
+        0 15px 35px rgba(236,72,153,.3);
+
+    transition: .3s;
+}
+
+.main-btn {
+    margin-top: 35px;
+
+    padding: 17px 32px;
+
+    border-radius: 50px;
+
+    font-size: 16px;
+
+    animation: fadeUp 1s ease .5s both;
+}
+
+.main-btn:hover,
+.flower-btn:hover,
+.save-btn:hover {
+    transform: translateY(-5px) scale(1.03);
+
+    box-shadow:
+        0 20px 45px rgba(236,72,153,.4);
 }
 
 
-/* ==================================================
-   MỞ LỜI CHÚC
-================================================== */
+/* =========================
+   LETTER
+========================= */
 
-openBtn.addEventListener(
-    "click",
-    () => {
+.letter-section {
+    min-height: 650px;
 
-        const opened =
-            message.classList.contains(
-                "show"
-            );
+    display: flex;
+    flex-direction: column;
 
-        if (!opened) {
+    align-items: center;
+    justify-content: center;
 
-            message.classList.add(
-                "show"
-            );
+    padding: 70px 20px;
+}
 
-            btnText.textContent =
-                "Đã mở lời chúc 💖";
+.envelope {
+    position: relative;
 
-            createHeartBurst();
+    width: min(90vw, 480px);
+    height: 310px;
 
-            setTimeout(() => {
+    cursor: pointer;
 
-                message.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
+    perspective: 1200px;
 
-            }, 300);
+    filter:
+        drop-shadow(
+            0 25px 40px rgba(90,50,100,.2)
+        );
+}
 
-        } else {
+.envelope-back {
+    position: absolute;
 
-            message.classList.remove(
-                "show"
-            );
+    inset: 0;
 
-            btnText.textContent =
-                "Mở lời chúc";
+    background: #f7a8c9;
 
-        }
-    }
-);
+    border-radius: 18px;
 
+    overflow: hidden;
+}
 
-/* ==================================================
-   TẠO BÓ HOA
-================================================== */
+.envelope-front {
+    position: absolute;
 
-let bouquetCount = 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
+    height: 65%;
 
-function createBouquet() {
+    background:
+        linear-gradient(
+            135deg,
+            #f49bc3,
+            #ec78ad
+        );
 
-    bouquetCount++;
-
-    const bouquet =
-        document.createElement("div");
-
-    bouquet.className =
-        "bouquet";
-
-    bouquet.innerHTML = `
-
-        <div class="bouquet-flowers">
-
-            <span class="flower-piece">
-                🌹
-            </span>
-
-            <span class="flower-piece">
-                🌸
-            </span>
-
-            <span class="flower-piece">
-                🌷
-            </span>
-
-            <span class="flower-piece">
-                🌺
-            </span>
-
-            <span class="flower-piece">
-                🌼
-            </span>
-
-            <div class="leaves">
-                🌿🌿🌿
-            </div>
-
-            <div class="wrapper-paper"></div>
-
-            <div class="wrapper-fold"></div>
-
-            <div class="ribbon">
-                <div class="ribbon-center"></div>
-            </div>
-
-        </div>
-
-        <div class="bouquet-number">
-            Bó hoa #${bouquetCount} dành tặng bạn 💐
-        </div>
-    `;
-
-
-    bouquetContainer.prepend(
-        bouquet
+    clip-path: polygon(
+        0 0,
+        50% 70%,
+        100% 0,
+        100% 100%,
+        0 100%
     );
 
+    z-index: 5;
+}
 
-    /* ===============================
-       TIM BAY QUANH BÓ HOA
-    =============================== */
+.envelope-flap {
+    position: absolute;
 
-    for (let i = 0; i < 8; i++) {
+    left: 0;
+    top: 0;
 
-        setTimeout(() => {
+    width: 100%;
+    height: 65%;
 
-            const heart =
-                document.createElement(
-                    "span"
-                );
+    background: #f9b7d3;
 
-            heart.className =
-                "bouquet-heart";
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 100%
+    );
 
-            heart.textContent =
-                Math.random() > .5
-                    ? "💗"
-                    : "✨";
+    transform-origin: top;
 
-            heart.style.left =
-                `${35 + Math.random() * 30}%`;
+    z-index: 7;
 
-            heart.style.bottom =
-                `${45 + Math.random() * 25}px`;
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1);
+}
 
-            heart.style.setProperty(
-                "--heart-x",
-                `${-60 + Math.random() * 120}px`
-            );
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
 
-            bouquet.appendChild(
-                heart
-            );
+    z-index: 2;
+}
 
-            setTimeout(() => {
-                heart.remove();
-            }, 2600);
+.letter {
+    position: absolute;
 
-        }, i * 180);
-    }
+    left: 7%;
+    right: 7%;
 
+    bottom: 25px;
 
-    /* ===============================
-       CUỘN TỚI BÓ HOA MỚI
-    =============================== */
+    height: 260px;
 
-    setTimeout(() => {
+    background: white;
 
-        bouquet.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+    border-radius: 15px;
 
-    }, 250);
+    z-index: 4;
+
+    padding: 25px;
+
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.envelope.open .letter {
+    transform: translateY(-180px);
+
+    z-index: 6;
+}
+
+.letter-content {
+    text-align: center;
+}
+
+.letter-icon {
+    font-size: 38px;
+}
+
+.letter h2 {
+    margin-top: 5px;
+
+    font-family: "Playfair Display", serif;
+
+    color: #be185d;
+}
+
+.letter p {
+    margin-top: 15px;
+
+    color: #594e63;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.letter-sign {
+    margin-top: 18px;
+
+    color: #ec4899;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.envelope-heart {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 8;
+
+    font-size: 42px;
+
+    transition: .5s;
+}
+
+.envelope.open .envelope-heart {
+    opacity: 0;
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+}
+
+.envelope-hint {
+    margin-top: 30px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    animation: pulse 2s infinite;
 }
 
 
-/* ==================================================
-   NÚT TẶNG HOA
-================================================== */
+/* =========================
+   MESSAGE
+========================= */
 
-flowerBtn.addEventListener(
-    "click",
-    () => {
+.message-card {
+    width: min(90%, 850px);
 
-        createBouquet();
+    margin: 50px auto;
 
-        flowerBtn.innerHTML =
-            "💐 Tặng thêm một bó nữa";
+    padding: 55px 45px;
 
+    text-align: center;
+
+    background: var(--card);
+
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,.5);
+
+    border-radius: 35px;
+
+    box-shadow: var(--shadow);
+
+    opacity: 0;
+    transform: translateY(50px);
+
+    transition:
+        opacity .8s,
+        transform .8s;
+}
+
+.message-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-icon {
+    font-size: 55px;
+}
+
+.message-card h2 {
+    margin-top: 15px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(25px, 5vw, 40px);
+}
+
+.message-card p {
+    max-width: 650px;
+
+    margin: 20px auto 0;
+
+    color: var(--muted);
+
+    line-height: 1.9;
+}
+
+.message-card strong {
+    display: block;
+
+    margin-top: 25px;
+
+    color: var(--pink-dark);
+}
+
+
+/* =========================
+   FLOWERS
+========================= */
+
+.flower-section {
+    width: min(90%, 1000px);
+
+    margin: 100px auto;
+
+    text-align: center;
+}
+
+.section-title {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.section-title > span {
+    font-size: 55px;
+}
+
+.section-title h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(25px, 5vw, 42px);
+}
+
+.section-title p {
+    margin-top: 5px;
+
+    color: var(--muted);
+}
+
+.flower-btn {
+    margin-top: 30px;
+
+    padding: 15px 30px;
+
+    border-radius: 50px;
+
+    font-size: 15px;
+}
+
+#bouquetContainer {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-top: 45px;
+}
+
+.bouquet {
+    position: relative;
+
+    width: 230px;
+    height: 250px;
+
+    padding-top: 35px;
+
+    animation:
+        bouquetIn .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.flowers {
+    position: relative;
+
+    width: 150px;
+    height: 140px;
+
+    margin: auto;
+}
+
+.flower {
+    position: absolute;
+
+    font-size: 55px;
+
+    animation:
+        flowerFloat 3s ease-in-out infinite;
+}
+
+.flower:nth-child(1) {
+    left: 45px;
+    top: 10px;
+}
+
+.flower:nth-child(2) {
+    left: 0;
+    top: 45px;
+
+    animation-delay: .2s;
+}
+
+.flower:nth-child(3) {
+    right: 0;
+    top: 45px;
+
+    animation-delay: .4s;
+}
+
+.flower:nth-child(4) {
+    left: 48px;
+    top: 70px;
+
+    animation-delay: .6s;
+}
+
+.leaf {
+    position: absolute;
+
+    font-size: 38px;
+}
+
+.leaf.left {
+    left: 15px;
+    bottom: 5px;
+
+    transform: rotate(-25deg);
+}
+
+.leaf.right {
+    right: 15px;
+    bottom: 5px;
+
+    transform: rotate(25deg);
+}
+
+.wrapper {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: 145px;
+    height: 85px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f9a8d4,
+            #c084fc
+        );
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        80% 100%,
+        20% 100%
+    );
+}
+
+.ribbon {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 14px;
+    height: 85px;
+
+    background: #ec4899;
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote-section {
+    width: min(90%, 800px);
+
+    margin: 120px auto;
+
+    text-align: center;
+}
+
+.quote-mark {
+    font-family: Georgia, serif;
+
+    font-size: 100px;
+
+    line-height: .5;
+
+    color: #ec4899;
+}
+
+.quote-section p {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(22px, 4vw, 35px);
+
+    line-height: 1.5;
+}
+
+.quote-section span {
+    display: block;
+
+    margin-top: 25px;
+
+    color: var(--pink);
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+.save-section {
+    width: min(90%, 750px);
+
+    margin: 100px auto;
+
+    padding: 50px 25px;
+
+    text-align: center;
+
+    border-radius: 30px;
+
+    background: var(--card);
+
+    box-shadow: var(--shadow);
+}
+
+.save-section p {
+    margin-top: 10px;
+
+    color: var(--muted);
+}
+
+.save-btn {
+    margin-top: 25px;
+
+    padding: 15px 28px;
+
+    border-radius: 50px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 60px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #271534,
+            #42204e
+        );
+
+    color: white;
+}
+
+.footer-flower {
+    font-size: 30px;
+
+    letter-spacing: 10px;
+
+    margin-bottom: 20px;
+}
+
+footer p {
+    font-weight: 800;
+}
+
+footer small {
+    display: block;
+
+    margin-top: 8px;
+
+    opacity: .7;
+}
+
+
+/* =========================
+   FALLING EFFECT
+========================= */
+
+.falling {
+    position: fixed;
+
+    top: -50px;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    animation:
+        falling linear forwards;
+
+    user-select: none;
+}
+
+@keyframes falling {
+
+    0% {
+        transform:
+            translateY(-50px)
+            rotate(0deg);
+        opacity: 0;
     }
-);
-       
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   CLICK HEART
+========================= */
+
+.click-heart {
+    position: fixed;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    font-size: 24px;
+
+    animation:
+        clickHeart 1s ease forwards;
+}
+
+@keyframes clickHeart {
+
+    0% {
+        opacity: 1;
+        transform: scale(.4);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(-80px)
+            scale(1.5);
+    }
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 300%;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes bouquetIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(40px)
+            scale(.8)
+            rotate(-5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1)
+            rotate(0);
+    }
+}
+
+@keyframes flowerFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(4deg);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .toolbar {
+        top: 12px;
+        right: 12px;
+    }
+
+    .tool-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
+    }
+
+    .hero {
+        min-height: 85vh;
+
+        padding-top: 90px;
+    }
+
+    .badge {
+        font-size: 10px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .letter-section {
+        min-height: 580px;
+    }
+
+    .envelope {
+        height: 240px;
+    }
+
+    .letter {
+        height: 205px;
+        padding: 18px;
+    }
+
+    .envelope.open .letter {
+        transform: translateY(-135px);
+    }
+
+    .letter-icon {
+        font-size: 28px;
+    }
+
+    .letter p {
+        font-size: 12px;
+    }
+
+    .message-card {
+        padding: 35px 22px;
+    }
+
+    .section-title {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .section-title > span {
+        font-size: 45px;
+    }
+
+    .quote-section {
+        margin: 80px auto;
+    }
+
+    .footer-flower {
+        font-size: 22px;
+        letter-spacing: 4px;
+    }
+}
