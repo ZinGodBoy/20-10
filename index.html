@@ -2,10 +2,20 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Một món quà nhỏ dành cho ngày 20/10."
+    >
 
     <title>20/10 — Gửi Trọn Yêu Thương</title>
 
+    <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -14,42 +24,48 @@
         rel="stylesheet"
     >
 
+    <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <!-- =================================================
+    <!-- ==================================================
          BACKGROUND
-    ================================================== -->
+    =================================================== -->
 
-    <div class="background">
-        <div class="glow glow-1"></div>
-        <div class="glow glow-2"></div>
-        <div class="glow glow-3"></div>
+    <div class="background" aria-hidden="true">
+        <div class="background-orb orb-1"></div>
+        <div class="background-orb orb-2"></div>
+        <div class="background-orb orb-3"></div>
+
+        <div class="background-grid"></div>
     </div>
 
 
-    <!-- =================================================
-         TOP BAR
-    ================================================== -->
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
 
-    <header class="topbar">
+    <header class="header">
 
-        <div class="brand">
-            <span class="brand-heart">♡</span>
+        <div class="logo">
+            <span class="logo-heart">♡</span>
             <span>20/10</span>
         </div>
 
-        <div class="page-counter">
-            <span id="currentPage">01</span>
-            <i>/</i>
+        <div
+            class="page-number"
+            aria-live="polite"
+        >
+            <span id="pageCurrent">01</span>
+            <span class="page-slash">/</span>
             <span>05</span>
         </div>
 
         <button
-            class="theme-button"
-            id="themeButton"
+            class="theme-toggle"
+            id="themeToggle"
             type="button"
             aria-label="Đổi giao diện"
         >
@@ -59,70 +75,93 @@
     </header>
 
 
-    <!-- =================================================
-         SLIDES
-    ================================================== -->
+    <!-- ==================================================
+         MAIN SLIDES
+    =================================================== -->
 
-    <main class="slides" id="slides">
-
-
-        <!-- =================================================
-             PAGE 1
-        ================================================== -->
-
-        <section class="page active" data-page="1">
-
-            <div class="page-content page-one">
-
-                <div class="eyebrow">
-                    NGÀY PHỤ NỮ VIỆT NAM
-                </div>
-
-                <div class="big-date">
-                    20 — 10
-                </div>
-
-                <h1>
-                    Gửi một chút
-                    <br>
-                    <em>yêu thương</em>
-                    <br>
-                    đến người
-                    <br>
-                    <em>đặc biệt.</em>
-                </h1>
-
-                <p class="intro-text">
-                    Một món quà nhỏ được tạo nên từ những lời chúc,
-                    những điều dễ thương và một chút yêu thương
-                    dành riêng cho bạn.
-                </p>
-
-                <button
-                    class="main-button"
-                    type="button"
-                    data-next
-                >
-                    Mở món quà
-                    <span>→</span>
-                </button>
-
-            </div>
+    <main
+        class="slides"
+        id="slides"
+    >
 
 
-            <div class="page-one-flower">
+        <!-- ==================================================
+             SLIDE 1
+        =================================================== -->
 
-                <div class="flower-big">
+        <section
+            class="slide active"
+            data-slide="1"
+            aria-hidden="false"
+        >
 
-                    <div class="petal p1"></div>
-                    <div class="petal p2"></div>
-                    <div class="petal p3"></div>
-                    <div class="petal p4"></div>
-                    <div class="petal p5"></div>
+            <div class="slide-inner hero-layout">
 
-                    <div class="flower-center">
-                        ♡
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        NGÀY PHỤ NỮ VIỆT NAM
                     </div>
+
+                    <div class="hero-date">
+                        20 / 10
+                    </div>
+
+                    <h1 class="hero-title">
+                        Gửi một chút
+                        <br>
+
+                        <em>yêu thương</em>
+
+                        <br>
+
+                        đến người
+                        <br>
+
+                        <em>đặc biệt.</em>
+                    </h1>
+
+                    <p class="hero-description">
+                        Một món quà nhỏ được tạo nên từ những lời chúc,
+                        những điều dễ thương và một chút yêu thương
+                        dành riêng cho bạn.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        type="button"
+                        data-next
+                    >
+                        <span>Mở món quà</span>
+                        <strong>→</strong>
+                    </button>
+
+                </div>
+
+
+                <!-- DECORATION -->
+
+                <div
+                    class="hero-art"
+                    aria-hidden="true"
+                >
+
+                    <div class="hero-flower">
+
+                        <div class="hero-petal petal-1"></div>
+                        <div class="hero-petal petal-2"></div>
+                        <div class="hero-petal petal-3"></div>
+                        <div class="hero-petal petal-4"></div>
+                        <div class="hero-petal petal-5"></div>
+
+                        <div class="hero-flower-center">
+                            ♡
+                        </div>
+
+                    </div>
+
+                    <div class="hero-ring ring-1"></div>
+                    <div class="hero-ring ring-2"></div>
 
                 </div>
 
@@ -131,63 +170,76 @@
         </section>
 
 
-        <!-- =================================================
-             PAGE 2 — FLOWER
-        ================================================== -->
+        <!-- ==================================================
+             SLIDE 2
+        =================================================== -->
 
-        <section class="page" data-page="2">
+        <section
+            class="slide"
+            data-slide="2"
+            aria-hidden="true"
+        >
 
-            <div class="page-content centered-page">
+            <div class="slide-inner flower-layout">
 
-                <div class="page-label">
-                    <span>01</span>
-                    A LITTLE FLOWER
+                <div class="section-heading">
+
+                    <div class="section-label">
+                        <span>01</span>
+                        A LITTLE FLOWER
+                    </div>
+
+                    <h2>
+                        Một bó hoa
+                        <br>
+                        <em>dành riêng cho bạn.</em>
+                    </h2>
+
+                    <p>
+                        Không phải một bó hoa thật,
+                        nhưng hy vọng những bông hoa nhỏ này
+                        vẫn có thể mang đến cho bạn một nụ cười.
+                    </p>
+
                 </div>
 
-                <h2>
-                    Một bó hoa dành riêng
-                    <br>
-                    <em>cho bạn.</em>
-                </h2>
 
-                <p>
-                    Không phải một bó hoa thật,
-                    nhưng hy vọng những bông hoa nhỏ này
-                    vẫn có thể mang đến cho bạn một nụ cười.
-                </p>
+                <!-- BOUQUET -->
 
+                <div
+                    class="bouquet"
+                    aria-hidden="true"
+                >
 
-                <div class="bouquet">
+                    <div class="bouquet-stem stem-left"></div>
+                    <div class="bouquet-stem stem-center"></div>
+                    <div class="bouquet-stem stem-right"></div>
 
-                    <div class="stem stem-1"></div>
-                    <div class="stem stem-2"></div>
-                    <div class="stem stem-3"></div>
-
-                    <div class="flower-small flower-a">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <b>♡</b>
+                    <div class="flower flower-left">
+                        <span class="flower-petal p1"></span>
+                        <span class="flower-petal p2"></span>
+                        <span class="flower-petal p3"></span>
+                        <span class="flower-petal p4"></span>
+                        <span class="flower-petal p5"></span>
+                        <span class="flower-core">♡</span>
                     </div>
 
-                    <div class="flower-small flower-b">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <b>♡</b>
+                    <div class="flower flower-center">
+                        <span class="flower-petal p1"></span>
+                        <span class="flower-petal p2"></span>
+                        <span class="flower-petal p3"></span>
+                        <span class="flower-petal p4"></span>
+                        <span class="flower-petal p5"></span>
+                        <span class="flower-core">♡</span>
                     </div>
 
-                    <div class="flower-small flower-c">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <b>♡</b>
+                    <div class="flower flower-right">
+                        <span class="flower-petal p1"></span>
+                        <span class="flower-petal p2"></span>
+                        <span class="flower-petal p3"></span>
+                        <span class="flower-petal p4"></span>
+                        <span class="flower-petal p5"></span>
+                        <span class="flower-core">♡</span>
                     </div>
 
                     <div class="bouquet-paper"></div>
@@ -196,12 +248,12 @@
 
 
                 <button
-                    class="main-button"
+                    class="primary-button"
                     type="button"
                     data-next
                 >
-                    Có một bức thư
-                    <span>→</span>
+                    <span>Có một bức thư</span>
+                    <strong>→</strong>
                 </button>
 
             </div>
@@ -209,20 +261,24 @@
         </section>
 
 
-        <!-- =================================================
-             PAGE 3 — LETTER
-        ================================================== -->
+        <!-- ==================================================
+             SLIDE 3 — LETTER
+        =================================================== -->
 
-        <section class="page letter-page" data-page="3">
+        <section
+            class="slide letter-slide"
+            data-slide="3"
+            aria-hidden="true"
+        >
 
-            <!-- TRẠNG THÁI CHƯA MỞ -->
+            <!-- LETTER PAGE HEADER -->
 
             <div
-                class="letter-intro"
-                id="letterIntro"
+                class="letter-heading"
+                id="letterHeading"
             >
 
-                <div class="page-label">
+                <div class="section-label">
                     <span>02</span>
                     SECRET LETTER
                 </div>
@@ -238,21 +294,28 @@
             </div>
 
 
-            <!-- VÙNG BỨC THƯ -->
+            <!-- LETTER STAGE -->
 
             <div
-                class="letter-wrapper"
-                id="letterWrapper"
+                class="letter-stage"
+                id="letterStage"
             >
+
+                <!-- ENVELOPE -->
 
                 <div
                     class="envelope"
                     id="envelope"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Mở bức thư"
                 >
 
-                    <div class="envelope-back"></div>
+                    <div class="envelope-body"></div>
 
-                    <div class="envelope-paper"></div>
+                    <div class="envelope-paper-preview">
+                        <span>♡</span>
+                    </div>
 
                     <div class="envelope-front"></div>
 
@@ -265,22 +328,23 @@
                 </div>
 
 
-                <!-- LÁ THƯ HIỆN RA SAU KHI MỞ -->
+                <!-- FULL LETTER -->
 
                 <article
-                    class="full-letter"
-                    id="fullLetter"
+                    class="letter-card"
+                    id="letterCard"
+                    aria-hidden="true"
                 >
 
-                    <div class="letter-top">
+                    <div class="letter-decoration top">
                         <span>♡</span>
                         <span>20 / 10</span>
                         <span>♡</span>
                     </div>
 
-                    <small>
+                    <div class="letter-small-title">
                         HAPPY VIETNAMESE WOMEN'S DAY
-                    </small>
+                    </div>
 
                     <h3>
                         Gửi người
@@ -288,9 +352,9 @@
                         đặc biệt
                     </h3>
 
-                    <div class="letter-line"></div>
+                    <div class="letter-divider"></div>
 
-                    <div class="letter-text">
+                    <div class="letter-message">
 
                         <p>
                             Nhân ngày 20/10,
@@ -312,16 +376,15 @@
                             và bước tiếp về phía trước với những điều thật đẹp.
                         </p>
 
-                        <strong>
-                            Happy Women's Day ♡
-                        </strong>
-
                     </div>
 
-                    <div class="signature">
+                    <div class="letter-ending">
+                        Happy Women's Day ♡
+                    </div>
+
+                    <div class="letter-signature">
                         With love,
-                        <br>
-                        <b>♡</b>
+                        <strong>♡</strong>
                     </div>
 
                 </article>
@@ -329,42 +392,52 @@
             </div>
 
 
+            <!-- LETTER CONTROL -->
+
             <button
-                class="letter-button"
-                id="letterButton"
+                class="letter-control"
+                id="letterControl"
                 type="button"
             >
                 <span>Mở bức thư</span>
-                <b>→</b>
+                <strong>→</strong>
             </button>
 
         </section>
 
 
-        <!-- =================================================
-             PAGE 4 — MESSAGE
-        ================================================== -->
+        <!-- ==================================================
+             SLIDE 4
+        =================================================== -->
 
-        <section class="page" data-page="4">
+        <section
+            class="slide"
+            data-slide="4"
+            aria-hidden="true"
+        >
 
-            <div class="page-content centered-page message-page">
+            <div class="slide-inner message-layout">
 
-                <div class="page-label">
+                <div class="section-label">
                     <span>03</span>
                     A LITTLE MESSAGE
                 </div>
 
-                <div class="quote-symbol">
+                <div class="quote-mark">
                     “
                 </div>
 
                 <h2>
                     Mong bạn luôn là
                     <br>
+
                     phiên bản
                     <br>
+
                     <em>hạnh phúc nhất</em>
+
                     <br>
+
                     của chính mình.
                 </h2>
 
@@ -375,12 +448,12 @@
                 </p>
 
                 <button
-                    class="main-button"
+                    class="primary-button"
                     type="button"
                     data-next
                 >
-                    Một điều cuối cùng
-                    <span>→</span>
+                    <span>Một điều cuối cùng</span>
+                    <strong>→</strong>
                 </button>
 
             </div>
@@ -388,13 +461,17 @@
         </section>
 
 
-        <!-- =================================================
-             PAGE 5 — FINAL
-        ================================================== -->
+        <!-- ==================================================
+             SLIDE 5
+        =================================================== -->
 
-        <section class="page" data-page="5">
+        <section
+            class="slide"
+            data-slide="5"
+            aria-hidden="true"
+        >
 
-            <div class="page-content centered-page final-page">
+            <div class="slide-inner final-layout">
 
                 <div class="final-heart">
                     ♡
@@ -416,7 +493,7 @@
                 </p>
 
                 <button
-                    class="restart-button"
+                    class="secondary-button"
                     id="restartButton"
                     type="button"
                 >
@@ -430,12 +507,12 @@
     </main>
 
 
-    <!-- =================================================
+    <!-- ==================================================
          NAVIGATION
-    ================================================== -->
+    =================================================== -->
 
     <button
-        class="navigation-arrow arrow-left"
+        class="navigation navigation-prev"
         id="prevButton"
         type="button"
         aria-label="Trang trước"
@@ -443,9 +520,8 @@
         ←
     </button>
 
-
     <button
-        class="navigation-arrow arrow-right"
+        class="navigation navigation-next"
         id="nextButton"
         type="button"
         aria-label="Trang tiếp theo"
@@ -454,50 +530,66 @@
     </button>
 
 
-    <!-- DOTS -->
+    <!-- ==================================================
+         DOT NAVIGATION
+    =================================================== -->
 
-    <div class="dots">
+    <nav
+        class="slide-dots"
+        aria-label="Điều hướng trang"
+    >
 
         <button
-            class="dot active"
-            data-page-button="1"
+            class="slide-dot active"
+            data-go-to="0"
+            type="button"
             aria-label="Trang 1"
         ></button>
 
         <button
-            class="dot"
-            data-page-button="2"
+            class="slide-dot"
+            data-go-to="1"
+            type="button"
             aria-label="Trang 2"
         ></button>
 
         <button
-            class="dot"
-            data-page-button="3"
+            class="slide-dot"
+            data-go-to="2"
+            type="button"
             aria-label="Trang 3"
         ></button>
 
         <button
-            class="dot"
-            data-page-button="4"
+            class="slide-dot"
+            data-go-to="3"
+            type="button"
             aria-label="Trang 4"
         ></button>
 
         <button
-            class="dot"
-            data-page-button="5"
+            class="slide-dot"
+            data-go-to="4"
+            type="button"
             aria-label="Trang 5"
         ></button>
 
-    </div>
+    </nav>
 
 
-    <!-- TOAST -->
+    <!-- ==================================================
+         TOAST
+    =================================================== -->
 
     <div
         class="toast"
         id="toast"
+        role="status"
+        aria-live="polite"
     ></div>
 
+
+    <!-- JAVASCRIPT -->
 
     <script src="./script.js"></script>
 
