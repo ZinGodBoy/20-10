@@ -4,75 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>20/10 - Ngày Phụ Nữ Việt Nam 💐</title>
+    <title>20/10 - Một lời chúc dành cho bạn 💐</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Hiệu ứng nền -->
-    <div class="background">
-        <span class="flower">🌸</span>
-        <span class="flower">🌷</span>
-        <span class="flower">🌹</span>
-        <span class="flower">💮</span>
-        <span class="flower">🌸</span>
-        <span class="flower">🌷</span>
-        <span class="heart">💗</span>
-        <span class="heart">💕</span>
-        <span class="heart">💖</span>
-    </div>
+    <!-- =========================
+         HIỆU ỨNG NỀN
+    ========================== -->
+
+    <div id="effects" class="effects"></div>
+
+    <!-- =========================
+         MAIN CARD
+    ========================== -->
 
     <main class="card">
 
-        <div class="badge">🌷 20 - 10 🌷</div>
+        <div class="top-decoration">
+            <span>✦</span>
+            <span>♡</span>
+            <span>✦</span>
+        </div>
 
-        <div class="flower-icon">💐</div>
+        <div class="badge">
+            🌷 20 - 10 🌷
+        </div>
 
-        <h1>
-            Chúc Mừng<br>
-            <span>Ngày Phụ Nữ Việt Nam</span>
-        </h1>
+        <div class="flower-wrapper">
+            <div class="flower-glow"></div>
+            <div class="flower-icon">💐</div>
+        </div>
 
-        <p class="date">20 tháng 10</p>
-
-        <p class="intro">
-            Nhân ngày 20/10, xin gửi những lời chúc tốt đẹp
-            nhất đến những người phụ nữ tuyệt vời.
+        <p class="small-title">
+            NHÂN NGÀY PHỤ NỮ VIỆT NAM
         </p>
 
-        <button id="openBtn">
-            💌 Mở lời chúc
+        <h1>
+            Chúc Mừng
+            <span>Ngày 20/10</span>
+        </h1>
+
+        <div class="date">
+            <span class="line"></span>
+            <span>20 tháng 10</span>
+            <span class="line"></span>
+        </div>
+
+        <p class="intro">
+            Một ngày đặc biệt để gửi những lời chúc
+            thật đẹp đến những người phụ nữ tuyệt vời. 💗
+        </p>
+
+        <button id="openBtn" class="open-btn">
+            <span class="btn-icon">💌</span>
+            <span id="btnText">Mở lời chúc</span>
         </button>
 
-        <section id="message" class="message hidden">
+        <!-- =========================
+             LỜI CHÚC
+        ========================== -->
 
-            <div class="divider">✦ ✦ ✦</div>
+        <section id="message" class="message">
 
-            <p>
+            <div class="message-header">
+                <span>🌸</span>
+                <span>💖</span>
+                <span>🌸</span>
+            </div>
+
+            <p class="message-line">
                 Chúc bạn luôn vui vẻ, hạnh phúc và luôn giữ được
                 nụ cười thật đẹp trên môi. 🌷
             </p>
 
-            <p>
-                Mong rằng mỗi ngày của bạn đều tràn ngập những
-                điều tốt đẹp, những niềm vui bất ngờ và thật nhiều
-                yêu thương. 💖
+            <p class="message-line">
+                Mong rằng mỗi ngày của bạn đều có thật nhiều
+                niềm vui, những điều bất ngờ và những người
+                luôn yêu thương bạn. 💕
             </p>
 
-            <p class="special">
-                Chúc mừng ngày 20/10! 💐
+            <p class="message-line">
+                Chúc cho những điều tốt đẹp nhất sẽ luôn đến
+                với bạn, không chỉ hôm nay mà trong tất cả
+                những ngày phía trước. ✨
             </p>
+
+            <div class="special">
+                💐 Chúc mừng Ngày Phụ Nữ Việt Nam 20/10! 💐
+            </div>
 
             <div class="signature">
-                — Một lời chúc nhỏ nhưng chân thành —
+                Một lời chúc nhỏ nhưng chân thành ❤️
             </div>
 
         </section>
 
         <div class="bottom">
-            Made with ❤️ for 20/10
+            <span>Made with</span>
+            <span class="heart-pulse">♥</span>
+            <span>for 20/10</span>
         </div>
 
     </main>
