@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =================================================
+       GET ELEMENTS
+    ================================================= */
 
     const envelope =
         document.getElementById("envelope");
@@ -15,41 +19,62 @@ document.addEventListener("DOMContentLoaded", () => {
     const secretInfo =
         document.getElementById("secretInfo");
 
-    const themeBtn =
-        document.getElementById("themeBtn");
+    const themeButton =
+        document.getElementById("themeButton");
 
-    const restartBtn =
-        document.getElementById("restartBtn");
+    const restartButton =
+        document.getElementById("restartButton");
 
     const toast =
         document.getElementById("toast");
 
 
-    /* ================= TOAST ================= */
+    /* =================================================
+       LETTER STATE
+    ================================================= */
 
-    let toastTimer;
+    let letterIsOpen = false;
 
-    function showToast(text) {
 
-        toast.textContent = text;
+    /* =================================================
+       TOAST
+    ================================================= */
+
+    let toastTimer = null;
+
+    function showToast(message) {
+
+        if (!toast) {
+            return;
+        }
+
+        toast.textContent = message;
 
         toast.classList.add("show");
 
-        clearTimeout(toastTimer);
+        if (toastTimer) {
+            clearTimeout(toastTimer);
+        }
 
-        toastTimer = setTimeout(() => {
+        toastTimer = setTimeout(function () {
+
             toast.classList.remove("show");
-        }, 2500);
+
+        }, 2400);
     }
 
 
-    /* ================= LETTER ================= */
-
-    let opened = false;
+    /* =================================================
+       OPEN LETTER
+    ================================================= */
 
     function openLetter() {
 
-        opened = true;
+        if (letterIsOpen) {
+            return;
+        }
+
+        letterIsOpen = true;
 
         envelope.classList.add("open");
 
@@ -75,9 +100,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =================================================
+       CLOSE LETTER
+    ================================================= */
+
     function closeLetter() {
 
-        opened = false;
+        if (!letterIsOpen) {
+            return;
+        }
+
+        letterIsOpen = false;
 
         envelope.classList.remove("open");
 
@@ -103,25 +136,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =================================================
+       TOGGLE LETTER
+    ================================================= */
+
     function toggleLetter() {
 
-        if (opened) {
+        if (letterIsOpen) {
+
             closeLetter();
+
         } else {
+
             openLetter();
+
         }
     }
 
 
+    /* =================================================
+       ENVELOPE CLICK
+    ================================================= */
+
     envelope.addEventListener(
         "click",
-        toggleLetter
+        function () {
+
+            toggleLetter();
+
+        }
     );
 
 
+    /* =================================================
+       KEYBOARD
+    ================================================= */
+
     envelope.addEventListener(
         "keydown",
-        event => {
+        function (event) {
 
             if (
                 event.key === "Enter" ||
@@ -131,60 +184,149 @@ document.addEventListener("DOMContentLoaded", () => {
                 event.preventDefault();
 
                 toggleLetter();
+
             }
+
         }
     );
 
 
+    /* =================================================
+       BUTTON CLICK
+    ================================================= */
+
     openEnvelope.addEventListener(
         "click",
-        event => {
+        function (event) {
 
             event.stopPropagation();
 
             toggleLetter();
+
         }
     );
 
 
-    /* ================= THEME ================= */
+    /* =================================================
+       THEME
+    ================================================= */
 
     const savedTheme =
-        localStorage.getItem("20-10-theme");
+        localStorage.getItem(
+            "20-10-theme"
+        );
+
 
     if (savedTheme === "dark") {
 
         document.body.classList.add("dark");
 
-        themeBtn.textContent = "☾";
+        themeButton.textContent = "☾";
+
     }
 
 
-    themeBtn.addEventListener(
+    themeButton.addEventListener(
         "click",
-        () => {
+        function () {
 
-            document.body.classList.toggle("dark");
-
-            const dark =
-                document.body.classList.contains("dark");
-
-            themeBtn.textContent =
-                dark ? "☾" : "☼";
-
-            localStorage.setItem(
-                "20-10-theme",
-                dark ? "dark" : "light"
+            document.body.classList.toggle(
+                "dark"
             );
+
+            const isDark =
+                document.body.classList.contains(
+                    "dark"
+                );
+
+
+            if (isDark) {
+
+                themeButton.textContent = "☾";
+
+                localStorage.setItem(
+                    "20-10-theme",
+                    "dark"
+                );
+
+            } else {
+
+                themeButton.textContent = "☼";
+
+                localStorage.setItem(
+                    "20-10-theme",
+                    "light"
+                );
+
+            }
+
         }
     );
 
 
-    /* ================= RESTART ================= */
+    /* =================================================
+       NAVIGATION
+    ================================================= */
 
-    restartBtn.addEventListener(
+    const navigationLinks =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
+
+
+    navigationLinks.forEach(
+        function (link) {
+
+            link.addEventListener(
+                "click",
+                function (event) {
+
+                    const targetId =
+                        link.getAttribute(
+                            "href"
+                        );
+
+                    if (
+                        !targetId ||
+                        targetId === "#"
+                    ) {
+                        return;
+                    }
+
+
+                    const target =
+                        document.querySelector(
+                            targetId
+                        );
+
+
+                    if (!target) {
+                        return;
+                    }
+
+
+                    event.preventDefault();
+
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       RESTART
+    ================================================= */
+
+    restartButton.addEventListener(
         "click",
-        () => {
+        function () {
 
             closeLetter();
 
@@ -192,36 +334,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 top: 0,
                 behavior: "smooth"
             });
+
         }
     );
 
 
-    /* ================= SMOOTH SCROLL ================= */
+    /* =================================================
+       INITIAL STATE
+    ================================================= */
 
-    document
-        .querySelectorAll('a[href^="#"]')
-        .forEach(link => {
+    envelope.classList.remove("open");
 
-            link.addEventListener(
-                "click",
-                event => {
+    envelopeArea.classList.remove(
+        "opened"
+    );
 
-                    const id =
-                        link.getAttribute("href");
+    secretHeading.classList.remove(
+        "hidden"
+    );
 
-                    const target =
-                        document.querySelector(id);
+    secretInfo.classList.remove(
+        "hidden"
+    );
 
-                    if (!target) return;
+    envelope.setAttribute(
+        "aria-expanded",
+        "false"
+    );
 
-                    event.preventDefault();
 
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                }
-            );
-        });
+    /* =================================================
+       PAGE LOADED
+    ================================================= */
+
+    console.log(
+        "20/10 Gift — Loaded successfully."
+    );
 
 });
