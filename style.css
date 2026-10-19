@@ -16,7 +16,6 @@ html {
 
 body {
     min-height: 100vh;
-
     overflow-x: hidden;
 
     font-family:
@@ -45,36 +44,31 @@ button {
 
 
 /* =====================================================
-   MÀU
+   BIẾN MÀU
 ===================================================== */
 
 :root {
 
-    --blue-1: #dbeafe;
-    --blue-2: #93c5fd;
-    --blue-3: #3b82f6;
-    --blue-4: #2563eb;
-    --blue-5: #1d4ed8;
+    --blue-light: #dbeafe;
+    --blue: #60a5fa;
+    --blue-main: #2563eb;
+    --blue-dark: #1d4ed8;
 
-    --purple-1: #ede9fe;
-    --purple-2: #c4b5fd;
-    --purple-3: #8b5cf6;
-    --purple-4: #7c3aed;
+    --purple-light: #ede9fe;
+    --purple: #a78bfa;
+    --purple-main: #7c3aed;
 
     --text: #172554;
     --muted: #64748b;
 
     --white: #ffffff;
 
-    --card:
-        rgba(255,255,255,.76);
+    --card: rgba(255, 255, 255, .78);
 
-    --border:
-        rgba(255,255,255,.9);
+    --border: rgba(255, 255, 255, .95);
 
     --shadow:
-        0 25px 70px
-        rgba(37,99,235,.13);
+        0 25px 70px rgba(37, 99, 235, .13);
 }
 
 
@@ -103,14 +97,18 @@ body.dark {
 
 body.dark .badge,
 body.dark .wish-card,
-body.dark .surprise-card,
-body.dark .tool-button {
+body.dark .surprise-card {
 
     background:
-        rgba(30,41,59,.78);
+        rgba(30, 41, 59, .82);
 
     border-color:
-        rgba(148,163,184,.15);
+        rgba(148, 163, 184, .15);
+}
+
+
+body.dark .hero h1 {
+    color: #f8fafc;
 }
 
 
@@ -126,11 +124,8 @@ body.dark .envelope-hint {
 
 body.dark .secondary-button {
 
-    background:
-        #1e293b;
-
-    color:
-        #bfdbfe;
+    background: #1e293b;
+    color: #bfdbfe;
 }
 
 
@@ -154,26 +149,23 @@ body.dark .secondary-button {
     width: 48px;
     height: 48px;
 
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,.9);
 
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,.8);
+        rgba(255,255,255,.82);
 
-    backdrop-filter:
-        blur(15px);
+    backdrop-filter: blur(15px);
 
     box-shadow:
-        0 12px 30px
-        rgba(15,23,42,.12);
+        0 12px 30px rgba(15,23,42,.12);
 
     cursor: pointer;
 
     font-size: 19px;
 
-    transition:
-        .3s ease;
+    transition: .3s ease;
 }
 
 
@@ -211,131 +203,92 @@ body.dark .secondary-button {
     align-items:
         center;
 
-    text-align:
-        center;
+    text-align: center;
 
     padding:
         100px 20px 80px;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 }
 
 
-/* nền tròn */
-
 .hero-shape {
 
-    position:
-        absolute;
+    position: absolute;
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    filter:
-        blur(2px);
+    pointer-events: none;
 
-    pointer-events:
-        none;
-
-    opacity:
-        .7;
+    opacity: .65;
 }
 
 
 .shape-1 {
 
-    width:
-        420px;
+    width: 420px;
+    height: 420px;
 
-    height:
-        420px;
+    top: -180px;
+    left: -150px;
 
-    top:
-        -180px;
-
-    left:
-        -150px;
-
-    background:
-        #dbeafe;
+    background: #dbeafe;
 }
 
 
 .shape-2 {
 
-    width:
-        500px;
+    width: 500px;
+    height: 500px;
 
-    height:
-        500px;
+    right: -220px;
+    top: 80px;
 
-    right:
-        -220px;
-
-    top:
-        80px;
-
-    background:
-        #ede9fe;
+    background: #ede9fe;
 }
 
 
 .shape-3 {
 
-    width:
-        260px;
+    width: 260px;
+    height: 260px;
 
-    height:
-        260px;
+    left: 35%;
+    bottom: -160px;
 
-    left:
-        35%;
-
-    bottom:
-        -160px;
-
-    background:
-        #e0f2fe;
+    background: #e0f2fe;
 }
 
 
 .hero-flower {
 
-    position:
-        absolute;
+    position: absolute;
 
-    font-size:
-        50px;
+    font-size: 50px;
 
-    opacity:
-        .7;
+    opacity: .7;
 
     animation:
-        floatFlower 4s ease-in-out infinite;
+        floatFlower
+        4s
+        ease-in-out
+        infinite;
 }
 
 
 .flower-left {
 
-    left:
-        8%;
-
-    top:
-        30%;
+    left: 8%;
+    top: 30%;
 }
 
 
 .flower-right {
 
-    right:
-        8%;
+    right: 8%;
+    bottom: 25%;
 
-    bottom:
-        25%;
-
-    animation-delay:
-        1s;
+    animation-delay: 1s;
 }
 
 
@@ -343,14 +296,12 @@ body.dark .secondary-button {
 
     0%,
     100% {
-
         transform:
             translateY(0)
             rotate(-5deg);
     }
 
     50% {
-
         transform:
             translateY(-18px)
             rotate(8deg);
@@ -359,89 +310,73 @@ body.dark .secondary-button {
 
 
 /* =====================================================
-   BADGE
+   HERO TEXT
 ===================================================== */
 
 .badge {
 
-    position:
-        relative;
+    position: relative;
+    z-index: 2;
 
-    z-index:
-        2;
-
-    padding:
-        10px 20px;
+    padding: 10px 20px;
 
     border:
         1px solid
         rgba(59,130,246,.15);
 
-    border-radius:
-        999px;
+    border-radius: 999px;
 
     background:
         rgba(255,255,255,.72);
 
-    color:
-        var(--blue-5);
+    color: var(--blue-dark);
 
-    font-size:
-        11px;
+    font-size: 11px;
 
-    font-weight:
-        900;
+    font-weight: 900;
 
-    letter-spacing:
-        1px;
+    letter-spacing: 1px;
 
     box-shadow:
         0 10px 30px
         rgba(37,99,235,.08);
 
     animation:
-        fadeDown .8s ease;
+        fadeDown
+        .8s
+        ease;
 }
 
 
 .hero-small {
 
-    position:
-        relative;
+    position: relative;
+    z-index: 2;
 
-    z-index:
-        2;
+    margin-top: 28px;
 
-    margin-top:
-        28px;
+    color: var(--muted);
 
-    color:
-        var(--muted);
+    font-size: 14px;
 
-    font-size:
-        14px;
+    font-weight: 700;
 
-    font-weight:
-        700;
-
-    letter-spacing:
-        1px;
+    letter-spacing: 1px;
 
     animation:
-        fadeUp .8s .1s both;
+        fadeUp
+        .8s
+        .1s
+        both;
 }
 
 
 .hero h1 {
 
-    position:
-        relative;
+    position: relative;
+    z-index: 2;
 
-    z-index:
-        2;
-
-    margin-top:
-        12px;
+    margin-top: 12px;
 
     font-family:
         "Playfair Display",
@@ -454,30 +389,21 @@ body.dark .secondary-button {
             125px
         );
 
-    line-height:
-        .95;
+    line-height: .95;
 
-    letter-spacing:
-        -4px;
-
-    color:
-        #172554;
+    letter-spacing: -4px;
 
     animation:
-        fadeUp .8s .2s both;
-}
-
-
-body.dark .hero h1 {
-    color:
-        #f8fafc;
+        fadeUp
+        .8s
+        .2s
+        both;
 }
 
 
 .hero h1 span {
 
-    display:
-        block;
+    display: block;
 
     background:
         linear-gradient(
@@ -488,92 +414,75 @@ body.dark .hero h1 {
             #2563eb
         );
 
-    background-size:
-        300%;
+    background-size: 300%;
 
-    -webkit-background-clip:
-        text;
+    -webkit-background-clip: text;
+    background-clip: text;
 
-    background-clip:
-        text;
-
-    color:
-        transparent;
+    color: transparent;
 
     animation:
-        gradientMove 5s linear infinite;
+        gradientMove
+        5s
+        linear
+        infinite;
 }
 
 
 .date-line {
 
-    position:
-        relative;
+    position: relative;
+    z-index: 2;
 
-    z-index:
-        2;
+    display: flex;
 
-    display:
-        flex;
+    align-items: center;
 
-    align-items:
-        center;
+    gap: 12px;
 
-    gap:
-        12px;
+    margin-top: 22px;
 
-    margin-top:
-        22px;
+    color: var(--blue-dark);
 
-    color:
-        var(--blue-4);
-
-    font-weight:
-        800;
+    font-weight: 800;
 
     animation:
-        fadeUp .8s .3s both;
+        fadeUp
+        .8s
+        .3s
+        both;
 }
 
 
 .date-line span {
 
-    width:
-        35px;
+    width: 35px;
+    height: 1px;
 
-    height:
-        1px;
-
-    background:
-        var(--blue-3);
+    background: var(--blue);
 }
 
 
 .hero-description {
 
-    position:
-        relative;
+    position: relative;
+    z-index: 2;
 
-    z-index:
-        2;
+    max-width: 650px;
 
-    max-width:
-        650px;
+    margin-top: 25px;
 
-    margin-top:
-        25px;
+    color: var(--muted);
 
-    color:
-        var(--muted);
+    line-height: 1.8;
 
-    line-height:
-        1.8;
-
-    font-size:
-        16px;
+    font-size: 16px;
 
     animation:
-        fadeUp .8s .4s both;
+        fadeUp
+        .8s
+        .4s
+        both;
 }
 
 
@@ -583,26 +492,18 @@ body.dark .hero h1 {
 
 .main-button {
 
-    position:
-        relative;
+    position: relative;
+    z-index: 2;
 
-    z-index:
-        2;
+    margin-top: 30px;
 
-    margin-top:
-        30px;
+    padding: 15px 28px;
 
-    padding:
-        15px 28px;
+    border: none;
 
-    border:
-        none;
+    border-radius: 999px;
 
-    border-radius:
-        999px;
-
-    color:
-        white;
+    color: white;
 
     background:
         linear-gradient(
@@ -615,17 +516,13 @@ body.dark .hero h1 {
         0 16px 35px
         rgba(37,99,235,.25);
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    font-size:
-        14px;
+    font-size: 14px;
 
-    font-weight:
-        800;
+    font-weight: 800;
 
-    transition:
-        .3s ease;
+    transition: .3s ease;
 }
 
 
@@ -641,22 +538,27 @@ body.dark .hero h1 {
 }
 
 
+.main-button:active {
+
+    transform:
+        scale(.96);
+}
+
+
 .scroll-hint {
 
-    position:
-        absolute;
+    position: absolute;
 
-    bottom:
-        25px;
+    bottom: 25px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    font-size:
-        11px;
+    font-size: 11px;
 
     animation:
-        scrollHint 2s infinite;
+        scrollHint
+        2s
+        infinite;
 }
 
 
@@ -664,27 +566,19 @@ body.dark .hero h1 {
 
     0%,
     100% {
-
-        opacity:
-            .35;
-
-        transform:
-            translateY(0);
+        opacity: .35;
+        transform: translateY(0);
     }
 
     50% {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(7px);
+        opacity: 1;
+        transform: translateY(7px);
     }
 }
 
 
 /* =====================================================
-   SECTION
+   SECTIONS
 ===================================================== */
 
 .wish-section,
@@ -693,41 +587,33 @@ body.dark .hero h1 {
 .quote-section,
 .surprise-section {
 
-    width:
-        min(92%, 950px);
+    width: min(92%, 950px);
 
-    margin:
-        120px auto;
+    margin: 120px auto;
 }
 
 
 .section-heading {
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .section-heading > span {
 
-    color:
-        var(--blue-4);
+    color: var(--blue-dark);
 
-    font-size:
-        11px;
+    font-size: 11px;
 
-    font-weight:
-        900;
+    font-weight: 900;
 
-    letter-spacing:
-        2px;
+    letter-spacing: 2px;
 }
 
 
 .section-heading h2 {
 
-    margin-top:
-        10px;
+    margin-top: 10px;
 
     font-family:
         "Playfair Display",
@@ -739,22 +625,16 @@ body.dark .hero h1 {
             5vw,
             48px
         );
-
-    color:
-        inherit;
 }
 
 
 .section-heading p {
 
-    margin-top:
-        12px;
+    margin-top: 12px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    line-height:
-        1.7;
+    line-height: 1.7;
 }
 
 
@@ -764,133 +644,106 @@ body.dark .hero h1 {
 
 .wish-card {
 
-    margin-top:
-        45px;
+    margin-top: 45px;
 
-    padding:
-        60px 50px;
+    padding: 60px 50px;
 
-    text-align:
-        center;
+    text-align: center;
 
     border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-    border-radius:
-        35px;
+    border-radius: 35px;
 
-    background:
-        var(--card);
+    background: var(--card);
 
-    backdrop-filter:
-        blur(20px);
+    backdrop-filter: blur(20px);
 
-    box-shadow:
-        var(--shadow);
+    box-shadow: var(--shadow);
 
-    opacity:
-        0;
+    opacity: 0;
 
-    transform:
-        translateY(40px);
+    transform: translateY(40px);
 
-    transition:
-        .8s ease;
+    transition: .8s ease;
 }
 
 
 .wish-card.visible {
 
-    opacity:
-        1;
+    opacity: 1;
 
-    transform:
-        translateY(0);
+    transform: translateY(0);
 }
 
 
 .wish-icon {
 
-    font-size:
-        58px;
+    font-size: 58px;
 
     animation:
-        flowerBounce 3s infinite;
+        flowerBounce
+        3s
+        infinite;
 }
 
 
 .wish-card p {
 
-    max-width:
-        680px;
+    max-width: 680px;
 
-    margin:
-        22px auto 0;
+    margin: 22px auto 0;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    line-height:
-        1.9;
+    line-height: 1.9;
 }
 
 
 .wish-final {
 
-    margin-top:
-        30px;
+    margin-top: 30px;
 
-    color:
-        var(--blue-5);
+    color: var(--blue-dark);
 
-    font-weight:
-        900;
+    font-weight: 900;
 }
 
 
 /* =====================================================
-   ENVELOPE
+   PHONG THƯ
 ===================================================== */
 
 .letter-section {
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .envelope {
 
-    position:
-        relative;
+    position: relative;
 
-    width:
-        min(90vw, 500px);
+    width: min(90vw, 500px);
 
-    height:
-        300px;
+    height: 300px;
 
-    margin:
-        70px auto 0;
+    margin: 70px auto 0;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    perspective:
-        1000px;
+    perspective: 1000px;
 }
 
 
 .envelope-back {
 
-    position:
-        absolute;
+    position: absolute;
 
-    inset:
-        0;
+    inset: 0;
 
-    border-radius:
-        18px;
+    border-radius: 18px;
 
     background:
         linear-gradient(
@@ -907,117 +760,85 @@ body.dark .hero h1 {
 
 .letter {
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        7%;
+    left: 7%;
+    right: 7%;
 
-    right:
-        7%;
+    bottom: 25px;
 
-    bottom:
-        25px;
+    height: 255px;
 
-    height:
-        255px;
+    padding: 22px;
 
-    padding:
-        22px;
+    border-radius: 14px;
 
-    border-radius:
-        14px;
+    background: white;
 
-    background:
-        white;
-
-    z-index:
-        3;
+    z-index: 3;
 
     transition:
-        transform .8s
-        cubic-bezier(
-            .2,
-            .8,
-            .2,
-            1
-        );
+        transform
+        .8s
+        cubic-bezier(.2,.8,.2,1);
 }
 
 
 .letter-content {
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .letter-icon {
 
-    font-size:
-        32px;
+    font-size: 32px;
 }
 
 
 .letter h3 {
 
-    margin-top:
-        5px;
+    margin-top: 5px;
 
-    color:
-        var(--blue-5);
+    color: var(--blue-dark);
 
     font-family:
         "Playfair Display",
         serif;
 
-    font-size:
-        25px;
+    font-size: 25px;
 }
 
 
 .letter p {
 
-    margin-top:
-        10px;
+    margin-top: 10px;
 
-    color:
-        #64748b;
+    color: #64748b;
 
-    font-size:
-        12px;
+    font-size: 12px;
 
-    line-height:
-        1.7;
+    line-height: 1.7;
 }
 
 
 .letter-heart {
 
-    margin-top:
-        12px;
+    margin-top: 12px;
 
-    font-size:
-        22px;
+    font-size: 22px;
 }
 
 
 .envelope-front {
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    right:
-        0;
-
-    bottom:
-        0;
-
-    height:
-        67%;
+    height: 67%;
 
     background:
         linear-gradient(
@@ -1035,27 +856,19 @@ body.dark .hero h1 {
             0 100%
         );
 
-    z-index:
-        5;
+    z-index: 5;
 }
 
 
 .envelope-flap {
 
-    position:
-        absolute;
+    position: absolute;
 
-    top:
-        0;
+    top: 0;
+    left: 0;
 
-    left:
-        0;
-
-    width:
-        100%;
-
-    height:
-        68%;
+    width: 100%;
+    height: 68%;
 
     background:
         linear-gradient(
@@ -1071,89 +884,69 @@ body.dark .hero h1 {
             50% 100%
         );
 
-    transform-origin:
-        top;
+    transform-origin: top;
 
-    z-index:
-        7;
+    z-index: 7;
 
     transition:
-        transform .8s
+        transform
+        .8s
         ease;
 }
 
 
 .envelope.open .envelope-flap {
 
-    transform:
-        rotateX(180deg);
+    transform: rotateX(180deg);
 
-    z-index:
-        2;
+    z-index: 2;
 }
 
 
 .envelope.open .letter {
 
-    transform:
-        translateY(-170px);
+    transform: translateY(-170px);
 
-    z-index:
-        6;
+    z-index: 6;
 }
 
 
 .envelope-seal {
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        50%;
+    left: 50%;
+    top: 52%;
 
-    top:
-        52%;
+    width: 62px;
+    height: 62px;
 
-    width:
-        62px;
+    display: grid;
 
-    height:
-        62px;
-
-    display:
-        grid;
-
-    place-items:
-        center;
+    place-items: center;
 
     transform:
         translate(-50%,-50%);
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    background:
-        white;
+    background: white;
 
     box-shadow:
         0 10px 25px
         rgba(37,99,235,.2);
 
-    z-index:
-        8;
+    z-index: 8;
 
-    font-size:
-        28px;
+    font-size: 28px;
 
-    transition:
-        .4s ease;
+    transition: .4s ease;
 }
 
 
 .envelope.open .envelope-seal {
 
-    opacity:
-        0;
+    opacity: 0;
 
     transform:
         translate(-50%,-50%)
@@ -1163,17 +956,16 @@ body.dark .hero h1 {
 
 .envelope-hint {
 
-    margin-top:
-        35px;
+    margin-top: 35px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    font-size:
-        12px;
+    font-size: 12px;
 
     animation:
-        hint 2s infinite;
+        hint
+        2s
+        infinite;
 }
 
 
@@ -1181,193 +973,150 @@ body.dark .hero h1 {
 
     0%,
     100% {
-        opacity:
-            .4;
+        opacity: .4;
     }
 
     50% {
-        opacity:
-            1;
+        opacity: 1;
     }
 }
 
 
 /* =====================================================
-   BOUQUET
+   BÓ HOA
 ===================================================== */
 
 .bouquet-section {
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .bouquet-container {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-wrap:
-        wrap;
+    flex-wrap: wrap;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    gap:
-        20px;
+    gap: 20px;
 
-    margin-top:
-        50px;
+    margin-top: 50px;
 }
 
 
 .bouquet {
 
-    position:
-        relative;
+    position: relative;
 
-    width:
-        220px;
-
-    height:
-        280px;
+    width: 220px;
+    height: 280px;
 
     animation:
-        bouquetIn .7s both;
+        flowerBloom
+        .9s
+        cubic-bezier(.17,.67,.3,1.3)
+        both;
 }
 
 
 .bouquet-flowers {
 
-    position:
-        relative;
+    position: relative;
 
-    width:
-        180px;
+    width: 180px;
+    height: 190px;
 
-    height:
-        190px;
-
-    margin:
-        auto;
+    margin: auto;
 }
 
 
 .flower {
 
-    position:
-        absolute;
+    position: absolute;
 
-    font-size:
-        55px;
+    font-size: 55px;
+
+    transform-origin: center bottom;
 
     animation:
-        flowerFloat 3s infinite ease-in-out;
+        flowerFloat
+        3s
+        infinite
+        ease-in-out;
 }
 
 
 .flower:nth-child(1) {
 
-    left:
-        58px;
-
-    top:
-        0;
+    left: 58px;
+    top: 0;
 }
 
 
 .flower:nth-child(2) {
 
-    left:
-        5px;
+    left: 5px;
+    top: 55px;
 
-    top:
-        55px;
-
-    animation-delay:
-        .2s;
+    animation-delay: .2s;
 }
 
 
 .flower:nth-child(3) {
 
-    right:
-        5px;
+    right: 5px;
+    top: 55px;
 
-    top:
-        55px;
-
-    animation-delay:
-        .4s;
+    animation-delay: .4s;
 }
 
 
 .flower:nth-child(4) {
 
-    left:
-        60px;
+    left: 60px;
+    top: 88px;
 
-    top:
-        88px;
-
-    animation-delay:
-        .6s;
+    animation-delay: .6s;
 }
 
 
 .leaf {
 
-    position:
-        absolute;
+    position: absolute;
 
-    font-size:
-        34px;
+    font-size: 34px;
 }
 
 
 .leaf-left {
 
-    left:
-        15px;
+    left: 15px;
+    bottom: 5px;
 
-    bottom:
-        5px;
-
-    transform:
-        rotate(-30deg);
+    transform: rotate(-30deg);
 }
 
 
 .leaf-right {
 
-    right:
-        15px;
+    right: 15px;
+    bottom: 5px;
 
-    bottom:
-        5px;
-
-    transform:
-        rotate(30deg);
+    transform: rotate(30deg);
 }
 
 
 .bouquet-wrapper {
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        50%;
+    left: 50%;
+    bottom: 5px;
 
-    bottom:
-        5px;
-
-    width:
-        145px;
-
-    height:
-        90px;
+    width: 145px;
+    height: 90px;
 
     transform:
         translateX(-50%);
@@ -1391,26 +1140,81 @@ body.dark .hero h1 {
 
 .bouquet-ribbon {
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        50%;
+    left: 50%;
+    bottom: 5px;
 
-    bottom:
-        5px;
-
-    width:
-        13px;
-
-    height:
-        90px;
+    width: 13px;
+    height: 90px;
 
     transform:
         translateX(-50%);
 
-    background:
-        #6366f1;
+    background: #6366f1;
+}
+
+
+/* HOA NỞ */
+
+@keyframes flowerBloom {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(.1)
+            translateY(50px)
+            rotate(-15deg);
+    }
+
+    40% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.15)
+            translateY(-8px)
+            rotate(5deg);
+    }
+
+    70% {
+
+        transform:
+            scale(.96)
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0)
+            rotate(0);
+    }
+}
+
+
+@keyframes flowerFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(-3deg);
+    }
+
+    50% {
+
+        transform:
+            translateY(-9px)
+            rotate(4deg);
+    }
 }
 
 
@@ -1420,17 +1224,15 @@ body.dark .hero h1 {
 
 .quote-card {
 
-    padding:
-        70px 40px;
+    padding: 70px 40px;
 
-    text-align:
-        center;
+    text-align: center;
 
     border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-    border-radius:
-        35px;
+    border-radius: 35px;
 
     background:
         linear-gradient(
@@ -1439,25 +1241,21 @@ body.dark .hero h1 {
             rgba(237,233,254,.7)
         );
 
-    box-shadow:
-        var(--shadow);
+    box-shadow: var(--shadow);
 }
 
 
 .quote-icon {
 
-    color:
-        var(--blue-4);
+    color: var(--blue-dark);
 
-    font-size:
-        45px;
+    font-size: 45px;
 }
 
 
 .quote-card p {
 
-    margin-top:
-        15px;
+    margin-top: 15px;
 
     font-family:
         "Playfair Display",
@@ -1470,24 +1268,19 @@ body.dark .hero h1 {
             37px
         );
 
-    line-height:
-        1.5;
+    line-height: 1.5;
 }
 
 
 .quote-card span {
 
-    display:
-        block;
+    display: block;
 
-    margin-top:
-        25px;
+    margin-top: 25px;
 
-    color:
-        var(--blue-5);
+    color: var(--blue-dark);
 
-    font-weight:
-        800;
+    font-weight: 800;
 }
 
 
@@ -1497,78 +1290,64 @@ body.dark .hero h1 {
 
 .surprise-card {
 
-    padding:
-        55px 30px;
+    padding: 55px 30px;
 
-    text-align:
-        center;
+    text-align: center;
 
     border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-    border-radius:
-        35px;
+    border-radius: 35px;
 
-    background:
-        var(--card);
+    background: var(--card);
 
-    box-shadow:
-        var(--shadow);
+    box-shadow: var(--shadow);
 }
 
 
 .gift-icon {
 
-    font-size:
-        65px;
+    font-size: 65px;
 
     animation:
-        giftBounce 2s infinite;
+        giftBounce
+        2s
+        infinite;
 }
 
 
 .surprise-card p {
 
-    margin-top:
-        20px;
+    margin-top: 20px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    line-height:
-        1.7;
+    line-height: 1.7;
 }
 
 
 .secondary-button {
 
-    margin-top:
-        25px;
+    margin-top: 25px;
 
-    padding:
-        14px 27px;
+    padding: 14px 27px;
 
     border:
         1px solid
         rgba(59,130,246,.15);
 
-    border-radius:
-        999px;
+    border-radius: 999px;
 
-    background:
-        white;
+    background: white;
 
-    color:
-        var(--blue-5);
+    color: var(--blue-dark);
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    font-weight:
-        800;
+    font-weight: 800;
 
-    transition:
-        .3s ease;
+    transition: .3s ease;
 }
 
 
@@ -1584,41 +1363,35 @@ body.dark .hero h1 {
 
 
 /* =====================================================
-   FALLING
+   HOA RƠI
 ===================================================== */
 
 #fallingContainer {
 
-    position:
-        fixed;
+    position: fixed;
 
-    inset:
-        0;
+    inset: 0;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
-    z-index:
-        1;
+    z-index: 1;
 }
 
 
 .falling-item {
 
-    position:
-        absolute;
+    position: absolute;
 
-    top:
-        -60px;
+    top: -60px;
 
     animation:
-        falling linear forwards;
+        falling
+        linear
+        forwards;
 
-    user-select:
-        none;
+    user-select: none;
 }
 
 
@@ -1626,8 +1399,7 @@ body.dark .hero h1 {
 
     0% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(-50px)
@@ -1636,14 +1408,12 @@ body.dark .hero h1 {
 
     10% {
 
-        opacity:
-            .8;
+        opacity: .8;
     }
 
     100% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(110vh)
@@ -1653,25 +1423,24 @@ body.dark .hero h1 {
 
 
 /* =====================================================
-   CLICK EFFECT
+   TIM CLICK
 ===================================================== */
 
 .click-heart {
 
-    position:
-        fixed;
+    position: fixed;
 
-    z-index:
-        99999;
+    z-index: 99999;
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
-    font-size:
-        23px;
+    font-size: 23px;
 
     animation:
-        heartUp 1s ease forwards;
+        heartUp
+        1s
+        ease
+        forwards;
 }
 
 
@@ -1679,8 +1448,7 @@ body.dark .hero h1 {
 
     0% {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translate(-50%,-50%)
@@ -1689,8 +1457,7 @@ body.dark .hero h1 {
 
     100% {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translate(
@@ -1708,14 +1475,11 @@ body.dark .hero h1 {
 
 footer {
 
-    padding:
-        65px 20px;
+    padding: 65px 20px;
 
-    text-align:
-        center;
+    text-align: center;
 
-    color:
-        white;
+    color: white;
 
     background:
         linear-gradient(
@@ -1728,57 +1492,47 @@ footer {
 
 .footer-decoration {
 
-    margin-bottom:
-        20px;
+    margin-bottom: 20px;
 
-    font-size:
-        27px;
+    font-size: 27px;
 }
 
 
 footer h3 {
 
-    font-size:
-        18px;
+    font-size: 18px;
 }
 
 
 footer p {
 
-    margin-top:
-        10px;
+    margin-top: 10px;
 
-    color:
-        #bfdbfe;
+    color: #bfdbfe;
 
-    font-size:
-        13px;
+    font-size: 13px;
 }
 
 
 footer small {
 
-    display:
-        block;
+    display: block;
 
-    margin-top:
-        25px;
+    margin-top: 25px;
 
-    opacity:
-        .5;
+    opacity: .5;
 }
 
 
 /* =====================================================
-   ANIMATION
+   ANIMATION CHUNG
 ===================================================== */
 
 @keyframes fadeUp {
 
     from {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(30px);
@@ -1786,8 +1540,7 @@ footer small {
 
     to {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translateY(0);
@@ -1799,8 +1552,7 @@ footer small {
 
     from {
 
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
             translateY(-25px);
@@ -1808,8 +1560,7 @@ footer small {
 
     to {
 
-        opacity:
-            1;
+        opacity: 1;
 
         transform:
             translateY(0);
@@ -1820,13 +1571,11 @@ footer small {
 @keyframes gradientMove {
 
     0% {
-        background-position:
-            0%;
+        background-position: 0%;
     }
 
     100% {
-        background-position:
-            300%;
+        background-position: 300%;
     }
 }
 
@@ -1835,57 +1584,16 @@ footer small {
 
     0%,
     100% {
+
         transform:
             translateY(0);
     }
 
     50% {
+
         transform:
             translateY(-10px)
             rotate(5deg);
-    }
-}
-
-
-@keyframes flowerFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0)
-            rotate(-3deg);
-    }
-
-    50% {
-        transform:
-            translateY(-9px)
-            rotate(4deg);
-    }
-}
-
-
-@keyframes bouquetIn {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(40px)
-            scale(.75)
-            rotate(-5deg);
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0)
-            scale(1)
-            rotate(0);
     }
 }
 
@@ -1916,31 +1624,23 @@ footer small {
 
     .top-tools {
 
-        top:
-            12px;
-
-        right:
-            12px;
+        top: 12px;
+        right: 12px;
     }
 
 
     .tool-button {
 
-        width:
-            42px;
+        width: 42px;
+        height: 42px;
 
-        height:
-            42px;
-
-        font-size:
-            17px;
+        font-size: 17px;
     }
 
 
     .hero {
 
-        min-height:
-            92vh;
+        min-height: 92vh;
 
         padding:
             100px 18px 70px;
@@ -1949,22 +1649,19 @@ footer small {
 
     .hero-flower {
 
-        font-size:
-            35px;
+        font-size: 35px;
     }
 
 
     .flower-left {
 
-        left:
-            2%;
+        left: 2%;
     }
 
 
     .flower-right {
 
-        right:
-            2%;
+        right: 2%;
     }
 
 
@@ -1977,49 +1674,40 @@ footer small {
                 82px
             );
 
-        letter-spacing:
-            -2px;
+        letter-spacing: -2px;
     }
 
 
     .hero-description {
 
-        font-size:
-            14px;
+        font-size: 14px;
     }
 
 
     .wish-card {
 
-        padding:
-            42px 22px;
+        padding: 42px 22px;
     }
 
 
     .wish-card p {
 
-        font-size:
-            14px;
+        font-size: 14px;
     }
 
 
     .envelope {
 
-        width:
-            94vw;
-
-        height:
-            240px;
+        width: 94vw;
+        height: 240px;
     }
 
 
     .letter {
 
-        height:
-            205px;
+        height: 205px;
 
-        padding:
-            16px;
+        padding: 16px;
     }
 
 
@@ -2032,25 +1720,20 @@ footer small {
 
     .letter h3 {
 
-        font-size:
-            21px;
+        font-size: 21px;
     }
 
 
     .letter p {
 
-        font-size:
-            10px;
+        font-size: 10px;
     }
 
 
     .envelope-seal {
 
-        width:
-            53px;
-
-        height:
-            53px;
+        width: 53px;
+        height: 53px;
     }
 
 
@@ -2077,4 +1760,5 @@ footer small {
         padding:
             45px 20px;
     }
+
 }
