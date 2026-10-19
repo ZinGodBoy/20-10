@@ -2,10 +2,20 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Một món quà nhỏ dành tặng ngày 20/10"
+    >
 
     <title>20/10 — Gửi Trọn Yêu Thương</title>
 
+    <!-- FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -14,347 +24,478 @@
         rel="stylesheet"
     >
 
+    <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-<header class="header">
-    <a href="#home" class="logo">
-        <span>♡</span>
-        20/10
-    </a>
+    <!-- ================= HEADER ================= -->
 
-    <nav>
-        <a href="#home">Trang chủ</a>
-        <a href="#gift">Món quà</a>
-        <a href="#message">Lời chúc</a>
-    </nav>
+    <header class="header">
 
-    <button id="themeBtn" class="theme-btn">☼</button>
-</header>
+        <a
+            href="#home"
+            class="logo"
+        >
+            <span>♡</span>
+            20/10
+        </a>
 
-<main>
+        <nav class="navigation">
 
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <div class="eyebrow">
-            NGÀY PHỤ NỮ VIỆT NAM
-        </div>
-
-        <div class="hero-date">
-            20 — 10
-        </div>
-
-        <h1>
-            Gửi một chút
-            <br>
-            <em>yêu thương</em>
-            <br>
-            đến người phụ nữ
-            <br>
-            <em>đặc biệt.</em>
-        </h1>
-
-        <p>
-            Một món quà nhỏ được tạo nên từ những lời chúc,
-            những bông hoa và cả những điều bạn muốn nói
-            nhưng đôi khi chưa kịp nói.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="#gift" class="main-btn">
-                🎁 Mở món quà
-                <span>↓</span>
+            <a href="#home">
+                Trang chủ
             </a>
 
-            <a href="#message" class="second-btn">
-                Đọc lời chúc
+            <a href="#gift">
+                Món quà
             </a>
-        </div>
 
-    </div>
+            <a href="#message">
+                Lời chúc
+            </a>
 
-    <div class="hero-flower">
-        <div class="flower">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <i>♡</i>
-        </div>
-    </div>
+        </nav>
 
-</section>
+        <button
+            type="button"
+            class="theme-button"
+            id="themeButton"
+            aria-label="Đổi giao diện"
+        >
+            ☼
+        </button>
 
-
-<section class="gift-section" id="gift">
-
-    <div class="section-heading" id="secretHeading">
-
-        <div class="label">
-            <span>02</span>
-            SECRET LETTER
-        </div>
-
-        <h2>
-            Một bức thư nhỏ
-        </h2>
-
-        <p>
-            Có một lời nhắn đang chờ bạn.
-        </p>
-
-    </div>
+    </header>
 
 
-    <div class="gift-layout">
+    <!-- ================= MAIN ================= -->
 
-        <div
-            class="envelope-area"
-            id="envelopeArea"
+    <main>
+
+        <!-- ================= HERO ================= -->
+
+        <section
+            class="hero"
+            id="home"
         >
 
-            <div class="envelope-stage">
+            <div class="hero-background-circle circle-one"></div>
+            <div class="hero-background-circle circle-two"></div>
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    NGÀY PHỤ NỮ VIỆT NAM
+                </div>
+
+                <div class="hero-date">
+                    20 — 10
+                </div>
+
+                <h1>
+                    Gửi một chút
+                    <br>
+                    <em>yêu thương</em>
+                    <br>
+                    đến người phụ nữ
+                    <br>
+                    <em>đặc biệt.</em>
+                </h1>
+
+                <p class="hero-description">
+                    Một món quà nhỏ được tạo nên từ những lời chúc,
+                    những bông hoa và cả những điều bạn muốn nói
+                    nhưng đôi khi chưa kịp nói.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a
+                        href="#gift"
+                        class="primary-button"
+                    >
+                        <span>🎁</span>
+                        Mở món quà
+                        <b>↓</b>
+                    </a>
+
+                    <a
+                        href="#message"
+                        class="secondary-button"
+                    >
+                        Đọc lời chúc
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- HOA -->
+
+            <div class="hero-flower">
+
+                <div class="flower">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                    <i>♡</i>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= LETTER ================= -->
+
+        <section
+            class="gift-section"
+            id="gift"
+        >
+
+            <!-- PHẦN GIỚI THIỆU -->
+
+            <div
+                class="section-heading"
+                id="secretHeading"
+            >
+
+                <div class="section-label">
+                    <span>02</span>
+                    SECRET LETTER
+                </div>
+
+                <h2>
+                    Một bức thư nhỏ
+                </h2>
+
+                <p>
+                    Có một lời nhắn đang chờ bạn.
+                </p>
+
+            </div>
+
+
+            <div class="gift-layout">
+
+
+                <!-- ================= ENVELOPE ================= -->
 
                 <div
-                    class="envelope"
-                    id="envelope"
-                    tabindex="0"
-                    role="button"
-                    aria-expanded="false"
+                    class="envelope-area"
+                    id="envelopeArea"
                 >
 
-                    <div class="envelope-back"></div>
+                    <div class="envelope-stage">
 
-                    <div class="letter">
+                        <div
+                            class="envelope"
+                            id="envelope"
+                            role="button"
+                            tabindex="0"
+                            aria-expanded="false"
+                            aria-label="Mở bức thư"
+                        >
 
-                        <div class="letter-top">
-                            <span>♡</span>
-                            <span>20 / 10</span>
-                            <span>♡</span>
-                        </div>
+                            <!-- MẶT SAU -->
 
-                        <small>
-                            HAPPY VIETNAMESE WOMEN'S DAY
-                        </small>
+                            <div class="envelope-back"></div>
 
-                        <h3>
-                            Gửi người
-                            <br>
-                            đặc biệt
-                        </h3>
 
-                        <div class="letter-line"></div>
+                            <!-- LÁ THƯ -->
 
-                        <div class="letter-content">
+                            <article class="letter">
 
-                            <p>
-                                Nhân ngày 20/10,
-                            </p>
+                                <div class="letter-header">
 
-                            <p>
-                                Chúc bạn luôn vui vẻ,
-                                luôn được yêu thương
-                                và luôn có thật nhiều
-                                điều tốt đẹp trong cuộc sống.
-                            </p>
+                                    <span>♡</span>
 
-                            <p>
-                                Mong rằng mỗi ngày của bạn
-                                đều có một lý do để mỉm cười,
-                                một người để yêu thương
-                                và những điều khiến bạn
-                                cảm thấy thật hạnh phúc.
-                            </p>
+                                    <span>
+                                        20 / 10
+                                    </span>
 
-                            <p>
-                                Hy vọng bạn luôn nhớ rằng
-                                mình là một người thật đặc biệt
-                                và xứng đáng với những điều
-                                tốt đẹp nhất.
-                            </p>
+                                    <span>♡</span>
 
-                            <strong>
-                                Happy Women's Day ♡
-                            </strong>
+                                </div>
 
-                        </div>
+                                <div class="letter-small">
+                                    HAPPY VIETNAMESE WOMEN'S DAY
+                                </div>
 
-                        <div class="signature">
-                            With love,
-                            <br>
-                            ♡
+                                <h3>
+                                    Gửi người
+                                    <br>
+                                    đặc biệt
+                                </h3>
+
+                                <div class="letter-divider"></div>
+
+                                <div class="letter-content">
+
+                                    <p>
+                                        Nhân ngày 20/10,
+                                    </p>
+
+                                    <p>
+                                        Chúc bạn luôn vui vẻ,
+                                        luôn được yêu thương
+                                        và luôn có thật nhiều
+                                        điều tốt đẹp trong cuộc sống.
+                                    </p>
+
+                                    <p>
+                                        Mong rằng mỗi ngày của bạn
+                                        đều có một lý do để mỉm cười,
+                                        có những người luôn bên cạnh
+                                        và có thật nhiều khoảnh khắc
+                                        đáng nhớ.
+                                    </p>
+
+                                    <p>
+                                        Hãy luôn tự tin,
+                                        luôn yêu thương bản thân
+                                        và bước tiếp về phía trước
+                                        với những điều thật đẹp.
+                                    </p>
+
+                                    <strong>
+                                        Happy Women's Day ♡
+                                    </strong>
+
+                                </div>
+
+                                <div class="letter-signature">
+                                    With love,
+                                    <br>
+                                    ♡
+                                </div>
+
+                            </article>
+
+
+                            <!-- MẶT TRƯỚC -->
+
+                            <div class="envelope-front"></div>
+
+
+                            <!-- NẮP -->
+
+                            <div class="envelope-flap"></div>
+
+
+                            <!-- TEM -->
+
+                            <div class="envelope-seal">
+                                ♡
+                            </div>
+
                         </div>
 
                     </div>
 
-                    <div class="envelope-front"></div>
 
-                    <div class="envelope-flap"></div>
+                    <!-- NÚT -->
 
-                    <div class="seal">
-                        ♡
-                    </div>
+                    <button
+                        type="button"
+                        class="open-letter-button"
+                        id="openEnvelope"
+                    >
+                        <span>
+                            Nhấn để mở thư
+                        </span>
+
+                        <b>↗</b>
+                    </button>
 
                 </div>
 
+
+                <!-- ================= INFO ================= -->
+
+                <aside
+                    class="gift-info"
+                    id="secretInfo"
+                >
+
+                    <span class="info-number">
+                        02 / 04
+                    </span>
+
+                    <h3>
+                        Điều đặc biệt
+                        <br>
+                        nằm bên trong.
+                    </h3>
+
+                    <p>
+                        Hãy thử mở phong thư.
+                        Một lời chúc nhỏ đang chờ bạn
+                        ở bên trong.
+                    </p>
+
+
+                    <div class="feature-list">
+
+
+                        <div class="feature-item">
+
+                            <div class="feature-icon">
+                                ♡
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Một lời nhắn
+                                </strong>
+
+                                <small>
+                                    Viết riêng cho ngày 20/10
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <div class="feature-icon">
+                                ✦
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Một chút yêu thương
+                                </strong>
+
+                                <small>
+                                    Gửi bằng tất cả sự chân thành
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                        <div class="feature-item">
+
+                            <div class="feature-icon">
+                                ❀
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Một món quà nhỏ
+                                </strong>
+
+                                <small>
+                                    Hy vọng sẽ khiến bạn mỉm cười
+                                </small>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </aside>
+
             </div>
 
-            <button
-                class="open-btn"
-                id="openEnvelope"
-                type="button"
-            >
-                <span>Nhấn để mở thư</span>
-                <b>↗</b>
-            </button>
-
-        </div>
+        </section>
 
 
-        <div
-            class="gift-info"
-            id="secretInfo"
+        <!-- ================= MESSAGE ================= -->
+
+        <section
+            class="message-section"
+            id="message"
         >
 
-            <span class="number">
-                02 / 04
-            </span>
+            <div class="message-content">
 
-            <h3>
-                Điều đặc biệt
-                <br>
-                nằm bên trong.
-            </h3>
-
-            <p>
-                Hãy thử mở phong thư.
-                Một lời chúc nhỏ đang chờ bạn
-                ở bên trong.
-            </p>
-
-            <div class="features">
-
-                <div>
-                    <b>♡</b>
-
-                    <section>
-                        <strong>
-                            Một lời nhắn
-                        </strong>
-
-                        <small>
-                            Viết riêng cho ngày 20/10
-                        </small>
-                    </section>
+                <div class="section-label">
+                    <span>03</span>
+                    A LITTLE MESSAGE
                 </div>
 
-                <div>
-                    <b>✦</b>
+                <h2>
+                    Có những điều
+                    <br>
+                    <em>không cần nói quá nhiều.</em>
+                </h2>
 
-                    <section>
-                        <strong>
-                            Một chút yêu thương
-                        </strong>
+                <p>
+                    Chỉ cần bạn luôn vui vẻ,
+                    luôn được yêu thương
+                    và luôn biết rằng mình xứng đáng
+                    với những điều tốt đẹp nhất.
+                </p>
 
-                        <small>
-                            Gửi bằng tất cả sự chân thành
-                        </small>
-                    </section>
+                <div class="quote-mark">
+                    “
                 </div>
 
-                <div>
-                    <b>❀</b>
-
-                    <section>
-                        <strong>
-                            Một món quà nhỏ
-                        </strong>
-
-                        <small>
-                            Hy vọng sẽ khiến bạn mỉm cười
-                        </small>
-                    </section>
-                </div>
+                <blockquote>
+                    Mong bạn luôn là phiên bản
+                    hạnh phúc nhất của chính mình.
+                </blockquote>
 
             </div>
 
-        </div>
-
-    </div>
-
-</section>
+        </section>
 
 
-<section class="message" id="message">
+        <!-- ================= FINAL ================= -->
 
-    <div class="message-inner">
+        <section class="final-section">
 
-        <div class="label">
-            <span>03</span>
-            A LITTLE MESSAGE
-        </div>
+            <div class="final-heart">
+                ♡
+            </div>
 
-        <h2>
-            Có những điều
-            <br>
-            <em>không cần nói quá nhiều.</em>
-        </h2>
+            <span class="final-date">
+                20 / 10 / 2026
+            </span>
 
-        <p>
-            Chỉ cần bạn luôn vui vẻ,
-            luôn được yêu thương
-            và luôn biết rằng mình xứng đáng
-            với những điều tốt đẹp nhất.
-        </p>
+            <h2>
+                Happy Women's Day
+            </h2>
 
-        <div class="quote">
-            “
-        </div>
+            <p>
+                Made with ♡
+            </p>
 
-        <blockquote>
-            Mong bạn luôn là phiên bản
-            hạnh phúc nhất của chính mình.
-        </blockquote>
+            <button
+                type="button"
+                id="restartButton"
+            >
+                ↑ Về đầu trang
+            </button>
 
-    </div>
+        </section>
 
-</section>
+    </main>
 
 
-<section class="final">
+    <!-- TOAST -->
 
-    <div class="final-heart">
-        ♡
-    </div>
+    <div
+        class="toast"
+        id="toast"
+    ></div>
 
-    <span>
-        20 / 10 / 2026
-    </span>
 
-    <h2>
-        Happy Women's Day
-    </h2>
+    <!-- JAVASCRIPT -->
 
-    <p>
-        Made with ♡
-    </p>
-
-    <button id="restartBtn">
-        ↑ Về đầu trang
-    </button>
-
-</section>
-
-</main>
-
-<div id="toast" class="toast"></div>
-
-<script src="./script.js"></script>
+    <script src="./script.js"></script>
 
 </body>
 </html>
