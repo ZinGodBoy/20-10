@@ -1,5 +1,5 @@
 /* =====================================================
-   20/10 WEBSITE JAVASCRIPT
+   20/10 SLIDE WEBSITE
 ===================================================== */
 
 
@@ -7,20 +7,29 @@
    ELEMENT
 ===================================================== */
 
+const slides =
+    document.querySelectorAll(".slide");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const prevButton =
+    document.getElementById("prevButton");
+
+const slideCounter =
+    document.getElementById("slideCounter");
+
+const dotsContainer =
+    document.getElementById("dots");
+
+const themeButton =
+    document.getElementById("themeButton");
+
 const fallingContainer =
     document.getElementById("fallingContainer");
 
 const clickEffects =
     document.getElementById("clickEffects");
-
-const openWishButton =
-    document.getElementById("openWishButton");
-
-const wishSection =
-    document.getElementById("wishSection");
-
-const wishCard =
-    document.querySelector(".wish-card");
 
 const envelope =
     document.getElementById("envelope");
@@ -34,42 +43,343 @@ const flowerButton =
 const bouquetContainer =
     document.getElementById("bouquetContainer");
 
-const themeButton =
-    document.getElementById("themeButton");
-
 const surpriseButton =
     document.getElementById("surpriseButton");
 
 const surpriseText =
     document.getElementById("surpriseText");
 
+const finalMessage =
+    document.getElementById("finalMessage");
+
+const restartButton =
+    document.getElementById("restartButton");
+
+
+let currentSlide = 0;
+
 
 /* =====================================================
-   MỞ LỜI CHÚC
+   TẠO DOT
 ===================================================== */
 
-openWishButton.addEventListener(
+slides.forEach(
+    function (_, index) {
+
+        const dot =
+            document.createElement("button");
+
+        dot.className =
+            "dot";
+
+        dot.setAttribute(
+            "aria-label",
+            "Đến slide " + (index + 1)
+        );
+
+
+        dot.addEventListener(
+            "click",
+            function () {
+
+                goToSlide(index);
+
+            }
+        );
+
+
+        dotsContainer.appendChild(
+            dot
+        );
+
+    }
+);
+
+
+const dots =
+    document.querySelectorAll(".dot");
+
+
+/* =====================================================
+   CHUYỂN SLIDE
+===================================================== */
+
+function goToSlide(index) {
+
+    if (index < 0) {
+
+        index =
+            slides.length - 1;
+
+    }
+
+
+    if (index >= slides.length) {
+
+        index = 0;
+
+    }
+
+
+    slides.forEach(
+        function (slide, i) {
+
+            slide.classList.remove(
+                "active"
+            );
+
+            slide.classList.remove(
+                "previous"
+            );
+
+
+            if (i < index) {
+
+                slide.classList.add(
+                    "previous"
+                );
+
+            }
+
+        }
+    );
+
+
+    slides[index].classList.add(
+        "active"
+    );
+
+
+    currentSlide =
+        index;
+
+
+    updateNavigation();
+
+
+    /* Mỗi lần chuyển slide có vài hạt sáng */
+
+    if (index !== 0) {
+
+        smallSparkle();
+
+    }
+
+}
+
+
+/* =====================================================
+   CẬP NHẬT NAV
+===================================================== */
+
+function updateNavigation() {
+
+    slideCounter.textContent =
+        `${currentSlide + 1} / ${slides.length}`;
+
+
+    dots.forEach(
+        function (dot, index) {
+
+            dot.classList.toggle(
+                "active",
+                index === currentSlide
+            );
+
+        }
+    );
+
+
+    if (currentSlide === 0) {
+
+        prevButton.style.opacity =
+            ".45";
+
+    } else {
+
+        prevButton.style.opacity =
+            "1";
+
+    }
+
+
+    if (
+        currentSlide ===
+        slides.length - 1
+    ) {
+
+        nextButton.style.opacity =
+            ".45";
+
+    } else {
+
+        nextButton.style.opacity =
+            "1";
+
+    }
+
+}
+
+
+/* =====================================================
+   NÚT TIẾP THEO
+===================================================== */
+
+nextButton.addEventListener(
     "click",
     function () {
 
-        wishCard.classList.add("visible");
-
-        wishSection.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-        heartBurst();
+        goToSlide(
+            currentSlide + 1
+        );
 
     }
 );
 
 
 /* =====================================================
+   NÚT QUAY LẠI
+===================================================== */
+
+prevButton.addEventListener(
+    "click",
+    function () {
+
+        goToSlide(
+            currentSlide - 1
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CÁC NÚT "TIẾP THEO" TRONG SLIDE
+===================================================== */
+
+document.querySelectorAll(
+    "[data-next]"
+).forEach(
+    function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                goToSlide(
+                    currentSlide + 1
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PHÍM BÀN PHÍM
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "ArrowRight") {
+
+            goToSlide(
+                currentSlide + 1
+            );
+
+        }
+
+
+        if (event.key === "ArrowLeft") {
+
+            goToSlide(
+                currentSlide - 1
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SWIPE ĐIỆN THOẠI
+===================================================== */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+document.addEventListener(
+    "touchstart",
+    function (event) {
+
+        touchStartX =
+            event.changedTouches[0].screenX;
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+document.addEventListener(
+    "touchend",
+    function (event) {
+
+        touchEndX =
+            event.changedTouches[0].screenX;
+
+        handleSwipe();
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+function handleSwipe() {
+
+    const distance =
+        touchEndX - touchStartX;
+
+
+    if (Math.abs(distance) < 60) {
+
+        return;
+
+    }
+
+
+    if (distance < 0) {
+
+        goToSlide(
+            currentSlide + 1
+        );
+
+    } else {
+
+        goToSlide(
+            currentSlide - 1
+        );
+
+    }
+
+}
+
+
+/* =====================================================
    PHONG THƯ
 ===================================================== */
 
-const message =
+const letterMessage =
     "Chúc bạn luôn vui vẻ, hạnh phúc và được yêu thương. Mong rằng mỗi ngày phía trước đều có thật nhiều niềm vui, may mắn và những điều tốt đẹp đến với bạn. 💙";
 
 
@@ -103,34 +413,35 @@ envelope.addEventListener(
 
 function toggleEnvelope() {
 
-    if (envelopeOpened) {
-
-        envelope.classList.remove("open");
-
-        envelopeOpened = false;
-
-        return;
-    }
+    envelopeOpened =
+        !envelopeOpened;
 
 
-    envelope.classList.add("open");
-
-    envelopeOpened = true;
-
-    typingMessage.textContent = "";
-
-    typeText(
-        message,
-        0
+    envelope.classList.toggle(
+        "open",
+        envelopeOpened
     );
 
-    heartBurst();
+
+    if (envelopeOpened) {
+
+        typingMessage.textContent =
+            "";
+
+        typeText(
+            letterMessage,
+            0
+        );
+
+        heartBurst();
+
+    }
 
 }
 
 
 /* =====================================================
-   GÕ CHỮ
+   HIỆU ỨNG GÕ CHỮ
 ===================================================== */
 
 function typeText(
@@ -138,8 +449,13 @@ function typeText(
     index
 ) {
 
-    if (index >= text.length) {
+    if (
+        index >=
+        text.length
+    ) {
+
         return;
+
     }
 
 
@@ -156,86 +472,324 @@ function typeText(
             );
 
         },
-        28
+        25
     );
 
 }
 
 
 /* =====================================================
-   HOA / TIM RƠI
+   BÓ HOA
 ===================================================== */
 
-const fallingItems = [
-    "🌸",
-    "🌷",
-    "🌺",
-    "🌼",
-    "💙",
-    "✨",
-    "💐"
+const flowerSets = [
+
+    [
+        "🌹",
+        "🌷",
+        "🌸",
+        "🌺"
+    ],
+
+    [
+        "🌸",
+        "🌹",
+        "🌷",
+        "💐"
+    ],
+
+    [
+        "🌺",
+        "🌷",
+        "🌹",
+        "🌸"
+    ],
+
+    [
+        "🌷",
+        "🌸",
+        "🌺",
+        "🌹"
+    ],
+
+    [
+        "💐",
+        "🌹",
+        "🌸",
+        "🌷"
+    ]
+
 ];
 
 
-function createFallingItem() {
+flowerButton.addEventListener(
+    "click",
+    function () {
 
-    const item =
-        document.createElement("div");
+        createBouquet();
 
-    item.className =
-        "falling-item";
+        playFlowerBloomSound();
+
+        heartBurst();
+
+    }
+);
 
 
-    item.textContent =
-        fallingItems[
+function createBouquet() {
+
+    const flowers =
+        flowerSets[
             Math.floor(
                 Math.random() *
-                fallingItems.length
+                flowerSets.length
             )
         ];
 
 
-    item.style.left =
-        Math.random() * 100 + "vw";
+    const bouquet =
+        document.createElement("div");
+
+    bouquet.className =
+        "bouquet";
 
 
-    item.style.fontSize =
-        12 +
-        Math.random() * 16 +
-        "px";
+    bouquet.innerHTML = `
+
+        <div class="bouquet-flowers">
+
+            <div class="flower">
+                ${flowers[0]}
+            </div>
+
+            <div class="flower">
+                ${flowers[1]}
+            </div>
+
+            <div class="flower">
+                ${flowers[2]}
+            </div>
+
+            <div class="flower">
+                ${flowers[3]}
+            </div>
+
+            <div class="leaf leaf-left">
+                🌿
+            </div>
+
+            <div class="leaf leaf-right">
+                🌿
+            </div>
+
+        </div>
 
 
-    item.style.animationDuration =
-        5 +
-        Math.random() * 6 +
-        "s";
+        <div class="bouquet-wrapper"></div>
+
+        <div class="bouquet-ribbon"></div>
+
+    `;
 
 
-    fallingContainer.appendChild(
-        item
-    );
+    bouquetContainer.innerHTML =
+        "";
 
 
-    setTimeout(
-        function () {
-
-            item.remove();
-
-        },
-        12000
+    bouquetContainer.appendChild(
+        bouquet
     );
 
 }
 
 
-setInterval(
-    createFallingItem,
-    650
-);
+/* =====================================================
+   AUDIO HOA NỞ
+   KHÔNG CÓ NÚT LOA
+===================================================== */
+
+let audioContext = null;
+
+
+function playFlowerBloomSound() {
+
+    try {
+
+        if (!audioContext) {
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
+        }
+
+
+        if (
+            audioContext.state ===
+            "suspended"
+        ) {
+
+            audioContext.resume();
+
+        }
+
+
+        const now =
+            audioContext.currentTime;
+
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.setValueAtTime(
+            420,
+            now
+        );
+
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            850,
+            now + .18
+        );
+
+
+        oscillator.frequency.exponentialRampToValueAtTime(
+            1100,
+            now + .38
+        );
+
+
+        gain.gain.setValueAtTime(
+            0,
+            now
+        );
+
+
+        gain.gain.linearRampToValueAtTime(
+            .16,
+            now + .03
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            now + .65
+        );
+
+
+        oscillator.connect(
+            gain
+        );
+
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        oscillator.start(now);
+
+        oscillator.stop(
+            now + .7
+        );
+
+
+        setTimeout(
+            playSparkleSound,
+            120
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Audio effect:",
+            error
+        );
+
+    }
+
+}
+
+
+function playSparkleSound() {
+
+    if (!audioContext) {
+
+        return;
+
+    }
+
+
+    const now =
+        audioContext.currentTime;
+
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+
+    oscillator.type =
+        "sine";
+
+
+    oscillator.frequency.setValueAtTime(
+        1200,
+        now
+    );
+
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        1700,
+        now + .2
+    );
+
+
+    gain.gain.setValueAtTime(
+        .07,
+        now
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        now + .3
+    );
+
+
+    oscillator.connect(
+        gain
+    );
+
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.start(now);
+
+    oscillator.stop(
+        now + .35
+    );
+
+}
 
 
 /* =====================================================
-   CLICK HEART
+   TIM CLICK
 ===================================================== */
 
 document.addEventListener(
@@ -246,7 +800,9 @@ document.addEventListener(
             event.target.closest("button") ||
             event.target.closest(".envelope")
         ) {
+
             return;
+
         }
 
 
@@ -291,6 +847,7 @@ function createHeart(
 
     heart.style.left =
         x + "px";
+
 
     heart.style.top =
         y + "px";
@@ -358,7 +915,7 @@ function heartBurst() {
                 );
 
             },
-            i * 45
+            i * 40
         );
 
     }
@@ -367,119 +924,31 @@ function heartBurst() {
 
 
 /* =====================================================
-   ÂM THANH HOA NỞ
-   Không có nút loa
-   Không dùng file MP3
+   HẠT SÁNG
 ===================================================== */
 
-let audioContext = null;
+function smallSparkle() {
 
-
-function playFlowerBloomSound() {
-
-    try {
-
-        if (!audioContext) {
-
-            audioContext =
-                new (
-                    window.AudioContext ||
-                    window.webkitAudioContext
-                )();
-
-        }
-
-
-        if (
-            audioContext.state ===
-            "suspended"
-        ) {
-
-            audioContext.resume();
-
-        }
-
-
-        const now =
-            audioContext.currentTime;
-
-
-        /* Âm thanh chính */
-
-        const oscillator =
-            audioContext.createOscillator();
-
-        const gain =
-            audioContext.createGain();
-
-
-        oscillator.type =
-            "sine";
-
-
-        oscillator.frequency.setValueAtTime(
-            420,
-            now
-        );
-
-
-        oscillator.frequency.exponentialRampToValueAtTime(
-            850,
-            now + 0.18
-        );
-
-
-        oscillator.frequency.exponentialRampToValueAtTime(
-            1100,
-            now + 0.38
-        );
-
-
-        gain.gain.setValueAtTime(
-            0,
-            now
-        );
-
-
-        gain.gain.linearRampToValueAtTime(
-            0.18,
-            now + 0.03
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.001,
-            now + 0.65
-        );
-
-
-        oscillator.connect(gain);
-
-        gain.connect(
-            audioContext.destination
-        );
-
-
-        oscillator.start(now);
-
-        oscillator.stop(
-            now + 0.7
-        );
-
-
-        /* Tiếng lấp lánh */
+    for (
+        let i = 0;
+        i < 5;
+        i++
+    ) {
 
         setTimeout(
-            playSparkleSound,
-            120
-        );
+            function () {
 
+                createHeart(
+                    Math.random() *
+                    window.innerWidth,
 
-    } catch (error) {
+                    100 +
+                    Math.random() *
+                    400
+                );
 
-        console.log(
-            "Audio effect:",
-            error
+            },
+            i * 80
         );
 
     }
@@ -488,211 +957,141 @@ function playFlowerBloomSound() {
 
 
 /* =====================================================
-   ÂM THANH LẤP LÁNH
+   HOA RƠI
 ===================================================== */
 
-function playSparkleSound() {
-
-    if (!audioContext) {
-        return;
-    }
-
-
-    const now =
-        audioContext.currentTime;
-
-
-    const oscillator =
-        audioContext.createOscillator();
-
-    const gain =
-        audioContext.createGain();
-
-
-    oscillator.type =
-        "sine";
-
-
-    oscillator.frequency.setValueAtTime(
-        1250,
-        now
-    );
-
-
-    oscillator.frequency.exponentialRampToValueAtTime(
-        1700,
-        now + 0.2
-    );
-
-
-    gain.gain.setValueAtTime(
-        0.08,
-        now
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        now + 0.3
-    );
-
-
-    oscillator.connect(gain);
-
-    gain.connect(
-        audioContext.destination
-    );
-
-
-    oscillator.start(now);
-
-    oscillator.stop(
-        now + 0.35
-    );
-
-}
-
-
-/* =====================================================
-   BÓ HOA
-===================================================== */
-
-const flowerSets = [
-
-    [
-        "🌹",
-        "🌷",
-        "🌸",
-        "🌺"
-    ],
-
-    [
-        "🌸",
-        "🌹",
-        "🌷",
-        "💐"
-    ],
-
-    [
-        "🌺",
-        "🌷",
-        "🌹",
-        "🌸"
-    ],
-
-    [
-        "🌷",
-        "🌸",
-        "🌺",
-        "🌹"
-    ],
-
-    [
-        "💐",
-        "🌹",
-        "🌸",
-        "🌷"
-    ]
-
+const fallingItems = [
+    "🌸",
+    "🌷",
+    "🌺",
+    "🌼",
+    "💙",
+    "✨"
 ];
 
 
-flowerButton.addEventListener(
+function createFallingItem() {
+
+    const item =
+        document.createElement("div");
+
+
+    item.className =
+        "falling-item";
+
+
+    item.textContent =
+        fallingItems[
+            Math.floor(
+                Math.random() *
+                fallingItems.length
+            )
+        ];
+
+
+    item.style.left =
+        Math.random() * 100 + "vw";
+
+
+    item.style.fontSize =
+        12 +
+        Math.random() * 14 +
+        "px";
+
+
+    item.style.animationDuration =
+        5 +
+        Math.random() * 6 +
+        "s";
+
+
+    fallingContainer.appendChild(
+        item
+    );
+
+
+    setTimeout(
+        function () {
+
+            item.remove();
+
+        },
+        12000
+    );
+
+}
+
+
+setInterval(
+    createFallingItem,
+    900
+);
+
+
+/* =====================================================
+   BẤT NGỜ
+===================================================== */
+
+let surpriseOpened = false;
+
+
+surpriseButton.addEventListener(
     "click",
     function () {
 
-        createBouquet();
+        surpriseOpened =
+            !surpriseOpened;
 
-        /* Phát âm thanh hoa nở */
-        playFlowerBloomSound();
+
+        if (surpriseOpened) {
+
+            surpriseText.innerHTML =
+                "🌸 Điều bất ngờ là: <strong>bạn xứng đáng với thật nhiều niềm vui, hạnh phúc và những điều tốt đẹp!</strong> 💙";
+
+
+            surpriseButton.textContent =
+                "💙 Cảm ơn nhé";
+
+
+            finalMessage.classList.add(
+                "show"
+            );
+
+
+            heartBurst();
+
+        } else {
+
+            surpriseText.textContent =
+                "Nhấn nút để khám phá nhé...";
+
+
+            surpriseButton.textContent =
+                "🎁 Mở bất ngờ";
+
+
+            finalMessage.classList.remove(
+                "show"
+            );
+
+        }
 
     }
 );
 
 
-function createBouquet() {
+/* =====================================================
+   RESTART
+===================================================== */
 
-    const flowers =
-        flowerSets[
-            Math.floor(
-                Math.random() *
-                flowerSets.length
-            )
-        ];
+restartButton.addEventListener(
+    "click",
+    function () {
 
-
-    const bouquet =
-        document.createElement("div");
-
-    bouquet.className =
-        "bouquet";
-
-
-    bouquet.innerHTML = `
-
-        <div class="bouquet-flowers">
-
-            <div class="flower">
-                ${flowers[0]}
-            </div>
-
-            <div class="flower">
-                ${flowers[1]}
-            </div>
-
-            <div class="flower">
-                ${flowers[2]}
-            </div>
-
-            <div class="flower">
-                ${flowers[3]}
-            </div>
-
-            <div class="leaf leaf-left">
-                🌿
-            </div>
-
-            <div class="leaf leaf-right">
-                🌿
-            </div>
-
-        </div>
-
-
-        <div class="bouquet-wrapper"></div>
-
-        <div class="bouquet-ribbon"></div>
-
-    `;
-
-
-    bouquetContainer.prepend(
-        bouquet
-    );
-
-
-    const bouquets =
-        bouquetContainer.querySelectorAll(
-            ".bouquet"
-        );
-
-
-    /* Chỉ giữ tối đa 6 bó */
-
-    if (bouquets.length > 6) {
-
-        bouquets[
-            bouquets.length - 1
-        ].remove();
+        goToSlide(0);
 
     }
-
-
-    /* Hiệu ứng tim */
-
-    heartBurst();
-
-}
+);
 
 
 /* =====================================================
@@ -747,89 +1146,7 @@ themeButton.addEventListener(
 
 
 /* =====================================================
-   NÚT BẤT NGỜ
+   KHỞI TẠO
 ===================================================== */
 
-let surpriseOpened = false;
-
-
-surpriseButton.addEventListener(
-    "click",
-    function () {
-
-        if (!surpriseOpened) {
-
-            surpriseOpened = true;
-
-
-            surpriseText.innerHTML =
-                "🌸 Điều bất ngờ là: <strong>bạn xứng đáng với thật nhiều niềm vui, hạnh phúc và những điều tốt đẹp!</strong> 💙";
-
-
-            surpriseButton.textContent =
-                "💙 Cảm ơn nhé";
-
-
-            heartBurst();
-
-        }
-
-        else {
-
-            surpriseText.textContent =
-                "Chúc bạn có một ngày 20/10 thật đáng nhớ! 🌷";
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   SCROLL ANIMATION
-===================================================== */
-
-const observer =
-    new IntersectionObserver(
-        function (entries) {
-
-            entries.forEach(
-                function (entry) {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        entry.target.classList.add(
-                            "visible"
-                        );
-
-                    }
-
-                }
-            );
-
-        },
-        {
-            threshold: 0.2
-        }
-    );
-
-
-observer.observe(
-    wishCard
-);
-
-
-/* =====================================================
-   BÓ HOA ĐẦU TIÊN
-===================================================== */
-
-setTimeout(
-    function () {
-
-        createBouquet();
-
-    },
-    800
-);
+goToSlide(0);
